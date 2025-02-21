@@ -1,15 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class PatientManager : MonoBehaviour
 {
     public PatientData[] patients;
-    public GameObject patientPanelPrefab;
-    public Transform panelParent;
     public Image patientImage;
-
-    private GameObject currentPanel;
+    public PatientDropzone patientDropzone; // Updated to use PatientDropzone
 
     void Start()
     {
@@ -18,15 +14,20 @@ public class PatientManager : MonoBehaviour
 
     public void SpawnNextPatient()
     {
-        if (currentPanel != null) Destroy(currentPanel);
-
         PatientData randomPatient = patients[Random.Range(0, patients.Length)];
 
-        // Instantiate and set up the panel
-        currentPanel = Instantiate(patientPanelPrefab, panelParent);
-        currentPanel.GetComponent<PatientPanel>().Setup(randomPatient);
+        if (patientDropzone != null)
+        {
+            patientDropzone.SetPatient(randomPatient);
+        }
+        else
+        {
+            Debug.LogError("❌ PatientDropzone reference is missing in PatientManager!");
+        }
 
-        // Update the patient sprite
-        patientImage.sprite = randomPatient.patientSprite;
+        if (patientImage != null)
+        {
+            patientImage.sprite = randomPatient.patientSprite;
+        }
     }
 }

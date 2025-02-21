@@ -15,9 +15,14 @@ MonoBehaviour:
   patientName: Gabriel
   disease: Pneumonia
   symptoms:
-  - Chest pain, Shortness of Breath, Cough
+  - Chest pain
+  - Shortness of Breath
+  - Cough
   tests:
-  - Blood Test, Saliva, X-ray
+  - Blood Test
+  - Saliva
+  - X-ray
   treatment:
-  - Hospitilization, Medicine
+  - Hospitilization
+  - Medicine
   patientSprite: {fileID: 3285701441778718000, guid: 09c4ceb908c5d4241b226cf7234662b8, type: 3}

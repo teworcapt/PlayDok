@@ -7,13 +7,10 @@ public class DiseaseUI : MonoBehaviour
 {
     public GameObject diseasePrefab;
     public Transform contentPanel;
-
-    [SerializeField]
-    public List<DiseaseInfo> diseases = new List<DiseaseInfo>();
+    public List<DiseaseInfo> diseases;
 
     void Start()
     {
-        Debug.Log("Disease list count: " + diseases.Count);
         PopulateDiseases();
     }
 
@@ -22,13 +19,12 @@ public class DiseaseUI : MonoBehaviour
         foreach (DiseaseInfo disease in diseases)
         {
             GameObject newPanel = Instantiate(diseasePrefab, contentPanel);
-
-            newPanel.transform.Find("name").GetComponent<TMP_Text>().text = disease.name;
+            newPanel.transform.Find("name").GetComponent<TMP_Text>().text = disease.diseaseName;
             newPanel.transform.Find("symptoms").GetComponent<TMP_Text>().text = disease.symptoms;
-            newPanel.transform.Find("tests").GetComponent<TMP_Text>().text = disease.tests;
-            newPanel.transform.Find("treatment").GetComponent<TMP_Text>().text = disease.treatment;
 
-            newPanel.SetActive(true);
+            // Convert Lists to a single string for display
+            newPanel.transform.Find("tests").GetComponent<TMP_Text>().text = string.Join(", ", disease.tests);
+            newPanel.transform.Find("treatment").GetComponent<TMP_Text>().text = string.Join(", ", disease.treatments);
         }
     }
 }

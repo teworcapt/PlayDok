@@ -5,9 +5,11 @@ using TMPro;
 
 public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public GameObject checkMarkPrefab;
+    public string testName;
+    public GameObject positivePrefab;
+    public GameObject negativePrefab;
     public GameObject timerTextPrefab;
-    public Transform patientArea;
+    public Transform patientDropzone; // Updated from patientArea
     public float timerDuration = 5f;
 
     private RectTransform rectTransform;
@@ -15,12 +17,23 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
     private bool isTimerRunning = false;
     private bool isCompleted = false;
     private GameObject currentTimerText;
-    private GameObject currentCheckmark;
+    private PatientData currentPatient;
+    private PatientDropzone dropzoneScript; // Reference to new PatientDropzone
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        originalPosition = rectTransform.anchoredPosition; // Save original UI position
+        originalPosition = rectTransform.anchoredPosition;
+
+        // Get the PatientDropzone script from the dropzone
+        if (patientDropzone != null)
+        {
+            dropzoneScript = patientDropzone.GetComponent<PatientDropzone>();
+        }
+        else
+        {
+            Debug.LogError("❌ PatientDropzone is NOT assigned in the Inspector!");
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -41,14 +54,32 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         if (isTimerRunning || isCompleted) return;
 
-        if (RectTransformUtility.RectangleContainsScreenPoint(patientArea.GetComponent<RectTransform>(), eventData.position))
+        Debug.Log("Patient Dropzone: " + patientDropzone);
+        Debug.Log("PatientDropzone Script Reference: " + dropzoneScript);
+
+        if (RectTransformUtility.RectangleContainsScreenPoint(patientDropzone.GetComponent<RectTransform>(), eventData.position))
         {
-            rectTransform.anchoredPosition = originalPosition; // Snap back to start
-            StartCoroutine(StartTimer()); // Start timer
+            Debug.Log("✅ Dropped on patient! Starting timer...");
+            rectTransform.anchoredPosition = originalPosition;
+
+            if (dropzoneScript != null)
+            {
+                currentPatient = dropzoneScript.GetCurrentPatient();
+            }
+
+            if (currentPatient != null)
+            {
+                StartCoroutine(StartTimer());
+            }
+            else
+            {
+                Debug.LogError("❌ Current patient is NULL! Timer will not start.");
+            }
         }
         else
         {
-            rectTransform.anchoredPosition = originalPosition; // Reset position if not in target
+            Debug.Log("Dropped outside patient.");
+            rectTransform.anchoredPosition = originalPosition;
         }
     }
 
@@ -56,40 +87,84 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         isTimerRunning = true;
 
-        // Spawn Timer UI
-        if (currentTimerText == null && timerTextPrefab != null)
+        if (timerTextPrefab == null)
         {
-            currentTimerText = Instantiate(timerTextPrefab, transform);
-            currentTimerText.transform.SetParent(transform, false);
+            Debug.LogError("❌ TimerTextPrefab is NOT assigned in the Inspector!");
+            yield break;
+        }
+
+        if (currentTimerText == null)
+        {
+            Debug.Log("✅ Instantiating Timer Prefab...");
+            currentTimerText = Instantiate(timerTextPrefab, transform.parent);
             RectTransform timerRect = currentTimerText.GetComponent<RectTransform>();
-            timerRect.anchoredPosition = new Vector2(0, 0);
+            if (timerRect != null)
+            {
+                timerRect.anchoredPosition = new Vector2(0, -100);
+            }
+            else
+            {
+                Debug.LogError("❌ Timer Prefab is missing a RectTransform!");
+            }
         }
 
         float timeRemaining = timerDuration;
         TextMeshProUGUI timerTextComponent = currentTimerText.GetComponent<TextMeshProUGUI>();
 
+        if (timerTextComponent == null)
+        {
+            Debug.LogError("❌ Timer Prefab is missing a TextMeshProUGUI component!");
+            yield break;
+        }
+
         while (timeRemaining > 0)
         {
-            if (timerTextComponent != null)
-            {
-                timerTextComponent.text = Mathf.Ceil(timeRemaining).ToString();
-            }
+            timerTextComponent.text = Mathf.Ceil(timeRemaining).ToString();
             yield return new WaitForSeconds(1f);
             timeRemaining--;
         }
 
-        if (currentTimerText != null) Destroy(currentTimerText); // Remove timer
-
-        // Spawn Checkmark UI
-        if (currentCheckmark == null && checkMarkPrefab != null)
+        if (currentTimerText != null)
         {
-            currentCheckmark = Instantiate(checkMarkPrefab, transform);
-            currentCheckmark.transform.SetParent(transform, false);
-            RectTransform checkmarkRect = currentCheckmark.GetComponent<RectTransform>();
-            checkmarkRect.anchoredPosition = new Vector2(0, 0);
+            Destroy(currentTimerText);
+            Debug.Log("Timer UI destroyed.");
+        }
 
-            isTimerRunning = false;
-            isCompleted = true;
+        CheckTestResult();
+
+        isTimerRunning = false;
+        isCompleted = true;
+    }
+
+    private void CheckTestResult()
+    {
+        if (currentPatient == null)
+        {
+            Debug.LogError("No patient data available for testing.");
+            return;
+        }
+
+        DiseaseInfo disease = DiseaseManager.Instance.GetDiseaseInfo(currentPatient.disease);
+        if (disease == null)
+        {
+            Debug.LogError("Disease info not found for: " + currentPatient.disease);
+            return;
+        }
+
+        bool isTestValid = disease.tests.Contains(testName);
+        GameObject resultPrefab = isTestValid ? positivePrefab : negativePrefab;
+
+        if (resultPrefab != null)
+        {
+            GameObject result = Instantiate(resultPrefab, transform);
+            result.transform.SetParent(transform, false);
+            RectTransform resultRect = result.GetComponent<RectTransform>();
+            resultRect.anchoredPosition = new Vector2(0, 3);
+            Debug.Log("Test result displayed: " + (isTestValid ? "Positive" : "Negative"));
+        }
+        else
+        {
+            Debug.LogError("Result prefab is missing!");
         }
     }
 }

@@ -44,17 +44,14 @@ TagManager:
   - name: Patient
     uniqueID: 2186333843
     locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Furniture
     uniqueID: 646560789
     locked: 0
   - name: Diagnostics
     uniqueID: 2892702405
-    locked: 0
-  - name: DarkScreen
-    uniqueID: 3581473841
-    locked: 0
-  - name: Default
-    uniqueID: 0
     locked: 0
   - name: ForegroundUI
     uniqueID: 2645333339
