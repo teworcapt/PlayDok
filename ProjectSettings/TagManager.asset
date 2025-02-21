@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: BackgroundUI
+    uniqueID: 1701436061
+    locked: 0
+  - name: Patient
+    uniqueID: 2186333843
+    locked: 0
+  - name: Furniture
+    uniqueID: 646560789
+    locked: 0
+  - name: Diagnostics
+    uniqueID: 2892702405
+    locked: 0
+  - name: DarkScreen
+    uniqueID: 3581473841
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: ForegroundUI
+    uniqueID: 2645333339
+    locked: 0
+  m_RenderingLayers:
+  - Default
