@@ -17,7 +17,7 @@ public class DiseaseManager : ScriptableObject
                 _instance = Resources.Load<DiseaseManager>("DiseaseManager");
                 if (_instance == null)
                 {
-                    Debug.LogError("❌ DiseaseManager asset not found in Resources folder!");
+                    Debug.LogError("DiseaseManager asset not found in Resources folder!");
                 }
             }
             return _instance;
@@ -31,7 +31,7 @@ public class DiseaseManager : ScriptableObject
         {
             if (disease.diseaseName == diseaseName)
             {
-                return disease; // Return the matching disease info
+                return disease;
             }
         }
         return null;

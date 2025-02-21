@@ -21,10 +21,7 @@ public class DiseaseUI : MonoBehaviour
             GameObject newPanel = Instantiate(diseasePrefab, contentPanel);
             newPanel.transform.Find("name").GetComponent<TMP_Text>().text = disease.diseaseName;
             newPanel.transform.Find("symptoms").GetComponent<TMP_Text>().text = disease.symptoms;
-
-            // Convert Lists to a single string for display
             newPanel.transform.Find("tests").GetComponent<TMP_Text>().text = string.Join(", ", disease.tests);
-            newPanel.transform.Find("treatment").GetComponent<TMP_Text>().text = string.Join(", ", disease.treatments);
         }
     }
 }

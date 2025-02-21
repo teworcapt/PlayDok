@@ -24,7 +24,7 @@ public class PatientDropzone : MonoBehaviour
     {
         if (patient == null)
         {
-            Debug.LogError("❌ SetPatient called with NULL patient!");
+            Debug.LogError("SetPatient called with NULL patient!");
             return;
         }
 
@@ -32,7 +32,7 @@ public class PatientDropzone : MonoBehaviour
 
         if (patientName != null)
         {
-            Debug.Log("✅ Setting patient name: " + patient.patientName);
+            Debug.Log("Setting patient name: " + patient.patientName);
             patientName.text = patient.patientName;
         }
 
@@ -40,12 +40,12 @@ public class PatientDropzone : MonoBehaviour
         {
             if (patient.symptoms.Count > 0)
             {
-                Debug.Log("✅ Setting symptoms: " + string.Join(", ", patient.symptoms));
+                Debug.Log("Setting symptoms: " + string.Join(", ", patient.symptoms));
                 symptoms.text = string.Join(", ", patient.symptoms);
             }
             else
             {
-                Debug.Log("⚠️ No symptoms available!");
+                Debug.Log("No symptoms available!");
                 symptoms.text = "No symptoms";
             }
 
@@ -74,7 +74,7 @@ public class PatientDropzone : MonoBehaviour
         }
         else
         {
-            Debug.LogError("❌ DiseaseManager instance not found!");
+            Debug.LogError("DiseaseManager instance not found!");
         }
     }
 
@@ -87,18 +87,18 @@ public class PatientDropzone : MonoBehaviour
     {
         if (currentPatient == null)
         {
-            Debug.LogError("❌ No patient data available!");
+            Debug.LogError("No patient data available!");
             return;
         }
 
         if (selectedDisease == currentPatient.disease)
         {
-            Debug.Log("✅ Correct Diagnosis! Moving to next patient...");
+            Debug.Log("Correct Diagnosis! Moving to next patient...");
             FindFirstObjectByType<PatientManager>().SpawnNextPatient();
         }
         else
         {
-            Debug.Log("❌ Incorrect diagnosis. Try again!");
+            Debug.Log("Incorrect diagnosis. Try again!");
         }
     }
 }

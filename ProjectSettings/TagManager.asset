@@ -47,9 +47,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Furniture
-    uniqueID: 646560789
-    locked: 0
   - name: Clipboard
     uniqueID: 3678002363
     locked: 0
