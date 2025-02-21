@@ -50,6 +50,9 @@ TagManager:
   - name: Furniture
     uniqueID: 646560789
     locked: 0
+  - name: Clipboard
+    uniqueID: 3678002363
+    locked: 0
   - name: Diagnostics
     uniqueID: 2892702405
     locked: 0

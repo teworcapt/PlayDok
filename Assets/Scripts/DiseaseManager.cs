@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "DiseaseManager", menuName = "Scriptable Objects/Disease Manager")]
@@ -15,10 +15,15 @@ public class DiseaseManager : ScriptableObject
             if (_instance == null)
             {
                 _instance = Resources.Load<DiseaseManager>("DiseaseManager");
+                if (_instance == null)
+                {
+                    Debug.LogError("❌ DiseaseManager asset not found in Resources folder!");
+                }
             }
             return _instance;
         }
     }
+
 
     public DiseaseInfo GetDiseaseInfo(string diseaseName)
     {

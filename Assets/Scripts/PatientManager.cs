@@ -11,13 +11,21 @@ public class PatientManager : MonoBehaviour
     {
         SpawnNextPatient();
     }
-
     public void SpawnNextPatient()
     {
+        if (patients == null || patients.Length == 0)
+        {
+            Debug.LogError("❌ Patients array is EMPTY or NULL! Assign PatientData in the Inspector.");
+            return;
+        }
+
+        Debug.Log("✅ Patients available: " + patients.Length);
+
         PatientData randomPatient = patients[Random.Range(0, patients.Length)];
 
         if (patientDropzone != null)
         {
+            Debug.Log("✅ Assigning patient: " + randomPatient.patientName);
             patientDropzone.SetPatient(randomPatient);
         }
         else
@@ -30,4 +38,6 @@ public class PatientManager : MonoBehaviour
             patientImage.sprite = randomPatient.patientSprite;
         }
     }
+
+
 }

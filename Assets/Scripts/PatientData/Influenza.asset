@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Influenza
   m_EditorClassIdentifier: 
   patientName: Kiki
-  disease: Pneumonia
+  disease: Influenza
   symptoms:
   - High Fever
   - Sore Throat
