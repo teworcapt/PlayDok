@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
+  m_Name: Raphael
+  m_EditorClassIdentifier: 
+  patientName: Raphael
+  disease: Acute Appendicitis
+  symptoms:
+  - Abdominal pain
+  - Vomiting
+  - Dehydration
+  tests:
+  - Blood Test
+  - Xray
+  - Saliva
+  treatment:
+  - Hospitaization
+  patientSprite: {fileID: -1781533904905676259, guid: 67a6cd79b85a95643bfadd4dc2c858f0, type: 3}
