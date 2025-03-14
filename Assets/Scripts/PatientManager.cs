@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class PatientManager : MonoBehaviour
 {
@@ -17,10 +18,9 @@ public class PatientManager : MonoBehaviour
     public TMP_Dropdown treatmentChoices;
     public Button submitButton;
 
-    [Header("Diagnostics Managers")]
-    public DiagnosticsManager[] diagnosticsManagers;
-
     private PatientData currentPatient;
+    private List<string> validTests = new List<string>();
+
     private string selectedDisease;
     private string selectedTreatment;
 
@@ -54,17 +54,15 @@ public class PatientManager : MonoBehaviour
         }
 
         currentPatient = patients[Random.Range(0, patients.Length)];
+        validTests = new List<string>(currentPatient.tests);
 
-        if (diagnosticsManagers != null && diagnosticsManagers.Length > 0)
+        if (DiagnosticsManager.Instance != null)
         {
-            foreach (DiagnosticsManager dm in diagnosticsManagers)
-            {
-                dm.ResetDiagnostics();
-            }
+            DiagnosticsManager.Instance.ResetDiagnostics();
         }
         else
         {
-            Debug.LogError("No DiagnosticsManager references found!");
+            Debug.LogError("DiagnosticsManager instance not found!");
         }
 
         if (patientImage != null)
@@ -157,8 +155,8 @@ public class PatientManager : MonoBehaviour
         SpawnNextPatient();
     }
 
-    public PatientData GetCurrentPatient()
+    public bool IsTestPositive(string testName)
     {
-        return currentPatient;
+        return validTests.Contains(testName);
     }
 }

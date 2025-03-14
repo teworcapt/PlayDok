@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 
-public class DiseaseUI : MonoBehaviour
+public class RulebookManager : MonoBehaviour
 {
     public Transform diseaseList;
     public List<DiseaseInfo> diseases;
@@ -15,7 +15,6 @@ public class DiseaseUI : MonoBehaviour
     {
         PopulateDiseases();
     }
-
     void PopulateDiseases()
     {
         if (diseaseList == null) return;
@@ -31,22 +30,20 @@ public class DiseaseUI : MonoBehaviour
         {
             if (disease == null) continue;
 
-            GameObject diseaseRow = new GameObject("DiseaseRow", typeof(RectTransform));
-            diseaseRow.transform.SetParent(diseaseList, false);
+            GameObject diseaseRow = Instantiate(headerPrefab, diseaseList);
 
-            HorizontalLayoutGroup layout = diseaseRow.AddComponent<HorizontalLayoutGroup>();
-            layout.childControlWidth = false;
-            layout.childControlHeight = true;
-            layout.childForceExpandWidth = false;
-            layout.childForceExpandHeight = false;
-            layout.spacing = 20;
+            TextMeshProUGUI[] textElements = diseaseRow.GetComponentsInChildren<TextMeshProUGUI>();
 
-            AddTextElement(diseaseRow.transform, disease.diseaseName, 200);
-            AddTextElement(diseaseRow.transform, string.Join(", ", disease.symptoms), 300);
-            AddTextElement(diseaseRow.transform, string.Join(", ", disease.tests), 300);
-            AddTextElement(diseaseRow.transform, string.Join(", ", disease.treatments), 300);
+            if (textElements.Length >= 4)
+            {
+                textElements[0].text = disease.diseaseName;
+                textElements[1].text = string.Join(", ", disease.symptoms);
+                textElements[2].text = string.Join(", ", disease.tests);
+                textElements[3].text = string.Join(", ", disease.treatments);
+            }
         }
     }
+
 
     void AddTextElement(Transform parent, string content, float width)
     {
@@ -67,5 +64,7 @@ public class DiseaseUI : MonoBehaviour
         LayoutElement layoutElement = textObj.AddComponent<LayoutElement>();
         layoutElement.minHeight = 30;
         layoutElement.preferredWidth = width;
+        layoutElement.flexibleWidth = 0;
     }
+
 }
