@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Influenza
   m_EditorClassIdentifier: 
   diseaseName: Influenza
-  symptoms: High Fever, Sore Throat
+  symptoms:
+  - 
+  - 
   tests:
   - Saliva
   - Temperature
   treatments:
-  - Rest
   - Medicine

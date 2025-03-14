@@ -23,5 +23,5 @@ MonoBehaviour:
   - Saliva
   - X-ray
   treatment:
-  - Emergency
+  - Hospitalization
   patientSprite: {fileID: 1456744299, guid: 457e2fe2dba3b9f49ad0bb76a439b905, type: 3}

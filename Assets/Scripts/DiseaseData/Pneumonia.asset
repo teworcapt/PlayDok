@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Pneumonia
   m_EditorClassIdentifier: 
   diseaseName: Pneumonia
-  symptoms: Chest pain, Shortness of Breath, Cough
+  symptoms:
+  - Chest Pain
+  - Shortness of Breath
+  - Cough
   tests:
   - Blood Test
   - Saliva
   - Xray
   treatments:
-  - Hospitalization
-  - Medicine
+  - Emergency

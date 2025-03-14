@@ -9,11 +9,16 @@ public class MonitorPanelToggle : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TogglePanel();
+        }
+
         if (isPanelOpen && Input.GetMouseButtonDown(0))
         {
             if (!IsPointerOverUIObject())
             {
-                TogglePanel(false); // Close the panel
+                TogglePanel(false);
             }
         }
     }

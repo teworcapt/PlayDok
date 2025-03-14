@@ -297,7 +297,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dialogbox_yellow_0: -6590151100907050633
+      dialogbox_yellow_1: -277912683903962649
+      dialogbox_yellow_2: -3193832659878438623
+      dialogbox_yellow_3: 6516299009539665328
+      dialogbox_yellow_4: -5893774212931199904
+      dialogbox_yellow_5: -2604141169785817907
+      dialogbox_yellow_6: -2569467560674321778
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

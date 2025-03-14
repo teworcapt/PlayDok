@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DiseaseInfo : ScriptableObject
 {
     public string diseaseName;
-    [TextArea] public string symptoms;
+    public List<string> symptoms = new List<string>();
     public List<string> tests = new List<string>();
     public List<string> treatments = new List<string>();
 }

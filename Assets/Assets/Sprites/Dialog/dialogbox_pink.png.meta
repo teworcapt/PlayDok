@@ -297,7 +297,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dialogbox_pink_0: -7402549140634985132
+      dialogbox_pink_1: 486005456154149388
+      dialogbox_pink_2: -3522742786838507331
+      dialogbox_pink_3: -5238312060902009257
+      dialogbox_pink_4: -3263012891383772098
+      dialogbox_pink_5: 5289147193617770321
+      dialogbox_pink_6: -254531207399637223
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

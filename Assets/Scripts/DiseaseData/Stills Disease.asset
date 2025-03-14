@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Stills Disease
   m_EditorClassIdentifier: 
   diseaseName: Still's Disease
-  symptoms: Fever, Joint Pain
+  symptoms:
+  - Fever
+  - Joint Pain
   tests:
   - Blood Test
   - Saliva
@@ -21,5 +23,4 @@ MonoBehaviour:
   - Rash
   - Temperature
   treatments:
-  - Hospitalization
-  - Medicine
+  - Emergency

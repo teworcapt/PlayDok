@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "DiseaseManager", menuName = "Scriptable Objects/Disease Manager")]
 public class DiseaseManager : ScriptableObject
 {
-    public List<DiseaseInfo> allDiseases = new List<DiseaseInfo>(); // Store all diseases
+    public List<DiseaseInfo> allDiseases = new List<DiseaseInfo>();
 
     private static DiseaseManager _instance;
 
@@ -24,7 +24,6 @@ public class DiseaseManager : ScriptableObject
         }
     }
 
-
     public DiseaseInfo GetDiseaseInfo(string diseaseName)
     {
         foreach (DiseaseInfo disease in allDiseases)
@@ -35,5 +34,16 @@ public class DiseaseManager : ScriptableObject
             }
         }
         return null;
+    }
+
+    public List<string> GetTreatments(string diseaseName)
+    {
+        DiseaseInfo disease = GetDiseaseInfo(diseaseName);
+        if (disease != null)
+        {
+            return disease.treatments;
+        }
+
+        return new List<string>();
     }
 }

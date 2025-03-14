@@ -20,5 +20,5 @@ MonoBehaviour:
   tests:
   - Saliva
   treatment:
-  - Rest
+  - Medicine
   patientSprite: {fileID: 8573962228187662794, guid: 0565753329b7f3f4e9035e64df26cd76, type: 3}

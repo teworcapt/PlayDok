@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
@@ -9,7 +10,7 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
     public GameObject positivePrefab;
     public GameObject negativePrefab;
     public GameObject timerTextPrefab;
-    public Transform patientDropzone;
+    public RectTransform patientSprite;
     public float timerDuration = 5f;
 
     private RectTransform rectTransform;
@@ -18,8 +19,6 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
     private bool isCompleted = false;
     private GameObject currentTimerText;
     private PatientData currentPatient;
-    private PatientDropzone dropzoneScript;
-
     private GameObject currentResultPrefab;
 
     private void Awake()
@@ -27,13 +26,9 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
         rectTransform = GetComponent<RectTransform>();
         originalPosition = rectTransform.anchoredPosition;
 
-        if (patientDropzone != null)
+        if (patientSprite == null)
         {
-            dropzoneScript = patientDropzone.GetComponent<PatientDropzone>();
-        }
-        else
-        {
-            Debug.LogError("❌ PatientDropzone is NOT assigned in the Inspector!");
+            Debug.LogError("PatientSprite is NOT assigned in the Inspector!");
         }
     }
 
@@ -57,16 +52,19 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
         }
 
         rectTransform.anchoredPosition = originalPosition;
+        Debug.Log("Diagnostics reset.");
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isTimerRunning || isCompleted) return;
+        Debug.Log("Drag started.");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (isTimerRunning || isCompleted) return;
+
         Vector2 movePosition;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent as RectTransform,
             eventData.position, eventData.pressEventCamera, out movePosition);
@@ -77,23 +75,20 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         if (isTimerRunning || isCompleted) return;
 
-        if (RectTransformUtility.RectangleContainsScreenPoint(patientDropzone.GetComponent<RectTransform>(), eventData.position))
+        if (RectTransformUtility.RectangleContainsScreenPoint(patientSprite, eventData.position, eventData.pressEventCamera))
         {
             Debug.Log("Dropped on patient! Starting timer...");
             rectTransform.anchoredPosition = originalPosition;
 
-            if (dropzoneScript != null)
-            {
-                currentPatient = dropzoneScript.GetCurrentPatient();
-            }
-
+            currentPatient = PatientManager.Instance?.GetCurrentPatient(); // <<< FIXED
             if (currentPatient != null)
             {
+                Debug.Log("Patient assigned: " + currentPatient.patientName);
                 StartCoroutine(StartTimer());
             }
             else
             {
-                Debug.LogError("Current patient is NULL! Timer will not start.");
+                Debug.LogError("No patient found in PatientManager!");
             }
         }
         else
@@ -137,6 +132,7 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
             yield break;
         }
 
+        Debug.Log("Timer started for " + timerDuration + " seconds.");
         while (timeRemaining > 0)
         {
             timerTextComponent.text = Mathf.Ceil(timeRemaining).ToString();
@@ -151,6 +147,7 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
             Debug.Log("Timer UI destroyed.");
         }
 
+        Debug.Log("Timer completed. Checking test result...");
         CheckTestResult();
         isTimerRunning = false;
         isCompleted = true;
@@ -161,6 +158,12 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
         if (currentPatient == null)
         {
             Debug.LogError("No patient data available for testing.");
+            return;
+        }
+
+        if (DiseaseManager.Instance == null)
+        {
+            Debug.LogError("DiseaseManager instance is missing!");
             return;
         }
 
@@ -176,8 +179,7 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
 
         if (resultPrefab != null)
         {
-            currentResultPrefab = Instantiate(resultPrefab, transform);
-            currentResultPrefab.transform.SetParent(transform, false);
+            currentResultPrefab = Instantiate(resultPrefab, transform.parent); // <<< FIXED
             RectTransform resultRect = currentResultPrefab.GetComponent<RectTransform>();
             resultRect.anchoredPosition = new Vector2(0, 3);
             Debug.Log("Test result displayed: " + (isTestValid ? "Positive" : "Negative"));
