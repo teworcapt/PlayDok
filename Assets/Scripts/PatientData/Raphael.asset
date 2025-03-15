@@ -17,7 +17,6 @@ MonoBehaviour:
   symptoms:
   - Abdominal pain
   - Vomiting
-  - Dehydration
   tests:
   - Blood Test
   - Xray

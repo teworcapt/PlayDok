@@ -16,8 +16,6 @@ MonoBehaviour:
   disease: Pneumonia
   symptoms:
   - Chest pain
-  - Shortness of Breath
-  - Cough
   tests:
   - Blood Test
   - Saliva

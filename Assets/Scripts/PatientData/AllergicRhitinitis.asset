@@ -15,7 +15,6 @@ MonoBehaviour:
   patientName: Andrea
   disease: Allergic Rhinitis
   symptoms:
-  - Sneezing
   - Watery eyes
   tests:
   - Blood Test
