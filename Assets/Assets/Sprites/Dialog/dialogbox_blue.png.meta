@@ -139,7 +139,7 @@ TextureImporter:
         width: 4719
         height: 2719
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,143 +152,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: dialogbox_blue_1
-      rect:
-        serializedVersion: 2
-        x: 4789
-        y: 662
-        width: 13
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5bc7cf54555862810800000000000000
-      internalID: 1740224907318164661
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_blue_2
-      rect:
-        serializedVersion: 2
-        x: 189
-        y: 630
-        width: 14
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e3a7dbbeb16b3a000800000000000000
-      internalID: 46080652239272510
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_blue_3
-      rect:
-        serializedVersion: 2
-        x: 4739
-        y: 612
-        width: 8
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 823d74e693c166f70800000000000000
-      internalID: 9180055923430249256
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_blue_4
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 580
-        width: 8
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c5bbfe699ef315800800000000000000
-      internalID: 599330497909209948
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_blue_5
-      rect:
-        serializedVersion: 2
-        x: 4755
-        y: 558
-        width: 30
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ecf378daf37087b40800000000000000
-      internalID: 5438104520125530062
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_blue_6
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 526
-        width: 28
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0f6ce688b56642680800000000000000
-      internalID: -8780780830148606224
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 46e97167c98cd744e9661e5e2f9b3be4
     internalID: 0
     vertices: []
     indices: 

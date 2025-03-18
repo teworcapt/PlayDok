@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4918bab593110945be9c8f1928b1cc1, type: 3}
-  m_Name: Acute Appendicitis
+  m_Name: Allergic Rhinitis
   m_EditorClassIdentifier: 
-  diseaseName: Acute Appendicitis
+  diseaseName: Allergic Rhinitis
   symptoms:
-  - Nausea
+  - Congestion
+  - Watery Eyes
   - Fever
-  - Vomiting
-  - Dehydration
-  - Abdominal Pain
+  - Fatigue
+  - Chest Pain
+  - Shortness of Breath
+  - Coughing
+  - Itchy Skin
   tests:
   - Blood Test
-  - Stool Test
-  - X-ray
   treatments:
-  - Emergency Room
+  - Medicine

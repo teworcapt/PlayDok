@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: DiseaseManager
   m_EditorClassIdentifier: 
   allDiseases:
-  - {fileID: 11400000, guid: 6a40eccce64c7c94a959caa1b3aa670d, type: 2}
-  - {fileID: 11400000, guid: 24751a7f3614d6745946bf3c5c08ff60, type: 2}
-  - {fileID: 11400000, guid: 7190d1127bfaa704cb8aa6045e1ab8c2, type: 2}
+  - {fileID: 11400000, guid: bb9e3d2e1e0284b42bcad4a03f2b633a, type: 2}
   - {fileID: 11400000, guid: 74e0aed9ce5acfa4590243e4efd30cc8, type: 2}
+  - {fileID: 11400000, guid: 7190d1127bfaa704cb8aa6045e1ab8c2, type: 2}
+  - {fileID: 11400000, guid: fca0fb8283414be44b7c9c2f0c7c4fe3, type: 2}
+  - {fileID: 11400000, guid: 234514a4219acb8419e49829d73d6bc1, type: 2}
+  - {fileID: 11400000, guid: a463237fc1004de458809160e642a5ef, type: 2}
+  - {fileID: 11400000, guid: 92144ce9e50bfa4408bdcdd2c1cd01bc, type: 2}
+  - {fileID: 11400000, guid: f6e10aed06b7df1498e22616778ce07f, type: 2}
+  - {fileID: 11400000, guid: 5c137e350125b0f4696e5de3292ea9d2, type: 2}
+  - {fileID: 11400000, guid: b6464a9fb8b5db9479907a0da664f1f0, type: 2}
+  - {fileID: 11400000, guid: cd348c6d65aca364691d8cdc3cea8f74, type: 2}
+  - {fileID: 11400000, guid: 70cbcb3d9d6902c42b21955cfee26ef6, type: 2}
+  - {fileID: 11400000, guid: 0eb633d52864e0a478e38243d0b76bf1, type: 2}

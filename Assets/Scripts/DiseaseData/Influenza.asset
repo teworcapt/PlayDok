@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diseaseName: Influenza
   symptoms:
-  - 
-  - 
+  - Fever
+  - Sore Throat
+  - Fatigue
+  - Congestion
+  - Shortness of Breath
+  - Coughing
+  - Nausea
+  - Vomiting
   tests:
-  - Saliva
+  - Saliva Test
   - Temperature
   treatments:
   - Medicine

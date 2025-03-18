@@ -139,7 +139,7 @@ TextureImporter:
         width: 4719
         height: 2719
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,143 +152,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: dialogbox_pink_1
-      rect:
-        serializedVersion: 2
-        x: 4789
-        y: 662
-        width: 13
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c0248fc2363aeb600800000000000000
-      internalID: 486005456154149388
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_pink_2
-      rect:
-        serializedVersion: 2
-        x: 189
-        y: 630
-        width: 14
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: db0db638914bc1fc0800000000000000
-      internalID: -3522742786838507331
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_pink_3
-      rect:
-        serializedVersion: 2
-        x: 4739
-        y: 612
-        width: 8
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7569a433fe6cd47b0800000000000000
-      internalID: -5238312060902009257
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_pink_4
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 580
-        width: 8
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e3ccc8f301377b2d0800000000000000
-      internalID: -3263012891383772098
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_pink_5
-      rect:
-        serializedVersion: 2
-        x: 4755
-        y: 558
-        width: 30
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 15767587953d66940800000000000000
-      internalID: 5289147193617770321
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_pink_6
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 526
-        width: 28
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 91f71b62739b77cf0800000000000000
-      internalID: -254531207399637223
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5b884d5ab96366e44b0c401e5b632d2a
     internalID: 0
     vertices: []
     indices: 
@@ -305,6 +173,7 @@ TextureImporter:
       dialogbox_pink_4: -3263012891383772098
       dialogbox_pink_5: 5289147193617770321
       dialogbox_pink_6: -254531207399637223
+      dialogbox_pink_7: -2013234834
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

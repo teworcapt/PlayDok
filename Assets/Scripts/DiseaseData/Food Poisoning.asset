@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4918bab593110945be9c8f1928b1cc1, type: 3}
-  m_Name: Acute Appendicitis
+  m_Name: Food Poisoning
   m_EditorClassIdentifier: 
-  diseaseName: Acute Appendicitis
+  diseaseName: Food Poisoning
   symptoms:
   - Nausea
-  - Fever
+  - Diarrhea
   - Vomiting
-  - Dehydration
-  - Abdominal Pain
+  - Shortness of Breath
   tests:
-  - Blood Test
+  - Saliva Test
   - Stool Test
-  - X-ray
   treatments:
-  - Emergency Room
+  - Medicine
+  - Emergency

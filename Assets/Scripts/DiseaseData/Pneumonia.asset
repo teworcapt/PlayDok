@@ -16,10 +16,11 @@ MonoBehaviour:
   symptoms:
   - Chest Pain
   - Shortness of Breath
-  - Cough
+  - Coughing
+  - Fever
   tests:
   - Blood Test
-  - Saliva
-  - Xray
+  - Saliva Test
+  - X-ray
   treatments:
-  - Emergency
+  - Emergency Room

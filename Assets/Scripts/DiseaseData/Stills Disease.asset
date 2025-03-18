@@ -16,11 +16,13 @@ MonoBehaviour:
   symptoms:
   - Fever
   - Joint Pain
+  - Rashes
+  - Sore Throat
+  - Fatigue
+  - Swollen Lymph Nodes
   tests:
-  - Blood Test
-  - Saliva
-  - Urine
-  - Rash
+  - Saliva Test
+  - Urine Test
   - Temperature
   treatments:
-  - Emergency
+  - Emergency Room

@@ -54,6 +54,20 @@ public class PatientManager : MonoBehaviour
         }
 
         currentPatient = patients[Random.Range(0, patients.Length)];
+        DiseaseInfo diseaseInfo = DiseaseManager.Instance.allDiseases.Find(d => d.diseaseName == currentPatient.disease);
+
+        if (diseaseInfo != null && diseaseInfo.symptoms.Count > 0)
+        {
+            List<string> shuffledSymptoms = new List<string>(diseaseInfo.symptoms);
+            ShuffleList(shuffledSymptoms);
+            currentPatient.symptoms = shuffledSymptoms.GetRange(0, Mathf.Min(2, shuffledSymptoms.Count));
+        }
+        else
+        {
+            Debug.LogError("DiseaseInfo not found or no symptoms available for disease: " + currentPatient.disease);
+            currentPatient.symptoms.Clear();
+        }
+
         validTests = new List<string>(currentPatient.tests);
 
         if (DiagnosticsManager.Instance != null)
@@ -85,6 +99,15 @@ public class PatientManager : MonoBehaviour
         PopulateDropdowns();
     }
 
+    private void ShuffleList<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+        }
+    }
+
     private void PopulateDropdowns()
     {
         if (DiseaseManager.Instance != null)
@@ -97,20 +120,23 @@ public class PatientManager : MonoBehaviour
                 diseaseChoices.options.Add(new TMP_Dropdown.OptionData(disease.diseaseName));
             }
 
-            treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Emergency"));
+            treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Emergency Room"));
             treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Medicine"));
+            treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Surgery"));
 
             if (diseaseChoices.options.Count > 0)
             {
                 diseaseChoices.value = 0;
+                diseaseChoices.RefreshShownValue();
                 selectedDisease = diseaseChoices.options[0].text;
             }
 
             if (treatmentChoices.options.Count > 0)
             {
                 treatmentChoices.value = 0;
-                selectedTreatment = treatmentChoices.options[0].text;
+                treatmentChoices.RefreshShownValue();
             }
+
         }
         else
         {

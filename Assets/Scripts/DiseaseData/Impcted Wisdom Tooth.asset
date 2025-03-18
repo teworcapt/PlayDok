@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4918bab593110945be9c8f1928b1cc1, type: 3}
-  m_Name: Acute Appendicitis
+  m_Name: Impcted Wisdom Tooth
   m_EditorClassIdentifier: 
-  diseaseName: Acute Appendicitis
+  diseaseName: Impacted Wisdom Tooth
   symptoms:
-  - Nausea
   - Fever
-  - Vomiting
-  - Dehydration
-  - Abdominal Pain
+  - Tooth Pain
+  - Jaw Pain
+  - Nausea
+  - Chest Pain
+  - Sore Throat
   tests:
-  - Blood Test
-  - Stool Test
-  - X-ray
+  - Saliva Test
+  - Temperature
   treatments:
-  - Emergency Room
+  - Surgery
+  - Medicine

@@ -10,18 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4918bab593110945be9c8f1928b1cc1, type: 3}
-  m_Name: Acute Appendicitis
+  m_Name: Template
   m_EditorClassIdentifier: 
-  diseaseName: Acute Appendicitis
+  diseaseName: TEMPLATE
   symptoms:
-  - Nausea
+  - Chest Pain
+  - Shortness of Breath
+  - Coughing
   - Fever
+  - Joint Pain
+  - Sore Throat
+  - Fatigue
+  - Swollen Lymph Nodes
+  - Nausea
+  - Congestion
+  - Diarrhea
+  - Watery Eyes
+  - Rashes
+  - Itchy Skin
+  - Tooth Pain
+  - Jaw Pain
   - Vomiting
-  - Dehydration
-  - Abdominal Pain
   tests:
-  - Blood Test
-  - Stool Test
   - X-ray
+  - Blood Test
+  - Saliva Test
+  - Stool Test
+  - Urine Test
+  - Temperature
   treatments:
   - Emergency Room
+  - Medicine
+  - Surgery

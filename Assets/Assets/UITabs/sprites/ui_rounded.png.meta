@@ -1,28 +1,7 @@
 fileFormatVersion: 2
-guid: b1b54c4c50a90f44880e4036d3451026
+guid: 85a03022d9e9a8641b7e182740dfb876
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 8038100702281985489
-    second: dialogbox_teal_0
-  - first:
-      213: 9013145806732200288
-    second: dialogbox_teal_1
-  - first:
-      213: -8070863550738201079
-    second: dialogbox_teal_2
-  - first:
-      213: -2038392640804858986
-    second: dialogbox_teal_3
-  - first:
-      213: 8434634295974087078
-    second: dialogbox_teal_4
-  - first:
-      213: 5763578178447776688
-    second: dialogbox_teal_5
-  - first:
-      213: 4709845709416218417
-    second: dialogbox_teal_6
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -64,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 400
+  spriteBorder: {x: 43, y: 43, z: 43, w: 43}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -84,9 +63,9 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 0
+  applyGammaDecoding: 1
   swizzle: 50462976
-  cookieLightType: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
@@ -100,7 +79,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -113,7 +92,20 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -126,32 +118,10 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: dialogbox_teal_0
-      rect:
-        serializedVersion: 2
-        x: 124
-        y: 668
-        width: 4719
-        height: 2719
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 2357, y: 0, z: 0, w: 1358}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1dde55440021d8f60800000000000000
-      internalID: 8038100702281985489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
@@ -165,14 +135,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      dialogbox_teal_0: 8038100702281985489
-      dialogbox_teal_1: 9013145806732200288
-      dialogbox_teal_2: -8070863550738201079
-      dialogbox_teal_3: -2038392640804858986
-      dialogbox_teal_4: 8434634295974087078
-      dialogbox_teal_5: 5763578178447776688
-      dialogbox_teal_6: 4709845709416218417
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

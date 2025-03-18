@@ -139,7 +139,7 @@ TextureImporter:
         width: 4719
         height: 2719
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,143 +152,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: dialogbox_yellow_1
-      rect:
-        serializedVersion: 2
-        x: 4789
-        y: 662
-        width: 13
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7e1345de2e7a42cf0800000000000000
-      internalID: -277912683903962649
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_yellow_2
-      rect:
-        serializedVersion: 2
-        x: 189
-        y: 630
-        width: 14
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 12997e31e1a3da3d0800000000000000
-      internalID: -3193832659878438623
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_yellow_3
-      rect:
-        serializedVersion: 2
-        x: 4739
-        y: 612
-        width: 8
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0bd67d1ac6b8e6a50800000000000000
-      internalID: 6516299009539665328
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_yellow_4
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 580
-        width: 8
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 06cd0e3749b153ea0800000000000000
-      internalID: -5893774212931199904
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_yellow_5
-      rect:
-        serializedVersion: 2
-        x: 4755
-        y: 558
-        width: 30
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dc432f5476b3cdbd0800000000000000
-      internalID: -2604141169785817907
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dialogbox_yellow_6
-      rect:
-        serializedVersion: 2
-        x: 212
-        y: 526
-        width: 28
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e8a1e100eda675cd0800000000000000
-      internalID: -2569467560674321778
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d63736acbd0fc534db424a320b54d41e
     internalID: 0
     vertices: []
     indices: 

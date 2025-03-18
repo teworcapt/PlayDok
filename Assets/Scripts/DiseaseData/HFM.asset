@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4918bab593110945be9c8f1928b1cc1, type: 3}
-  m_Name: Acute Appendicitis
+  m_Name: HFM
   m_EditorClassIdentifier: 
-  diseaseName: Acute Appendicitis
+  diseaseName: Hand, Foot, and Mouth Disease
   symptoms:
-  - Nausea
   - Fever
-  - Vomiting
-  - Dehydration
-  - Abdominal Pain
+  - Rashes
+  - Sore Throat
+  - Coughing
+  - Congestion
+  - Chest Pain
   tests:
-  - Blood Test
-  - Stool Test
-  - X-ray
+  - Saliva Test
   treatments:
-  - Emergency Room
+  - Medicine
