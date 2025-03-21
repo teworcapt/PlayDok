@@ -20,20 +20,13 @@ public class PatientManager : MonoBehaviour
 
     private PatientData currentPatient;
     private List<string> validTests = new List<string>();
-
     private string selectedDisease;
     private string selectedTreatment;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     private void Start()
@@ -45,11 +38,11 @@ public class PatientManager : MonoBehaviour
         SpawnNextPatient();
     }
 
-    public void SpawnNextPatient()
+    private void SpawnNextPatient()
     {
         if (patients == null || patients.Length == 0)
         {
-            Debug.LogError("Patients array is NULL!");
+            Debug.LogError("No patients available!");
             return;
         }
 
@@ -60,43 +53,26 @@ public class PatientManager : MonoBehaviour
         {
             List<string> shuffledSymptoms = new List<string>(diseaseInfo.symptoms);
             ShuffleList(shuffledSymptoms);
-            currentPatient.symptoms = shuffledSymptoms.GetRange(0, Mathf.Min(2, shuffledSymptoms.Count));
+
+            int symptomCount = Random.Range(1, 3);
+            currentPatient.symptoms = shuffledSymptoms.GetRange(0, Mathf.Min(symptomCount, shuffledSymptoms.Count));
         }
         else
         {
-            Debug.LogError("DiseaseInfo not found or no symptoms available for disease: " + currentPatient.disease);
+            Debug.LogError($"No symptoms found for {currentPatient.disease}!");
             currentPatient.symptoms.Clear();
         }
 
         validTests = new List<string>(currentPatient.tests);
 
-        if (DiagnosticsManager.Instance != null)
-        {
-            DiagnosticsManager.Instance.ResetDiagnostics();
-        }
-        else
-        {
-            Debug.LogError("DiagnosticsManager instance not found!");
-        }
+        DiagnosticsManager.Instance?.ResetDiagnostics();
 
-        if (patientImage != null)
-        {
-            patientImage.sprite = currentPatient.patientSprite;
-        }
-
-        if (patientNameHolder != null)
-        {
-            patientNameHolder.text = "Patient Name: " + currentPatient.patientName;
-        }
-
-        if (symptomsText != null)
-        {
-            symptomsText.text = "Symptoms: " + (currentPatient.symptoms.Count > 0
-                ? string.Join(", ", currentPatient.symptoms)
-                : "No symptoms");
-        }
+        patientImage.sprite = currentPatient.patientSprite;
+        patientNameHolder.text = $"Patient Name: {currentPatient.patientName}";
+        symptomsText.text = $"Symptoms: {(currentPatient.symptoms.Count > 0 ? string.Join(", ", currentPatient.symptoms) : "No symptoms")}";
 
         PopulateDropdowns();
+        TimerManager.Instance.StartPatientProcessing();
     }
 
     private void ShuffleList<T>(List<T> list)
@@ -108,39 +84,70 @@ public class PatientManager : MonoBehaviour
         }
     }
 
+    private void CheckDiagnosis()
+    {
+        if (currentPatient == null)
+        {
+            Debug.LogError("No patient data available!");
+            return;
+        }
+
+        bool correctDisease = selectedDisease == currentPatient.disease;
+        bool correctTreatment = DiseaseManager.Instance.allDiseases.Find(d => d.diseaseName == selectedDisease)?.treatments.Contains(selectedTreatment) ?? false;
+
+        ProcessDiagnosis(correctDisease, correctTreatment);
+
+        TimerManager.Instance.CompletePatientProcessing();
+        SpawnNextPatient();
+    }
+
     private void PopulateDropdowns()
     {
-        if (DiseaseManager.Instance != null)
+        diseaseChoices.ClearOptions();
+        treatmentChoices.ClearOptions();
+
+        if (DiseaseManager.Instance == null)
         {
-            diseaseChoices.ClearOptions();
-            treatmentChoices.ClearOptions();
+            Debug.LogError("DiseaseManager not found!");
+            return;
+        }
 
-            foreach (DiseaseInfo disease in DiseaseManager.Instance.allDiseases)
-            {
-                diseaseChoices.options.Add(new TMP_Dropdown.OptionData(disease.diseaseName));
-            }
+        foreach (DiseaseInfo disease in DiseaseManager.Instance.allDiseases)
+        {
+            diseaseChoices.options.Add(new TMP_Dropdown.OptionData(disease.diseaseName));
+        }
 
-            treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Emergency Room"));
-            treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Medicine"));
-            treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Surgery"));
+        treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Emergency Room"));
+        treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Medicine"));
+        treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Surgery"));
 
-            if (diseaseChoices.options.Count > 0)
-            {
-                diseaseChoices.value = 0;
-                diseaseChoices.RefreshShownValue();
-                selectedDisease = diseaseChoices.options[0].text;
-            }
+        diseaseChoices.value = 0;
+        diseaseChoices.RefreshShownValue();
+        selectedDisease = diseaseChoices.options[0].text;
 
-            if (treatmentChoices.options.Count > 0)
-            {
-                treatmentChoices.value = 0;
-                treatmentChoices.RefreshShownValue();
-            }
+        treatmentChoices.value = 0;
+        treatmentChoices.RefreshShownValue();
+        selectedTreatment = treatmentChoices.options[0].text;
+    }
 
+    public void ProcessDiagnosis(bool correctDiagnosis, bool correctTreatment)
+    {
+        if (PlayerStats.Instance == null)
+        {
+            Debug.LogError("PlayerStats not found!");
+            return;
+        }
+
+        PlayerStats.Instance.totalPatients++;
+
+        if (correctDiagnosis && correctTreatment)
+        {
+            PlayerStats.Instance.patientsCured++;
+            PlayerStats.Instance.totalEarnings += 500;
         }
         else
         {
-            Debug.LogError("DiseaseManager instance not found!");
+            PlayerStats.Instance.AddPenalty(50);
         }
     }
 
@@ -152,33 +159,6 @@ public class PatientManager : MonoBehaviour
     private void OnTreatmentChanged()
     {
         selectedTreatment = treatmentChoices.options[treatmentChoices.value].text;
-    }
-
-    private void CheckDiagnosis()
-    {
-        if (currentPatient == null)
-        {
-            Debug.LogError("No patient data available!");
-            return;
-        }
-
-        bool correctDisease = selectedDisease == currentPatient.disease;
-        bool correctTreatment = selectedTreatment == "Emergency" || selectedTreatment == "Medicine";
-
-        if (correctDisease && correctTreatment)
-        {
-            Debug.Log("Correct Diagnosis & Treatment. Moving to next patient...");
-        }
-        else if (!correctDisease)
-        {
-            Debug.Log("Incorrect Disease. Moving to next patient...");
-        }
-        else if (!correctTreatment)
-        {
-            Debug.Log("Incorrect Treatment. Moving to next patient...");
-        }
-
-        SpawnNextPatient();
     }
 
     public bool IsTestPositive(string testName)

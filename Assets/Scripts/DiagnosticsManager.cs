@@ -35,7 +35,6 @@ public class DiagnosticsManager : MonoBehaviour
 
         activeTests.Add(testItem);
 
-        // Start test timer
         TimerManager.Instance.StartTestTimer();
 
         StartCoroutine(HandleTestCompletion(testItem, isPositive));

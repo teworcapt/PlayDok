@@ -7,30 +7,23 @@ public class RulebookManager : MonoBehaviour
 {
     public Transform diseaseList;
     public List<DiseaseInfo> diseases;
-    public GameObject headerPrefab;
+    public GameObject diseasePrefab;
     public TMP_FontAsset headerFont;
-    private bool headerCreated = false;
 
     void Start()
     {
         PopulateDiseases();
     }
+
     void PopulateDiseases()
     {
-        if (diseaseList == null) return;
-
-        if (!headerCreated && headerPrefab != null)
-        {
-            GameObject header = Instantiate(headerPrefab, diseaseList);
-            header.transform.SetAsFirstSibling();
-            headerCreated = true;
-        }
+        if (diseaseList == null || diseasePrefab == null) return;
 
         foreach (DiseaseInfo disease in diseases)
         {
             if (disease == null) continue;
 
-            GameObject diseaseRow = Instantiate(headerPrefab, diseaseList);
+            GameObject diseaseRow = Instantiate(diseasePrefab, diseaseList);
 
             TextMeshProUGUI[] textElements = diseaseRow.GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -43,7 +36,6 @@ public class RulebookManager : MonoBehaviour
             }
         }
     }
-
 
     void AddTextElement(Transform parent, string content, float width)
     {
@@ -66,5 +58,4 @@ public class RulebookManager : MonoBehaviour
         layoutElement.preferredWidth = width;
         layoutElement.flexibleWidth = 0;
     }
-
 }

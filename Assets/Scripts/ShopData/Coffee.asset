@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4918bab593110945be9c8f1928b1cc1, type: 3}
-  m_Name: Header
+  m_Script: {fileID: 11500000, guid: fd3175e0073456c44a065f1855071014, type: 3}
+  m_Name: Coffee
   m_EditorClassIdentifier: 
-  diseaseName: Disease Name
-  symptoms:
-  - Symptoms
-  tests:
-  - Tests
-  treatments:
-  - Treatments
+  itemNumber: 1
+  itemName: Coffee
+  price: 500
+  amount: 50
+  itemIcon: {fileID: 0}
+  itemObject: {fileID: 0}
+  itemType: 0
+  timeBoostPermanent: 0
+  timeBoostPercentage: 0.005

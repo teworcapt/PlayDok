@@ -2,23 +2,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
-public class Pause : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    [Header("UI Components")]
+    [Header("Pause Menu")]
     public GameObject pauseMenu;
     public Button pauseButton;
     public Button resumeButton;
     public Button mainMenuButton;
-    public Slider volumeSlider;
-    public Button muteButton;
-    public TMP_Dropdown resolutionDropdown;
 
     [Header("Audio Settings")]
+    public Slider volumeSlider;
+    public Button muteButton;
     private float previousVolume = 1f;
     private bool isMuted = false;
 
-    [Header("Resolutions (16:9)")]
+    [Header("Resolution Settings")]
+    public TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions = {
         new Resolution { width = 1280, height = 720 },
         new Resolution { width = 1366, height = 768 },
@@ -28,11 +30,20 @@ public class Pause : MonoBehaviour
         new Resolution { width = 3840, height = 2160 }
     };
 
+    [Header("Monitor Panel")]
+    public GameObject monitorPanel;
+    public Button monitorPanelButton;
+
+    private bool isPaused = false;
+    private bool isMonitorPanelOpen = false;
+
     void Start()
     {
         pauseButton.onClick.AddListener(TogglePause);
-        resumeButton.onClick.AddListener(ResumeGame);
+        resumeButton.onClick.AddListener(TogglePause);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+
+        monitorPanelButton.onClick.AddListener(ToggleMonitorPanel);
 
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", 1f);
         isMuted = PlayerPrefs.GetInt("Muted", 0) == 1;
@@ -54,22 +65,47 @@ public class Pause : MonoBehaviour
         SetResolution(savedResIndex);
 
         pauseMenu.SetActive(false);
+        monitorPanel.SetActive(false);
     }
 
-    public void TogglePause()
+    void Update()
     {
-        if (pauseMenu == null)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.LogError("Pause menu is not assigned!");
-            return;
+            TogglePause();
         }
 
-        bool isPaused = pauseMenu.activeSelf;
-        pauseMenu.SetActive(!isPaused);
-        Time.timeScale = isPaused ? 1 : 0;
-        AudioListener.pause = !isPaused;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ToggleMonitorPanel();
+        }
+
+        if (isMonitorPanelOpen && Input.GetMouseButtonDown(0))
+        {
+            if (!IsPointerOverUIObject())
+            {
+                ToggleMonitorPanel(false);
+            }
+        }
     }
 
+    // === PAUSE MENU FUNCTIONS ===
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        pauseMenu.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0 : 1;
+        AudioListener.pause = isPaused;
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1;
+        AudioListener.pause = false;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    // === AUDIO SETTINGS FUNCTIONS ===
     public void SetVolume(float volume)
     {
         if (!isMuted)
@@ -89,6 +125,7 @@ public class Pause : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    // === RESOLUTION SETTINGS FUNCTIONS ===
     public void SetResolution(int index)
     {
         Resolution res = resolutions[index];
@@ -97,32 +134,37 @@ public class Pause : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void ResumeGame()
+    // === MONITOR PANEL FUNCTIONS ===
+    public void ToggleMonitorPanel()
     {
-        Time.timeScale = 1;
-        AudioListener.pause = false;
-        pauseMenu.SetActive(false);
+        isMonitorPanelOpen = !isMonitorPanelOpen;
+        monitorPanel.SetActive(isMonitorPanelOpen);
     }
-    void Update()
+
+    public void ToggleMonitorPanel(bool state)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        isMonitorPanelOpen = state;
+        monitorPanel.SetActive(state);
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
         {
-            if (!pauseMenu.activeSelf)
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var result in results)
+        {
+            if (result.gameObject == gameObject || result.gameObject == monitorPanel)
             {
-                TogglePause();
-            }
-            else
-            {
-                ResumeGame();
+                return true;
             }
         }
-    }
 
-
-    public void ReturnToMainMenu()
-    {
-        Time.timeScale = 1;
-        AudioListener.pause = false;
-        SceneManager.LoadScene("MainMenu");
+        return false;
     }
 }
