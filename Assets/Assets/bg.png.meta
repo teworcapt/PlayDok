@@ -148,7 +148,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+<<<<<<< Updated upstream:Assets/Assets/bg.png.meta
       bg_0: -4364034832326165938
+=======
+      appIcon_0: 114768567311376844
+>>>>>>> Stashed changes:Assets/Assets/Sprites/appIcon.png.meta
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

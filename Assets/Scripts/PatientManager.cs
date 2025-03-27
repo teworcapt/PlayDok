@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+<<<<<<< Updated upstream
 
 public class PatientManager : MonoBehaviour
 {
@@ -14,9 +15,41 @@ public class PatientManager : MonoBehaviour
     }
 
     public void SpawnNextPatient()
+=======
+using System.Collections.Generic;
+using TMPro;
+
+public class PatientManager : MonoBehaviour
+{
+    public static PatientManager Instance;
+
+    public GameObject patient;
+    public Image patientImage;
+    public TextMeshProUGUI patientNameText;
+
+    [SerializeField] private List<PatientData> availablePatients = new List<PatientData>();
+    private PatientData currentPatient;
+
+    private void Awake()
     {
-        if (patients == null || patients.Length == 0)
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        LoadPatients();
+        AssignRandomPatient();
+    }
+
+    private void LoadPatients()
+>>>>>>> Stashed changes
+    {
+        PatientData[] patients = Resources.LoadAll<PatientData>("Patients");
+
+        foreach (PatientData patient in patients)
         {
+<<<<<<< Updated upstream
             Debug.LogError("Patients array is NULL!");
             return;
         }
@@ -50,6 +83,46 @@ public class PatientManager : MonoBehaviour
         if (patientImage != null)
         {
             patientImage.sprite = randomPatient.patientSprite;
+=======
+            if (!availablePatients.Contains(patient))
+            {
+                availablePatients.Add(patient);
+            }
+        }
+    }
+
+    public List<PatientData> GetAvailablePatients()
+    {
+        return availablePatients;
+    }
+
+    public void AssignPatient(PatientData newPatient)
+    {
+        currentPatient = newPatient;
+        UpdateUI();
+    }
+
+    public void AssignRandomPatient()
+    {
+        if (availablePatients.Count == 0)
+        {
+            Debug.LogWarning("No available patients!");
+            return;
+        }
+
+        int randomIndex = Random.Range(0, availablePatients.Count);
+        currentPatient = availablePatients[randomIndex];
+
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        if (currentPatient != null)
+        {
+            patientNameText.text = currentPatient.patientName;
+            patientImage.sprite = currentPatient.patientSprite;
+>>>>>>> Stashed changes
         }
     }
 }

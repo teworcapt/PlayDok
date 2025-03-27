@@ -5,6 +5,7 @@ using System.Collections;
 
 public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+<<<<<<< Updated upstream
     public string testName;
     public GameObject positivePrefab;
     public GameObject negativePrefab;
@@ -21,6 +22,13 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
     private PatientDropzone dropzoneScript;
 
     private GameObject currentResultPrefab;
+=======
+    public static DiagnosticsManager Instance { get; private set; }
+
+    public RectTransform dropZone;
+    private List<TestItem> activeTests = new List<TestItem>();
+    private Dictionary<string, TMP_Text> testResultTexts = new Dictionary<string, TMP_Text>();
+>>>>>>> Stashed changes
 
     private void Awake()
     {
@@ -35,8 +43,61 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
         {
             Debug.LogError("❌ PatientDropzone is NOT assigned in the Inspector!");
         }
+
+        FindTestResultTexts();
     }
 
+    private void FindTestResultTexts()
+    {
+        testResultTexts.Clear();
+        TMP_Text[] allTexts = Object.FindObjectsByType<TMP_Text>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        string[] testNames = { "Saliva", "Urine", "Stool", "Xray", "Syringe", "Thermometer" };
+
+        foreach (string testName in testNames)
+        {
+            foreach (TMP_Text tmp in allTexts)
+            {
+                if (tmp.name == testName)
+                {
+                    testResultTexts[testName] = tmp;
+                    break;
+                }
+            }
+
+            if (!testResultTexts.ContainsKey(testName))
+            {
+                Debug.LogWarning($"[DiagnosticsManager] Test result TMP '{testName}' not found!");
+            }
+        }
+    }
+
+    public bool IsTestPositive(string testName)
+    {
+        if (DiseaseManager.Instance == null)
+        {
+            Debug.LogError("[DiagnosticsManager] DiseaseManager instance is missing!");
+            return false;
+        }
+
+        string currentDiseaseName = DiagnosisManager.Instance?.GetCurrentDisease();
+        if (string.IsNullOrEmpty(currentDiseaseName))
+        {
+            Debug.LogError("[DiagnosticsManager] No current disease selected!");
+            return false;
+        }
+
+        DiseaseData currentDisease = DiseaseManager.Instance.GetDiseaseData(currentDiseaseName);
+        if (currentDisease == null)
+        {
+            Debug.LogError($"[DiagnosticsManager] Disease '{currentDiseaseName}' not found in DiseaseManager!");
+            return false;
+        }
+
+        return currentDisease.tests.Contains(testName);
+    }
+
+<<<<<<< Updated upstream
     public void ResetDiagnostics()
     {
         isTimerRunning = false;
@@ -186,5 +247,60 @@ public class DiagnosticsManager : MonoBehaviour, IBeginDragHandler, IDragHandler
         {
             Debug.LogError("Result prefab is missing!");
         }
+=======
+    public void PerformTest(string testName, TestItem testItem)
+    {
+        if (activeTests.Contains(testItem))
+        {
+            Debug.Log($"[{testName}] Test already in progress.");
+            return;
+        }
+
+        if (!testResultTexts.ContainsKey(testName))
+        {
+            Debug.LogWarning($"[DiagnosticsManager] No TMP field found for '{testName}'. Skipping test.");
+            return;
+        }
+
+        if (TimerManager.Instance == null)
+        {
+            Debug.LogError("[DiagnosticsManager] TimerManager instance is missing!");
+            return;
+        }
+
+        testResultTexts[testName].text = "Pending";
+
+        bool isPositive = IsTestPositive(testName);
+        Debug.Log($"[{testName}] Test started. Result: {(isPositive ? "Positive" : "Negative")}");
+
+        activeTests.Add(testItem);
+        TimerManager.Instance.StartTestTimer();
+        StartCoroutine(HandleTestCompletion(testItem, testName, isPositive));
+    }
+
+    private IEnumerator HandleTestCompletion(TestItem testItem, string testName, bool isPositive)
+    {
+        yield return new WaitForSeconds(TimerManager.Instance.testDuration);
+
+        testItem.MarkAsTested();
+
+        if (testResultTexts.ContainsKey(testName))
+        {
+            testResultTexts[testName].text = isPositive ? "Positive" : "Negative";
+        }
+
+        Debug.Log($"[{testName}] Test completed. Final Result: {(isPositive ? "Positive" : "Negative")}");
+        activeTests.Remove(testItem);
+    }
+
+    public bool IsOverDropZone(TestItem testItem)
+    {
+        if (testItem == null || dropZone == null)
+        {
+            return false;
+        }
+
+        return RectTransformUtility.RectangleContainsScreenPoint(dropZone, testItem.transform.position);
+>>>>>>> Stashed changes
     }
 }

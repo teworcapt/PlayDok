@@ -1,39 +1,69 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "DiseaseManager", menuName = "Scriptable Objects/Disease Manager")]
-public class DiseaseManager : ScriptableObject
+public class DiseaseManager : MonoBehaviour
 {
+<<<<<<< Updated upstream
     public List<DiseaseInfo> allDiseases = new List<DiseaseInfo>(); // Store all diseases
+=======
+    public static DiseaseManager Instance { get; private set; }
+>>>>>>> Stashed changes
 
-    private static DiseaseManager _instance;
+    [SerializeField] private List<DiseaseData> allDiseases = new List<DiseaseData>();
 
-    public static DiseaseManager Instance
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (_instance == null)
-            {
-                _instance = Resources.Load<DiseaseManager>("DiseaseManager");
-                if (_instance == null)
-                {
-                    Debug.LogError("DiseaseManager asset not found in Resources folder!");
-                }
-            }
-            return _instance;
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
+<<<<<<< Updated upstream
 
     public DiseaseInfo GetDiseaseInfo(string diseaseName)
+=======
+    public DiseaseData GetDiseaseData(string diseaseName)
+>>>>>>> Stashed changes
     {
-        foreach (DiseaseInfo disease in allDiseases)
+        if (string.IsNullOrEmpty(diseaseName))
         {
-            if (disease.diseaseName == diseaseName)
-            {
-                return disease;
-            }
+            Debug.LogError("[DiseaseManager] Attempted to get disease data with an empty or null name.");
+            return null;
         }
-        return null;
+
+        DiseaseData disease = allDiseases.Find(d => d.diseaseName == diseaseName);
+
+        if (disease == null)
+        {
+            Debug.LogError($"[DiseaseManager] Disease '{diseaseName}' not found in the database.");
+        }
+
+        return disease;
     }
+<<<<<<< Updated upstream
+=======
+
+    public List<string> GetTreatments(string diseaseName)
+    {
+        DiseaseData disease = GetDiseaseData(diseaseName);
+        return disease != null ? new List<string>(disease.treatments) : new List<string>();
+    }
+
+    public List<string> GetTests(string diseaseName)
+    {
+        DiseaseData disease = GetDiseaseData(diseaseName);
+        return disease != null ? new List<string>(disease.tests) : new List<string>();
+    }
+
+    public bool DoesDiseaseRequireTest(string diseaseName, string testName)
+    {
+        DiseaseData disease = GetDiseaseData(diseaseName);
+        return disease != null && disease.tests.Contains(testName);
+    }
+>>>>>>> Stashed changes
 }

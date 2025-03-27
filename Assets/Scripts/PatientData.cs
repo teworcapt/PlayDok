@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "PatientData", menuName = "Scriptable Objects/PatientData")]
+[CreateAssetMenu(fileName = "NewPatient", menuName = "Scriptable Objects/PatientData")]
 public class PatientData : ScriptableObject
 {
     public string patientName;
-    public string disease;
+    public DiseaseData disease;
+    public PersonalityData personality;
     public List<string> symptoms = new List<string>();
-    public List<string> tests = new List<string>();    
-    public List<string> treatment = new List<string>(); 
+    public List<string> tests = new List<string>();
+    public List<string> treatments = new List<string>();
     public Sprite patientSprite;
 }
