@@ -1,10 +1,43 @@
 fileFormatVersion: 2
-guid: 40906f36ed898ef4fb99e54feec091d8
+guid: 83ac97cc55f55964ea33337196a8cf64
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 114768567311376844
-    second: appIcon_0
+      213: -3724181230957455518
+    second: dialogbox2_0
+  - first:
+      213: 839837096142969617
+    second: dialogbox2_1
+  - first:
+      213: 2355643449107710428
+    second: dialogbox2_2
+  - first:
+      213: -1635995558001734146
+    second: dialogbox2_3
+  - first:
+      213: -5028689583001473377
+    second: dialogbox2_4
+  - first:
+      213: 1095568181750403605
+    second: dialogbox2_5
+  - first:
+      213: 6503780748396556301
+    second: dialogbox2_6
+  - first:
+      213: 1762481843107846017
+    second: dialogbox2_7
+  - first:
+      213: -4602454544491029364
+    second: dialogbox2_8
+  - first:
+      213: 6290234434215650130
+    second: dialogbox2_9
+  - first:
+      213: 4370899192487944602
+    second: dialogbox2_10
+  - first:
+      213: 7899456730097953070
+    second: dialogbox2_11
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +146,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: appIcon_0
+      name: dialogbox2_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 14
-        width: 492
-        height: 468
+        x: 193
+        y: 694
+        width: 4587
+        height: 2623
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 2297, y: 0, z: 0, w: 1310}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cc1a9f5676db79100800000000000000
-      internalID: 114768567311376844
+      spriteID: 2679a99e6ec015cc0800000000000000
+      internalID: -3724181230957455518
       vertices: []
       indices: 
       edges: []
@@ -138,7 +171,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 19421d1455f63d3429cdeb46870ad666
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +181,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      appIcon_0: 114768567311376844
+      dialogbox2_0: -3724181230957455518
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

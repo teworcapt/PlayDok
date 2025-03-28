@@ -1,28 +1,43 @@
 fileFormatVersion: 2
-guid: b1b54c4c50a90f44880e4036d3451026
+guid: f26559a044f0a62469d934f566973a2a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8038100702281985489
-    second: dialogbox_teal_0
+      213: 1763014460331064234
+    second: board_0
   - first:
-      213: 9013145806732200288
-    second: dialogbox_teal_1
+      213: 874502055611825731
+    second: board_1
   - first:
-      213: -8070863550738201079
-    second: dialogbox_teal_2
+      213: 2365142720062319477
+    second: board_2
   - first:
-      213: -2038392640804858986
-    second: dialogbox_teal_3
+      213: -8739695047086677109
+    second: board_3
   - first:
-      213: 8434634295974087078
-    second: dialogbox_teal_4
+      213: 2283391625626710898
+    second: board_4
   - first:
-      213: 5763578178447776688
-    second: dialogbox_teal_5
+      213: -4931454801166250756
+    second: board_5
   - first:
-      213: 4709845709416218417
-    second: dialogbox_teal_6
+      213: -533394713626819129
+    second: board_6
+  - first:
+      213: -8265521345430545015
+    second: board_7
+  - first:
+      213: -1554866461689803285
+    second: board_8
+  - first:
+      213: -5617833598888203624
+    second: board_9
+  - first:
+      213: 602199735364467270
+    second: board_10
+  - first:
+      213: 5247150283458952143
+    second: board_11
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -131,23 +146,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogbox_teal_0
+      name: board_0
       rect:
         serializedVersion: 2
-        x: 124
-        y: 668
-        width: 4719
-        height: 2719
+        x: 199
+        y: 698
+        width: 4587
+        height: 2627
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 2357, y: 0, z: 0, w: 1358}
+      border: {x: 2287, y: 0, z: 0, w: 1319}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1dde55440021d8f60800000000000000
-      internalID: 8038100702281985489
+      spriteID: aabf8e19f4c777810800000000000000
+      internalID: 1763014460331064234
       vertices: []
       indices: 
       edges: []
@@ -156,7 +171,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 763462d6e8105e54190d20e4b42b8dc0
     internalID: 0
     vertices: []
     indices: 
@@ -166,13 +181,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dialogbox_teal_0: 8038100702281985489
-      dialogbox_teal_1: 9013145806732200288
-      dialogbox_teal_2: -8070863550738201079
-      dialogbox_teal_3: -2038392640804858986
-      dialogbox_teal_4: 8434634295974087078
-      dialogbox_teal_5: 5763578178447776688
-      dialogbox_teal_6: 4709845709416218417
+      board_12: 642631763
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

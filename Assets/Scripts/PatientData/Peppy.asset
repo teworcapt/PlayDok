@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
+  m_Name: Peppy
+  m_EditorClassIdentifier: 
+  patientName: Trixie
+  personalityCategory: 0
+  personalitySubcategory: 0
+  availableNames:
+  - Sunny
+  - Bubbles
+  - Rosie
+  - Fanny
+  - Felicity
+  - Trixie
+  - Tutu
+  - Benny
+  dialogues:
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else? '
+    patientReply: "Oh, yes doc! Sorry, just a bit excited. Okay, so I\u2019ve been
+      feeling [symptoms]. 'D'ya think it\u2019s something serious? "
+    doctorResponsePositive: Well, we will have to see! Anything else to take note
+      of?
+    patientReactionPositive: Oh, now that you mention it, hm... none.
+    doctorResponseNegative: What's so exciting about this?
+    patientReactionNegative: Oh... Alright.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else? '
+    patientReply: Is this like a murder mystery? Then first things first then, other
+      than the ones you said, I'm also experiencing [symptoms].
+    doctorResponsePositive: Let's solve this together!
+    patientReactionPositive: Yey! I knew I can rely on you!
+    doctorResponseNegative: You're sick, I'm not playing with you.
+    patientReactionNegative: Killjoy.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else? '
+    patientReply: Just [symptoms], no biggie! Can I still go to the party after this?
+    doctorResponsePositive: If things aren't too serious, have some fun!
+    patientReactionPositive: Great! I already know what to wear.
+    doctorResponseNegative: You're sick and you're thinking of going to a party?
+    patientReactionNegative: Do you have to be so mean?
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else? '
+    patientReply: First, you gotta listen to this, I got this theory I think a few
+      aliens came to my room last night then I started getting [symptoms]. Coincidence?
+    doctorResponsePositive: Aliens? Do you think you're part of a special mission?
+    patientReactionPositive: Maybe!
+    doctorResponseNegative: Yeah, Aliens.
+    patientReactionNegative: What's wrong with you!?
+  patientSprites:
+  - {fileID: -8072703566471679563, guid: f4db5f8924580694cb8517e154136d47, type: 3}
+  - {fileID: -494072177720125437, guid: f4db5f8924580694cb8517e154136d47, type: 3}
+  - {fileID: -7914451116294243450, guid: f4db5f8924580694cb8517e154136d47, type: 3}
+  - {fileID: -1067656626174574146, guid: f4db5f8924580694cb8517e154136d47, type: 3}
+  selectedSprite: {fileID: -8072703566471679563, guid: f4db5f8924580694cb8517e154136d47, type: 3}
+  timePenalty: 2

@@ -1,22 +1,43 @@
 fileFormatVersion: 2
-guid: 3c5b995e996f34449bfe9a2da288e1be
+guid: b46cb0660acfb5444b27315d5b0f3e79
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8299512373683082209
-    second: dialogrectangle_0
+      213: -1843197933104017171
+    second: square_0
   - first:
-      213: -4544979567474598005
-    second: dialogrectangle_1
+      213: 388581767689863767
+    second: square_1
   - first:
-      213: -4417874813664986630
-    second: dialogrectangle_2
+      213: 8408745402343704852
+    second: square_2
   - first:
-      213: -420089654084295109
-    second: dialogrectangle_3
+      213: -5889148879574113196
+    second: square_3
   - first:
-      213: -6508072513296592919
-    second: dialogrectangle_4
+      213: -3278940501819210670
+    second: square_4
+  - first:
+      213: 7879090333031780057
+    second: square_5
+  - first:
+      213: 4841377977144030612
+    second: square_6
+  - first:
+      213: 8967253636388917442
+    second: square_7
+  - first:
+      213: -6801304601549608984
+    second: square_8
+  - first:
+      213: 2598691410457181856
+    second: square_9
+  - first:
+      213: -2819331531145886568
+    second: square_10
+  - first:
+      213: 3142986809838170783
+    second: square_11
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -125,23 +146,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogrectangle_0
+      name: square_0
       rect:
         serializedVersion: 2
-        x: 186
-        y: 630
-        width: 4615
-        height: 2757
+        x: 1181
+        y: 699
+        width: 2607
+        height: 2522
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 2307, y: 0, z: 0, w: 1382}
+      border: {x: 1300, y: 0, z: 0, w: 1259}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f1c29a5087532dc80800000000000000
-      internalID: -8299512373683082209
+      spriteID: de0d99ade35ab66e0800000000000000
+      internalID: -1843197933104017171
       vertices: []
       indices: 
       edges: []
@@ -150,7 +171,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4d4f4a22ae5648b4e816f55298ebd0fc
+    spriteID: 378f2086b7fceb04b9d2b4b904fd8dfa
     internalID: 0
     vertices: []
     indices: 
@@ -160,11 +181,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dialogrectangle_0: -8299512373683082209
-      dialogrectangle_1: -4544979567474598005
-      dialogrectangle_2: -4417874813664986630
-      dialogrectangle_3: -420089654084295109
-      dialogrectangle_4: -6508072513296592919
+      square_12: 65989505
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

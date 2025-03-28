@@ -1,168 +1,208 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PatientManager : MonoBehaviour
 {
     public static PatientManager Instance { get; private set; }
 
-    [Header("Patient List")]
-    public PatientData[] patients;
-
     [Header("Patient UI")]
     public Image patientImage;
     public TextMeshProUGUI patientNameHolder;
+    public TextMeshProUGUI dialogNameHolder;
     public TextMeshProUGUI symptomsText;
-    public TMP_Dropdown diseaseChoices;
-    public TMP_Dropdown treatmentChoices;
-    public Button submitButton;
+    public TextMeshProUGUI dialogueText;
+
+    [Header("Interrogation UI")]
+    public GameObject dialogBox;
+    public Button interrogateButton;
+    public Button continueButton;
+    public Button choiceOneButton;
+    public Button choiceTwoButton;
+    public GameObject rulebook;
 
     private PatientData currentPatient;
-    private List<string> validTests = new List<string>();
-    private string selectedDisease;
-    private string selectedTreatment;
+    private List<string> currentSymptoms;
+    private bool awaitingResponse = false;
+    private bool hasAsked = false;
 
+    private string doctorDialogue;
+    private string patientDialogue;
+    private string responsePositive;
+    private string responseNegative;
+
+    /* -------------------- Initialization -------------------- */
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+
+        interrogateButton.onClick.AddListener(StartInterrogation);
+        continueButton.onClick.AddListener(HandleContinue);
+        choiceOneButton.onClick.AddListener(() => SelectResponse(true));
+        choiceTwoButton.onClick.AddListener(() => SelectResponse(false));
+
+        ResetUI();
     }
 
-    private void Start()
+    /* -------------------- Patient Setup -------------------- */
+    public void UpdatePatientUI(PatientData patient, List<string> symptoms)
     {
-        PopulateDropdowns();
-        diseaseChoices.onValueChanged.AddListener(delegate { OnDiseaseChanged(); });
-        treatmentChoices.onValueChanged.AddListener(delegate { OnTreatmentChanged(); });
-        submitButton.onClick.AddListener(CheckDiagnosis);
-        SpawnNextPatient();
-    }
-
-    private void SpawnNextPatient()
-    {
-        if (patients == null || patients.Length == 0)
+        if (patient == null || patient.patientSprites == null || patient.patientSprites.Count == 0)
         {
-            Debug.LogError("No patients available!");
+            Debug.LogError($"Invalid patient data for {patient?.patientName ?? "unknown"}!");
             return;
         }
 
-        currentPatient = patients[Random.Range(0, patients.Length)];
-        DiseaseInfo diseaseInfo = DiseaseManager.Instance.allDiseases.Find(d => d.diseaseName == currentPatient.disease);
+        currentPatient = patient;
+        currentSymptoms = new List<string>(symptoms);
 
-        if (diseaseInfo != null && diseaseInfo.symptoms.Count > 0)
+        patientImage.sprite = patient.patientSprites[Random.Range(0, patient.patientSprites.Count)];
+        patientNameHolder.text = patient.patientName;
+        dialogNameHolder.text = patient.patientName;
+        symptomsText.text = string.Join(", ", currentSymptoms);
+
+        hasAsked = false;
+        awaitingResponse = false;
+        interrogateButton.interactable = true;
+        interrogateButton.GetComponentInChildren<TextMeshProUGUI>().text = "Interrogate";
+    }
+
+    /* -------------------- Interrogation Flow -------------------- */
+    private void StartInterrogation()
+    {
+        if (hasAsked) return;
+
+        if (rulebook != null) rulebook.SetActive(false);
+
+        dialogBox.SetActive(true);
+        interrogateButton.interactable = false;
+
+        PatientData.DialogueSet dialogueSet = currentPatient.dialogues[Random.Range(0, currentPatient.dialogues.Count)];
+
+        doctorDialogue = dialogueSet.doctorQuestion.Replace("[name]", currentPatient.patientName)
+                                                   .Replace("[symptoms]", string.Join(" and ", currentSymptoms));
+
+        List<string> extraSymptoms = GetExtraSymptoms();
+        patientDialogue = dialogueSet.patientReply.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
+
+        symptomsText.text = string.Join(", ", currentSymptoms) + ", " + string.Join(" and ", extraSymptoms);
+
+        choiceOneButton.GetComponentInChildren<TextMeshProUGUI>().text = dialogueSet.doctorResponsePositive;
+        choiceTwoButton.GetComponentInChildren<TextMeshProUGUI>().text = dialogueSet.doctorResponseNegative;
+
+        responsePositive = dialogueSet.patientReactionPositive;
+        responseNegative = dialogueSet.patientReactionNegative;
+
+        awaitingResponse = true;
+        StartCoroutine(TypeText(doctorDialogue, () => continueButton.gameObject.SetActive(true)));
+    }
+
+    private void HandleContinue()
+    {
+        if (awaitingResponse)
         {
-            List<string> shuffledSymptoms = new List<string>(diseaseInfo.symptoms);
-            ShuffleList(shuffledSymptoms);
-
-            int symptomCount = Random.Range(1, 3);
-            currentPatient.symptoms = shuffledSymptoms.GetRange(0, Mathf.Min(symptomCount, shuffledSymptoms.Count));
+            continueButton.gameObject.SetActive(false);
+            StartCoroutine(TypeText(patientDialogue, () =>
+            {
+                choiceOneButton.gameObject.SetActive(true);
+                choiceTwoButton.gameObject.SetActive(true);
+            }));
+            awaitingResponse = false;
         }
         else
         {
-            Debug.LogError($"No symptoms found for {currentPatient.disease}!");
-            currentPatient.symptoms.Clear();
-        }
-
-        validTests = new List<string>(currentPatient.tests);
-
-        DiagnosticsManager.Instance?.ResetDiagnostics();
-
-        patientImage.sprite = currentPatient.patientSprite;
-        patientNameHolder.text = $"Patient Name: {currentPatient.patientName}";
-        symptomsText.text = $"Symptoms: {(currentPatient.symptoms.Count > 0 ? string.Join(", ", currentPatient.symptoms) : "No symptoms")}";
-
-        PopulateDropdowns();
-        TimerManager.Instance.StartPatientProcessing();
-    }
-
-    private void ShuffleList<T>(List<T> list)
-    {
-        for (int i = list.Count - 1; i > 0; i--)
-        {
-            int randomIndex = Random.Range(0, i + 1);
-            (list[i], list[randomIndex]) = (list[randomIndex], list[i]);
+            dialogBox.SetActive(false);
         }
     }
 
-    private void CheckDiagnosis()
+    private void SelectResponse(bool isPositive)
     {
-        if (currentPatient == null)
+        choiceOneButton.gameObject.SetActive(false);
+        choiceTwoButton.gameObject.SetActive(false);
+
+        string finalResponse = isPositive ? responsePositive : responseNegative;
+        StartCoroutine(TypeText(finalResponse, () =>
         {
-            Debug.LogError("No patient data available!");
-            return;
-        }
-
-        bool correctDisease = selectedDisease == currentPatient.disease;
-        bool correctTreatment = DiseaseManager.Instance.allDiseases.Find(d => d.diseaseName == selectedDisease)?.treatments.Contains(selectedTreatment) ?? false;
-
-        ProcessDiagnosis(correctDisease, correctTreatment);
-
-        TimerManager.Instance.CompletePatientProcessing();
-        SpawnNextPatient();
+            continueButton.gameObject.SetActive(true);
+            awaitingResponse = false;
+            hasAsked = true;
+        }));
     }
 
-    private void PopulateDropdowns()
+    /* -------------------- No Test Reaction -------------------- */
+    public void TriggerNoTestReaction()
     {
-        diseaseChoices.ClearOptions();
-        treatmentChoices.ClearOptions();
+        string noTestDialogue;
 
-        if (DiseaseManager.Instance == null)
+        switch (currentPatient.personalityCategory)
         {
-            Debug.LogError("DiseaseManager not found!");
-            return;
+            case PatientData.PersonalityCategory.Positive:
+                noTestDialogue = "Oh! It's good to be confident doc, but… are you sure?";
+                break;
+            case PatientData.PersonalityCategory.Neutral:
+                noTestDialogue = "Um… shouldn’t you run some tests first?";
+                break;
+            case PatientData.PersonalityCategory.Negative:
+                noTestDialogue = "What? You didn’t even test anything! Are you serious?";
+                break;
+            default:
+                noTestDialogue = "Wait... you didn’t run any tests? Are you just guessing?";
+                break;
         }
 
-        foreach (DiseaseInfo disease in DiseaseManager.Instance.allDiseases)
+        dialogBox.SetActive(true);
+        dialogueText.text = "";
+        StartCoroutine(TypeText(noTestDialogue, () =>
         {
-            diseaseChoices.options.Add(new TMP_Dropdown.OptionData(disease.diseaseName));
-        }
-
-        treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Emergency Room"));
-        treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Medicine"));
-        treatmentChoices.options.Add(new TMP_Dropdown.OptionData("Surgery"));
-
-        diseaseChoices.value = 0;
-        diseaseChoices.RefreshShownValue();
-        selectedDisease = diseaseChoices.options[0].text;
-
-        treatmentChoices.value = 0;
-        treatmentChoices.RefreshShownValue();
-        selectedTreatment = treatmentChoices.options[0].text;
+            continueButton.gameObject.SetActive(true);
+        }));
     }
 
-    public void ProcessDiagnosis(bool correctDiagnosis, bool correctTreatment)
+    /* -------------------- Extra Symptoms -------------------- */
+    private List<string> GetExtraSymptoms()
     {
-        if (PlayerStats.Instance == null)
+        List<string> extraSymptoms = new List<string>();
+
+        DiseaseData disease = DiagnosisManager.Instance.GetAssignedDisease();
+        if (disease != null)
         {
-            Debug.LogError("PlayerStats not found!");
-            return;
+            List<string> allSymptoms = new List<string>(disease.symptoms);
+            allSymptoms.RemoveAll(s => currentSymptoms.Contains(s));
+
+            int patientMentionCount = Random.Range(1, Mathf.Min(3, allSymptoms.Count + 1));
+
+            while (extraSymptoms.Count < patientMentionCount && allSymptoms.Count > 0)
+            {
+                string symptom = allSymptoms[Random.Range(0, allSymptoms.Count)];
+                extraSymptoms.Add(symptom);
+                allSymptoms.Remove(symptom);
+            }
         }
 
-        PlayerStats.Instance.totalPatients++;
+        return extraSymptoms;
+    }
 
-        if (correctDiagnosis && correctTreatment)
+    /* -------------------- UI Helpers -------------------- */
+    private void ResetUI()
+    {
+        dialogBox.SetActive(false);
+        continueButton.gameObject.SetActive(false);
+        choiceOneButton.gameObject.SetActive(false);
+        choiceTwoButton.gameObject.SetActive(false);
+    }
+
+    /* -------------------- Text Typing Effect -------------------- */
+    private IEnumerator TypeText(string text, System.Action callback)
+    {
+        dialogueText.text = "";
+        foreach (char letter in text)
         {
-            PlayerStats.Instance.patientsCured++;
-            PlayerStats.Instance.totalEarnings += 500;
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(0.02f);
         }
-        else
-        {
-            PlayerStats.Instance.AddPenalty(50);
-        }
-    }
-
-    private void OnDiseaseChanged()
-    {
-        selectedDisease = diseaseChoices.options[diseaseChoices.value].text;
-    }
-
-    private void OnTreatmentChanged()
-    {
-        selectedTreatment = treatmentChoices.options[treatmentChoices.value].text;
-    }
-
-    public bool IsTestPositive(string testName)
-    {
-        return validTests.Contains(testName);
+        callback?.Invoke();
     }
 }

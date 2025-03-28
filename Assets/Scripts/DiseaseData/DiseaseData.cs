@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "NewDisease", menuName = "Scriptable Objects/Disease Info")]
-public class DiseaseInfo : ScriptableObject
+public class DiseaseData : ScriptableObject
 {
     public string diseaseName;
     public List<string> symptoms = new List<string>();

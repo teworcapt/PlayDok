@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd3175e0073456c44a065f1855071014, type: 3}
-  m_Name: Inspirational Poster
+  m_Name: Candy
   m_EditorClassIdentifier: 
-  itemNumber: 3
-  itemName: Inspirational Poster
-  price: 1000
-  amount: 0
-  itemIcon: {fileID: 0}
+  itemNumber: 2
+  itemName: Candy
+  price: 150
+  amount: 50
+  itemIcon: {fileID: 300643429109067178, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
   itemObject: {fileID: 0}
-  itemType: 2
+  itemType: 0
   timeBoostPermanent: 0
-  timeBoostPercentage: 0
+  timeBoostPercentage: 0.005

@@ -2,10 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
-using System.Collections.Generic;
 
-public class UIManager : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
     [Header("Pause Menu")]
     public GameObject pauseMenu;
@@ -30,20 +28,14 @@ public class UIManager : MonoBehaviour
         new Resolution { width = 3840, height = 2160 }
     };
 
-    [Header("Monitor Panel")]
-    public GameObject monitorPanel;
-    public Button monitorPanelButton;
-
     private bool isPaused = false;
-    private bool isMonitorPanelOpen = false;
 
+    /* -------------------- Initialization -------------------- */
     void Start()
     {
         pauseButton.onClick.AddListener(TogglePause);
         resumeButton.onClick.AddListener(TogglePause);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
-
-        monitorPanelButton.onClick.AddListener(ToggleMonitorPanel);
 
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", 1f);
         isMuted = PlayerPrefs.GetInt("Muted", 0) == 1;
@@ -65,7 +57,6 @@ public class UIManager : MonoBehaviour
         SetResolution(savedResIndex);
 
         pauseMenu.SetActive(false);
-        monitorPanel.SetActive(false);
     }
 
     void Update()
@@ -74,22 +65,9 @@ public class UIManager : MonoBehaviour
         {
             TogglePause();
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ToggleMonitorPanel();
-        }
-
-        if (isMonitorPanelOpen && Input.GetMouseButtonDown(0))
-        {
-            if (!IsPointerOverUIObject())
-            {
-                ToggleMonitorPanel(false);
-            }
-        }
     }
 
-    // === PAUSE MENU FUNCTIONS ===
+    /* -------------------- UI Buttons -------------------- */
     public void TogglePause()
     {
         isPaused = !isPaused;
@@ -105,7 +83,6 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    // === AUDIO SETTINGS FUNCTIONS ===
     public void SetVolume(float volume)
     {
         if (!isMuted)
@@ -125,46 +102,11 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    // === RESOLUTION SETTINGS FUNCTIONS ===
     public void SetResolution(int index)
     {
         Resolution res = resolutions[index];
         Screen.SetResolution(res.width, res.height, Screen.fullScreen);
         PlayerPrefs.SetInt("ResolutionIndex", index);
         PlayerPrefs.Save();
-    }
-
-    // === MONITOR PANEL FUNCTIONS ===
-    public void ToggleMonitorPanel()
-    {
-        isMonitorPanelOpen = !isMonitorPanelOpen;
-        monitorPanel.SetActive(isMonitorPanelOpen);
-    }
-
-    public void ToggleMonitorPanel(bool state)
-    {
-        isMonitorPanelOpen = state;
-        monitorPanel.SetActive(state);
-    }
-
-    private bool IsPointerOverUIObject()
-    {
-        PointerEventData eventData = new PointerEventData(EventSystem.current)
-        {
-            position = Input.mousePosition
-        };
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, results);
-
-        foreach (var result in results)
-        {
-            if (result.gameObject == gameObject || result.gameObject == monitorPanel)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

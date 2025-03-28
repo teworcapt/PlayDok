@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 41731aa08a01a6344aae56fe558e0943
+guid: 3af4f567c6db17848b989b8cf6ec27f4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9127776571373830952
-    second: dialogsquare_0
+      213: -3345628394845180551
+    second: jock_open_0
+  - first:
+      213: 3047869669517644242
+    second: jock_open_1
+  - first:
+      213: 3167542200250983053
+    second: jock_open_2
+  - first:
+      213: -8109875741518295433
+    second: jock_open_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogsquare_0
+      name: jock_open_0
       rect:
         serializedVersion: 2
-        x: 1098
-        y: 607
-        width: 2769
-        height: 2780
+        x: 3
+        y: 1113
+        width: 1433
+        height: 2395
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 1387, y: 0, z: 0, w: 1394}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 823cedd3e606cae70800000000000000
-      internalID: 9127776571373830952
+      spriteID: 97deac663b0f191d0800000000000000
+      internalID: -3345628394845180551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jock_open_1
+      rect:
+        serializedVersion: 2
+        x: 1438
+        y: 1107
+        width: 1433
+        height: 2394
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d1594de0553c4a20800000000000000
+      internalID: 3047869669517644242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jock_open_2
+      rect:
+        serializedVersion: 2
+        x: 2866
+        y: 1113
+        width: 1433
+        height: 2395
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d82e40949de55fb20800000000000000
+      internalID: 3167542200250983053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jock_open_3
+      rect:
+        serializedVersion: 2
+        x: 4340
+        y: 1114
+        width: 1433
+        height: 2394
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77e8e362bfee37f80800000000000000
+      internalID: -8109875741518295433
       vertices: []
       indices: 
       edges: []
@@ -138,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 132f082b052a8c24c82087e51f85d56b
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -147,8 +222,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      dialogsquare_0: 9127776571373830952
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

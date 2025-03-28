@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class TimerManager : MonoBehaviour
 {
@@ -9,18 +10,17 @@ public class TimerManager : MonoBehaviour
     [Header("Day Timer")]
     [SerializeField] private float dayTimer = 660f;
     private float baseTime = 660f;
+    private bool isPatientProcessing = false;
 
-    [Header("Test Timer")]
+    [Header("Test Timers")]
     public float testDuration = 5f;
-    private float testTimer;
+    private List<TestTimer> activeTests = new List<TestTimer>();
 
     [Header("UI Elements")]
     [SerializeField] private TMP_Text dayTimerTMP;
-    [SerializeField] private TMP_Text testTimerTMP;
     [SerializeField] private TMP_Text dayOfWeekTMP;
 
-    private bool isPatientProcessing = false;
-
+    /* -------------------- Initialization -------------------- */
     private void Awake()
     {
         if (Instance == null)
@@ -40,10 +40,10 @@ public class TimerManager : MonoBehaviour
         dayTimer *= (1 + data.extraTimePercentage);
 
         UpdateDayTimerUI();
-        UpdateTestTimerUI();
         UpdateDayOfWeekUI();
     }
 
+    /* -------------------- Update Loop -------------------- */
     private void Update()
     {
         if (dayTimer > 0)
@@ -56,29 +56,25 @@ public class TimerManager : MonoBehaviour
             EndDay();
         }
 
-        if (testTimer > 0)
-        {
-            testTimer -= Time.deltaTime;
-            UpdateTestTimerUI();
-        }
+        UpdateTestTimers();
     }
 
+    /* -------------------- End of Day Handling -------------------- */
     private void EndDay()
     {
         Debug.Log("Day has ended. Transitioning to EndOfDay scene...");
         SceneManager.LoadScene("EndOfDay");
     }
 
+    /* -------------------- Patient Processing -------------------- */
     public void StartPatientProcessing()
     {
         isPatientProcessing = true;
-        Debug.Log("New patient processing started.");
     }
 
     public void CompletePatientProcessing()
     {
         isPatientProcessing = false;
-        Debug.Log("Patient processing complete.");
 
         if (dayTimer <= 0)
         {
@@ -86,6 +82,7 @@ public class TimerManager : MonoBehaviour
         }
     }
 
+    /* -------------------- Day Timer Management -------------------- */
     public void ExtendDayTimer(float extraTime)
     {
         dayTimer += extraTime;
@@ -103,6 +100,15 @@ public class TimerManager : MonoBehaviour
         UpdateDayTimerUI();
     }
 
+    public void ApplyPenalty(float penaltyTime)
+    {
+        dayTimer -= penaltyTime;
+        if (dayTimer < 0) dayTimer = 0;
+        UpdateDayTimerUI();
+        Debug.Log($"Penalty applied: -{penaltyTime} seconds. Remaining time: {dayTimer}");
+    }
+
+
     public void ApplyExtraTimePercentage()
     {
         PlayerData data = SaveManager.LoadData();
@@ -115,19 +121,38 @@ public class TimerManager : MonoBehaviour
         return dayTimer;
     }
 
-    public void StartTestTimer()
+    /* -------------------- Test Timer Management -------------------- */
+    public void StartTestTimer(string testName)
     {
-        testTimer = testDuration;
-        UpdateTestTimerUI();
-        Debug.Log($"Test started. Duration: {testDuration} seconds.");
+        if (activeTests.Exists(t => t.testName == testName))
+        {
+            Debug.Log($"Test '{testName}' is already in progress.");
+            return;
+        }
+
+        activeTests.Add(new TestTimer(testName, testDuration));
+        DiagnosticsManager.Instance.UpdateTestTimerUI(testName, Mathf.CeilToInt(testDuration));
+
+        Debug.Log($"Test '{testName}' started. Duration: {testDuration} seconds.");
     }
 
-    public void SetTestDuration(float duration)
+    private void UpdateTestTimers()
     {
-        testDuration = duration;
-        Debug.Log($"Test duration set to {testDuration} seconds.");
+        for (int i = activeTests.Count - 1; i >= 0; i--)
+        {
+            activeTests[i].timer -= Time.deltaTime;
+            DiagnosticsManager.Instance.UpdateTestTimerUI(activeTests[i].testName, Mathf.CeilToInt(activeTests[i].timer));
+
+            if (activeTests[i].timer <= 0)
+            {
+                bool isPositive = DiagnosisManager.Instance?.IsTestPositive(activeTests[i].testName) ?? false;
+                DiagnosticsManager.Instance.CompleteTest(activeTests[i].testName, isPositive);
+                activeTests.RemoveAt(i);
+            }
+        }
     }
 
+    /* -------------------- UI Updates -------------------- */
     private void UpdateDayTimerUI()
     {
         if (dayTimerTMP != null)
@@ -145,19 +170,24 @@ public class TimerManager : MonoBehaviour
         }
     }
 
-    private void UpdateTestTimerUI()
-    {
-        if (testTimerTMP != null)
-        {
-            testTimerTMP.text = $"Test Timer: {Mathf.CeilToInt(testTimer)}";
-        }
-    }
-
     private void UpdateDayOfWeekUI()
     {
         if (dayOfWeekTMP != null)
         {
             dayOfWeekTMP.text = SaveManager.GetCurrentDay();
         }
+    }
+}
+
+/* -------------------- Test Timer Class -------------------- */
+public class TestTimer
+{
+    public string testName;
+    public float timer;
+
+    public TestTimer(string name, float duration)
+    {
+        testName = name;
+        timer = duration;
     }
 }

@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: e3cb6dedb4061fb4a8625f6e174118a4
+guid: d5fbc2f639351e84abf47000978a9825
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 765109892613140242
-    second: dialogsquare 1_0
+      213: -7802584038559968081
+    second: normal_open_0
   - first:
-      213: 9017352177128093231
-    second: dialogsquare 1_1
+      213: -959612976715966041
+    second: normal_open_1
   - first:
-      213: -198960258415521169
-    second: dialogsquare 1_2
-  - first:
-      213: 5343090536849555922
-    second: dialogsquare 1_3
+      213: -513332385534528195
+    second: normal_open_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,23 +119,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogsquare 1_0
+      name: normal_open_0
       rect:
         serializedVersion: 2
-        x: 1329
-        y: 512
-        width: 2403
-        height: 2719
+        x: 17
+        y: 1164
+        width: 1612
+        height: 2319
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 1203, y: 0, z: 0, w: 1364}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 513a2bcc4f146b04d8b0eca53df07c4e
-      internalID: 1170923247
+      spriteID: fa410832827a7b390800000000000000
+      internalID: -7802584038559968081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: normal_open_1
+      rect:
+        serializedVersion: 2
+        x: 1628
+        y: 1110
+        width: 3193
+        height: 2349
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a95df8f415cea2f0800000000000000
+      internalID: -959612976715966041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: normal_open_2
+      rect:
+        serializedVersion: 2
+        x: 4821
+        y: 1140
+        width: 1612
+        height: 2319
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35b2844ae640e8f0800000000000000
+      internalID: -513332385534528195
       vertices: []
       indices: 
       edges: []
@@ -147,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6c576ad2714f7524f80fa67339f7943b
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -156,14 +197,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      dialogsquare 1_0: 1170923247
-      dialogsquare 1_1: 1746154847
-      dialogsquare 1_2: 810027728
-      dialogsquare 1_3: 765144534
-      dialogsquare 1_4: -412212960
-      dialogsquare 1_5: 1974452599
-      dialogsquare 1_6: 416090327
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

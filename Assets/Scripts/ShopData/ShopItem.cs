@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum ShopItemType { TimeMultiplier, PermanentTimeBoost, Cosmetic }
 
-[CreateAssetMenu(fileName = "NewShopItem", menuName = "ScriptableObject/ShopItem")]
+[CreateAssetMenu(fileName = "NewShopItem", menuName = "Scriptable Objects/Shop Item")]
 public class ShopItem : ScriptableObject
 {
     public int itemNumber;

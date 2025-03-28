@@ -1,30 +1,78 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using TMPro;
+using System.Collections.Generic;
 
 public class RulebookManager : MonoBehaviour
 {
+    [Header("Monitor & Rulebook UI")]
+    public GameObject monitorPanel;
+    public GameObject rulebookUI;
+    public Button monitorButton;
     public Transform diseaseList;
-    public List<DiseaseInfo> diseases;
     public GameObject diseasePrefab;
-    public TMP_FontAsset headerFont;
 
-    void Start()
+    [Header("Disease Data")]
+    public List<DiseaseData> diseases;
+
+    private bool isMonitorOpen = false;
+
+    /* -------------------- Initialization -------------------- */
+
+    private void Start()
     {
+        monitorButton.onClick.AddListener(ToggleMonitor);
+        monitorPanel.SetActive(false);
+        rulebookUI.SetActive(false);
         PopulateDiseases();
     }
 
-    void PopulateDiseases()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Spacebar pressed!");
+            ToggleMonitor(!isMonitorOpen);
+        }
+
+        if (isMonitorOpen && Input.GetMouseButtonDown(0))
+        {
+            if (!IsPointerOverUIObject())
+            {
+                ToggleMonitor(false);
+            }
+        }
+    }
+
+    /* -------------------- Toggle Monitor & Rulebook -------------------- */
+
+    public void ToggleMonitor()
+    {
+        isMonitorOpen = !isMonitorOpen;
+        monitorPanel.SetActive(isMonitorOpen);
+        rulebookUI.SetActive(isMonitorOpen);
+    }
+
+    public void ToggleMonitor(bool state)
+    {
+        isMonitorOpen = state;
+        monitorPanel.SetActive(state);
+        rulebookUI.SetActive(state);
+
+        Debug.Log($"Monitor toggled: {state}");     
+    }
+
+    /* -------------------- Disease List Population -------------------- */
+
+    private void PopulateDiseases()
     {
         if (diseaseList == null || diseasePrefab == null) return;
 
-        foreach (DiseaseInfo disease in diseases)
+        foreach (DiseaseData disease in diseases)
         {
             if (disease == null) continue;
 
             GameObject diseaseRow = Instantiate(diseasePrefab, diseaseList);
-
             TextMeshProUGUI[] textElements = diseaseRow.GetComponentsInChildren<TextMeshProUGUI>();
 
             if (textElements.Length >= 4)
@@ -37,25 +85,8 @@ public class RulebookManager : MonoBehaviour
         }
     }
 
-    void AddTextElement(Transform parent, string content, float width)
+    private bool IsPointerOverUIObject()
     {
-        GameObject textObj = new GameObject("Text", typeof(RectTransform));
-        textObj.transform.SetParent(parent, false);
-
-        TextMeshProUGUI text = textObj.AddComponent<TextMeshProUGUI>();
-        text.text = string.IsNullOrEmpty(content) ? "N/A" : content;
-        text.fontSize = 20;
-        text.alignment = TextAlignmentOptions.Left;
-        text.enableAutoSizing = false;
-
-        if (headerFont != null)
-        {
-            text.font = headerFont;
-        }
-
-        LayoutElement layoutElement = textObj.AddComponent<LayoutElement>();
-        layoutElement.minHeight = 30;
-        layoutElement.preferredWidth = width;
-        layoutElement.flexibleWidth = 0;
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
     }
 }

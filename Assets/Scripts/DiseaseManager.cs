@@ -1,49 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
-[CreateAssetMenu(fileName = "DiseaseManager", menuName = "Scriptable Objects/Disease Manager")]
-public class DiseaseManager : ScriptableObject
+public class DiseaseManager : MonoBehaviour
 {
-    public List<DiseaseInfo> allDiseases = new List<DiseaseInfo>();
+    public static DiseaseManager Instance { get; private set; }
 
-    private static DiseaseManager _instance;
+    [Header("Disease Database")]
+    public List<DiseaseData> diseaseDataList;
 
-    public static DiseaseManager Instance
+    private Dictionary<string, DiseaseData> diseaseDictionary;
+
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (_instance == null)
-            {
-                _instance = Resources.Load<DiseaseManager>("DiseaseManager");
-                if (_instance == null)
-                {
-                    Debug.LogError("DiseaseManager asset not found in Resources folder!");
-                }
-            }
-            return _instance;
+            Instance = this;
+            InitializeDiseaseDictionary();
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    public DiseaseInfo GetDiseaseInfo(string diseaseName)
+    private void InitializeDiseaseDictionary()
     {
-        foreach (DiseaseInfo disease in allDiseases)
-        {
-            if (disease.diseaseName == diseaseName)
-            {
-                return disease;
-            }
-        }
-        return null;
+        diseaseDictionary = diseaseDataList.ToDictionary(disease => disease.diseaseName);
+    }
+
+    public DiseaseData GetDiseaseInfo(string diseaseName)
+    {
+        diseaseDictionary.TryGetValue(diseaseName, out DiseaseData disease);
+        return disease;
     }
 
     public List<string> GetTreatments(string diseaseName)
     {
-        DiseaseInfo disease = GetDiseaseInfo(diseaseName);
-        if (disease != null)
-        {
-            return disease.treatments;
-        }
-
-        return new List<string>();
+        return GetDiseaseInfo(diseaseName)?.treatments ?? new List<string>();
     }
 }

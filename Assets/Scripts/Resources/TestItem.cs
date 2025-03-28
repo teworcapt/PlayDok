@@ -15,6 +15,10 @@ public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Canvas canvas;
     private bool isTested = false;
 
+    /* -------------------- Public Properties -------------------- */
+    public bool IsTested => isTested;
+
+    /* -------------------- Initialization -------------------- */
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -24,6 +28,7 @@ public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvas = GetComponentInParent<Canvas>();
     }
 
+    /* -------------------- Drag Handling -------------------- */
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isTested) return;
@@ -52,6 +57,7 @@ public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         ResetPosition();
     }
 
+    /* -------------------- Test Completion -------------------- */
     public void MarkAsTested()
     {
         isTested = true;
@@ -61,6 +67,7 @@ public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
     }
 
+    /* -------------------- Reset Functions -------------------- */
     public void ResetPosition()
     {
         rectTransform.anchoredPosition = originalPosition;

@@ -1,43 +1,58 @@
 fileFormatVersion: 2
-guid: 10a1d5d304fc5b9449e9829dc1f500b8
+guid: 26935e2f8cea32543849f970fd8373aa
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1509650758883435430
-    second: diagnostics2_0
+      213: 2070998133804937503
+    second: diagnostics final_0
   - first:
-      213: 2791641786527051247
-    second: diagnostics2_1
+      213: -8228401215159696741
+    second: diagnostics final_1
   - first:
-      213: 4834888291151486861
-    second: diagnostics2_2
+      213: -1375645920272289681
+    second: diagnostics final_2
   - first:
-      213: -3677074756392672821
-    second: diagnostics2_3
+      213: 6032746328617094665
+    second: diagnostics final_3
   - first:
-      213: -3309978139903912896
-    second: diagnostics2_4
+      213: 2051486674240500863
+    second: diagnostics final_4
   - first:
-      213: -6145378423514847845
-    second: diagnostics2_5
+      213: 6676061544400758630
+    second: diagnostics final_5
   - first:
-      213: 2924978181797354273
-    second: diagnostics2_6
+      213: -7179747795170756973
+    second: diagnostics final_6
   - first:
-      213: -310664873187987410
-    second: diagnostics2_7
+      213: 3543890943149011410
+    second: diagnostics final_7
   - first:
-      213: -5990709267735021765
-    second: diagnostics2_8
+      213: 6034785146258030963
+    second: diagnostics final_8
   - first:
-      213: 1713678691944570028
-    second: diagnostics2_9
+      213: 8231731235389685913
+    second: diagnostics final_9
   - first:
-      213: 6168011470920407640
-    second: diagnostics2_10
+      213: 4362018521729708487
+    second: diagnostics final_10
   - first:
-      213: 2274632293288768825
-    second: diagnostics2_11
+      213: -8312720920577863544
+    second: diagnostics final_11
+  - first:
+      213: -741738312948282583
+    second: diagnostics final_12
+  - first:
+      213: 6236225364124341574
+    second: diagnostics final_13
+  - first:
+      213: 3372504610068751692
+    second: diagnostics final_14
+  - first:
+      213: 300643429109067178
+    second: diagnostics final_15
+  - first:
+      213: 4245547392139903838
+    second: diagnostics final_16
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -146,95 +161,139 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: diagnostics2_0
+      name: diagnostics final_0
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 1340
+        width: 1076
+        height: 1937
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11b0ff74d9adbc10800000000000000
+      internalID: 2070998133804937503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diagnostics final_1
       rect:
         serializedVersion: 2
         x: 1410
-        y: 2409
+        y: 2410
         width: 1781
-        height: 920
+        height: 919
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5c9add12a4ac0be0800000000000000
-      internalID: -1509650758883435430
+      spriteID: b928305d0b8decd80800000000000000
+      internalID: -8228401215159696741
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_1
+      name: diagnostics final_2
       rect:
         serializedVersion: 2
-        x: 3273
-        y: 1881
-        width: 1486
-        height: 1123
+        x: 3439
+        y: 3014
+        width: 1104
+        height: 418
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fede4120a67edb620800000000000000
-      internalID: 2791641786527051247
+      spriteID: f607471f259b8ece0800000000000000
+      internalID: -1375645920272289681
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_2
+      name: diagnostics final_3
       rect:
         serializedVersion: 2
         x: 1400
-        y: 1903
+        y: 1898
         width: 762
-        height: 313
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d8f97c2d849f81340800000000000000
-      internalID: 4834888291151486861
+      spriteID: 90e8341b2de98b350800000000000000
+      internalID: 6032746328617094665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_3
+      name: diagnostics final_4
       rect:
         serializedVersion: 2
         x: 2325
         y: 1903
         width: 838
-        height: 318
+        height: 328
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bc1a8a4bdf768fcc0800000000000000
-      internalID: -3677074756392672821
+      spriteID: f747d8fc248587c10800000000000000
+      internalID: 2051486674240500863
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_4
+      name: diagnostics final_5
+      rect:
+        serializedVersion: 2
+        x: 3319
+        y: 1901
+        width: 1435
+        height: 1008
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66727a47a9226ac50800000000000000
+      internalID: 6676061544400758630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diagnostics final_6
       rect:
         serializedVersion: 2
         x: 1452
@@ -242,21 +301,21 @@ TextureImporter:
         width: 409
         height: 556
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 04418b43b689012d0800000000000000
-      internalID: -3309978139903912896
+      spriteID: 396f3f39b696c5c90800000000000000
+      internalID: -7179747795170756973
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_5
+      name: diagnostics final_7
       rect:
         serializedVersion: 2
         x: 1995
@@ -264,21 +323,21 @@ TextureImporter:
         width: 408
         height: 555
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b952c0822ea37baa0800000000000000
-      internalID: -6145378423514847845
+      spriteID: 2d1fe15590e6e2130800000000000000
+      internalID: 3543890943149011410
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_6
+      name: diagnostics final_8
       rect:
         serializedVersion: 2
         x: 2519
@@ -286,21 +345,21 @@ TextureImporter:
         width: 409
         height: 554
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 12b9ccdb82c979820800000000000000
-      internalID: 2924978181797354273
+      spriteID: 371838aed1ddfb350800000000000000
+      internalID: 6034785146258030963
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_7
+      name: diagnostics final_9
       rect:
         serializedVersion: 2
         x: 3076
@@ -308,21 +367,21 @@ TextureImporter:
         width: 409
         height: 555
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e20307d91fb40bbf0800000000000000
-      internalID: -310664873187987410
+      spriteID: 990c3ebe1fbfc3270800000000000000
+      internalID: 8231731235389685913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_8
+      name: diagnostics final_10
       rect:
         serializedVersion: 2
         x: 3619
@@ -330,81 +389,125 @@ TextureImporter:
         width: 408
         height: 554
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b37730049a9bcdca0800000000000000
-      internalID: -5990709267735021765
+      spriteID: 7c1bf5b0cb0098c30800000000000000
+      internalID: 4362018521729708487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_9
+      name: diagnostics final_11
       rect:
         serializedVersion: 2
         x: 4144
         y: 1218
-        width: 408
+        width: 404
         height: 555
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cac138cd0b538c710800000000000000
-      internalID: 1713678691944570028
+      spriteID: 8809ffb8d5843ac80800000000000000
+      internalID: -8312720920577863544
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_10
+      name: diagnostics final_12
       rect:
         serializedVersion: 2
-        x: 1527
-        y: 219
-        width: 580
-        height: 920
+        x: 356
+        y: 28
+        width: 1870
+        height: 1170
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 85adeb6d0cd299550800000000000000
-      internalID: 6168011470920407640
+      spriteID: 92b8b6c2fe0d4b5f0800000000000000
+      internalID: -741738312948282583
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: diagnostics2_11
+      name: diagnostics final_13
       rect:
         serializedVersion: 2
-        x: 2261
-        y: 605
-        width: 1104
-        height: 418
+        x: 2574
+        y: 150
+        width: 214
+        height: 1017
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 935fb1ce40e119f10800000000000000
-      internalID: 2274632293288768825
+      spriteID: 64599ef7de58b8650800000000000000
+      internalID: 6236225364124341574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diagnostics final_14
+      rect:
+        serializedVersion: 2
+        x: 3081
+        y: 316
+        width: 609
+        height: 754
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c45e386131b8dce20800000000000000
+      internalID: 3372504610068751692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: diagnostics final_15
+      rect:
+        serializedVersion: 2
+        x: 3882
+        y: 449
+        width: 679
+        height: 574
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aade91c1b991c2400800000000000000
+      internalID: 300643429109067178
       vertices: []
       indices: 
       edges: []
@@ -413,7 +516,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b6a158ec71d99d54a9fbae7d85ed1867
     internalID: 0
     vertices: []
     indices: 
@@ -423,18 +526,23 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      diagnostics2_0: -1509650758883435430
-      diagnostics2_1: 2791641786527051247
-      diagnostics2_10: 6168011470920407640
-      diagnostics2_11: 2274632293288768825
-      diagnostics2_2: 4834888291151486861
-      diagnostics2_3: -3677074756392672821
-      diagnostics2_4: -3309978139903912896
-      diagnostics2_5: -6145378423514847845
-      diagnostics2_6: 2924978181797354273
-      diagnostics2_7: -310664873187987410
-      diagnostics2_8: -5990709267735021765
-      diagnostics2_9: 1713678691944570028
+      diagnostics final_0: 2070998133804937503
+      diagnostics final_1: -8228401215159696741
+      diagnostics final_10: 4362018521729708487
+      diagnostics final_11: -8312720920577863544
+      diagnostics final_12: -741738312948282583
+      diagnostics final_13: 6236225364124341574
+      diagnostics final_14: 3372504610068751692
+      diagnostics final_15: 300643429109067178
+      diagnostics final_16: 4245547392139903838
+      diagnostics final_2: -1375645920272289681
+      diagnostics final_3: 6032746328617094665
+      diagnostics final_4: 2051486674240500863
+      diagnostics final_5: 6676061544400758630
+      diagnostics final_6: -7179747795170756973
+      diagnostics final_7: 3543890943149011410
+      diagnostics final_8: 6034785146258030963
+      diagnostics final_9: 8231731235389685913
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

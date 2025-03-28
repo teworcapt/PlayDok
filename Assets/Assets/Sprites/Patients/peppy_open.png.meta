@@ -1,28 +1,19 @@
 fileFormatVersion: 2
-guid: 9283abf29b2ed6042838672377c1b1c3
+guid: f4db5f8924580694cb8517e154136d47
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7402549140634985132
-    second: dialogbox_pink_0
+      213: -8072703566471679563
+    second: peppy_open_0
   - first:
-      213: 486005456154149388
-    second: dialogbox_pink_1
+      213: -494072177720125437
+    second: peppy_open_1
   - first:
-      213: -3522742786838507331
-    second: dialogbox_pink_2
+      213: -7914451116294243450
+    second: peppy_open_2
   - first:
-      213: -5238312060902009257
-    second: dialogbox_pink_3
-  - first:
-      213: -3263012891383772098
-    second: dialogbox_pink_4
-  - first:
-      213: 5289147193617770321
-    second: dialogbox_pink_5
-  - first:
-      213: -254531207399637223
-    second: dialogbox_pink_6
+      213: -1067656626174574146
+    second: peppy_open_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -131,23 +122,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dialogbox_pink_0
+      name: peppy_open_0
       rect:
         serializedVersion: 2
-        x: 124
-        y: 668
-        width: 4719
-        height: 2719
+        x: 20
+        y: 1078
+        width: 1408
+        height: 2403
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 45d1418e6ccd44990800000000000000
-      internalID: -7402549140634985132
+      spriteID: 5b13d6790eef7ff80800000000000000
+      internalID: -8072703566471679563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: peppy_open_1
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 1078
+        width: 1409
+        height: 2403
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3089699d8f3b429f0800000000000000
+      internalID: -494072177720125437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: peppy_open_2
+      rect:
+        serializedVersion: 2
+        x: 2864
+        y: 1078
+        width: 1409
+        height: 2403
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68b761d64a83a2290800000000000000
+      internalID: -7914451116294243450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: peppy_open_3
+      rect:
+        serializedVersion: 2
+        x: 4278
+        y: 1091
+        width: 1408
+        height: 2403
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb1c5c684fbee21f0800000000000000
+      internalID: -1067656626174574146
       vertices: []
       indices: 
       edges: []
@@ -156,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5b884d5ab96366e44b0c401e5b632d2a
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -165,15 +222,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      dialogbox_pink_0: -7402549140634985132
-      dialogbox_pink_1: 486005456154149388
-      dialogbox_pink_2: -3522742786838507331
-      dialogbox_pink_3: -5238312060902009257
-      dialogbox_pink_4: -3263012891383772098
-      dialogbox_pink_5: 5289147193617770321
-      dialogbox_pink_6: -254531207399637223
-      dialogbox_pink_7: -2013234834
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
