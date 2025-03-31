@@ -53,6 +53,8 @@ public class DiagnosisManager : MonoBehaviour
             return;
         }
 
+        DiagnosticsManager.Instance.ResetDiagnostics();
+
         currentPatient = availablePersonalities[Random.Range(0, availablePersonalities.Count)];
         currentPatient.Initialize();
 
@@ -61,6 +63,7 @@ public class DiagnosisManager : MonoBehaviour
         patientManager.UpdatePatientUI(currentPatient, patientSymptoms);
         PopulateDropdowns();
     }
+
 
     private void AssignRandomDisease()
     {
@@ -140,18 +143,6 @@ public class DiagnosisManager : MonoBehaviour
 
         ProcessDiagnosis(correctDisease, correctTreatment);
         SpawnNextPatient();
-    }
-
-    private bool HasRelevantTestResults(List<TestItem> activeTests)
-    {
-        foreach (TestItem test in activeTests)
-        {
-            if (diagnosticsManager.IsOverDropZone(test))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
 

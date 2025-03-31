@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lively_open_0: 7993881208929740780
+      lively_open_1: -514264493562561041
+      lively_open_2: 4842448427272548680
+      lively_open_3: 2386408198996567135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

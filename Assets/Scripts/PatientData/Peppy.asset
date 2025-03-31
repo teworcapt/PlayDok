@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Peppy
   m_EditorClassIdentifier: 
-  patientName: Trixie
+  patientName: Rosie
   personalityCategory: 0
   personalitySubcategory: 0
   availableNames:
   - Sunny
-  - Bubbles
+  - Bunny
   - Rosie
-  - Fanny
+  - Mari
   - Felicity
   - Trixie
   - Tutu
-  - Benny
+  - Cherry
   dialogues:
   - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
       [symptoms], correct? Are you feeling anything else? '
@@ -63,4 +63,4 @@ MonoBehaviour:
   - {fileID: -7914451116294243450, guid: f4db5f8924580694cb8517e154136d47, type: 3}
   - {fileID: -1067656626174574146, guid: f4db5f8924580694cb8517e154136d47, type: 3}
   selectedSprite: {fileID: -8072703566471679563, guid: f4db5f8924580694cb8517e154136d47, type: 3}
-  timePenalty: 2
+  baseTimePenalty: 5

@@ -31,7 +31,6 @@ public class RulebookManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Spacebar pressed!");
             ToggleMonitor(!isMonitorOpen);
         }
 
@@ -58,8 +57,6 @@ public class RulebookManager : MonoBehaviour
         isMonitorOpen = state;
         monitorPanel.SetActive(state);
         rulebookUI.SetActive(state);
-
-        Debug.Log($"Monitor toggled: {state}");     
     }
 
     /* -------------------- Disease List Population -------------------- */

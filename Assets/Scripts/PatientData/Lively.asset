@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
+  m_Name: Lively
+  m_EditorClassIdentifier: 
+  patientName: Roxy
+  personalityCategory: 0
+  personalitySubcategory: 1
+  availableNames:
+  - Julia
+  - Juno
+  - Sabrina
+  - Cassy
+  - Zoey
+  - Lucy
+  - Lorelai
+  - Roxy
+  dialogues:
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'Is this like that show Home, M.D.? So I''m patient good-looking
+      and I''m experiencing [symptoms]! '
+    doctorResponsePositive: Seems criticial, good-looking!
+    patientReactionPositive: Only you, Doc Home can save me!
+    doctorResponseNegative: I don't think this is the time for doing this.
+    patientReactionNegative: Way to ruin the show.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'So, I woke up feeling [symptoms] and thought, ''This could be
+      my big transformation arc! '
+    doctorResponsePositive: "Tell me more! Any new powers\u2014er, I mean, symptoms?"
+    patientReactionPositive: Just that!
+    doctorResponseNegative: You're no hero and you'll end up in the corpo rat race
+      like the rest of us.
+    patientReactionNegative: Huh...?
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'I''ve got all this [symptoms], do you think I''ll be the start
+      of a zombie apocalypse?! '
+    doctorResponsePositive: Let's make sure you don't! They'll have to go against
+      your zombie powers.
+    patientReactionPositive: They won't stand a chance!
+    doctorResponseNegative: I hope not.
+    patientReactionNegative: Ugh.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'I was feeling fine, then BAM! [symptoms] hit me hard! '
+    doctorResponsePositive: Sounds like an insane plot twist.
+    patientReactionPositive: Definitely!
+    doctorResponseNegative: Yeah, yeah.
+    patientReactionNegative: '?'
+  patientSprites:
+  - {fileID: 7993881208929740780, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
+  - {fileID: -514264493562561041, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
+  - {fileID: 4842448427272548680, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
+  - {fileID: 4842448427272548680, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
+  selectedSprite: {fileID: 4842448427272548680, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
+  baseTimePenalty: 5

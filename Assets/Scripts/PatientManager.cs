@@ -96,6 +96,9 @@ public class PatientManager : MonoBehaviour
         responsePositive = dialogueSet.patientReactionPositive;
         responseNegative = dialogueSet.patientReactionNegative;
 
+        patientDialogue = dialogueSet.patientReactionPositive.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
+        patientDialogue = dialogueSet.patientReactionNegative.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
+
         awaitingResponse = true;
         StartCoroutine(TypeText(doctorDialogue, () => continueButton.gameObject.SetActive(true)));
     }
@@ -131,6 +134,12 @@ public class PatientManager : MonoBehaviour
             hasAsked = true;
         }));
     }
+    public void ShowDialogue()
+    {
+        Debug.Log("Showing dialogue UI...");
+        dialogBox.SetActive(true);
+    }
+
 
     /* -------------------- No Test Reaction -------------------- */
     public void TriggerNoTestReaction()

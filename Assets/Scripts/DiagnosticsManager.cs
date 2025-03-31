@@ -28,14 +28,6 @@ public class DiagnosticsManager : MonoBehaviour
         InitializeTestUI();
     }
 
-    private void Start()
-    {
-        if (dropZone == null)
-        {
-            Debug.LogError("DropZone is not assigned in the Inspector!");
-        }
-    }
-
     /* -------------------- UI Initialization -------------------- */
     private void InitializeTestUI()
     {
@@ -136,7 +128,7 @@ public class DiagnosticsManager : MonoBehaviour
     /* -------------------- Test Completion Check -------------------- */
     public bool HasCompletedTests()
     {
-        return activeTests.Count == 0; // If no active tests remain, then all tests are completed.
+        return activeTests.Count == 0; 
     }
 
     /* -------------------- Reset System -------------------- */

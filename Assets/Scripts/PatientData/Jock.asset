@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
+  m_Name: Jock
+  m_EditorClassIdentifier: 
+  patientName: Seofon
+  personalityCategory: 0
+  personalitySubcategory: 2
+  availableNames:
+  - Seofon
+  - Bryce
+  - Dylan
+  - Ronan
+  - Aiden
+  - Mitch
+  - Trevor
+  - Spencer
+  dialogues:
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I\u2019ve been feeling weird with all the [symptoms] but I still
+      wanna train. Thoughts? "
+    doctorResponsePositive: "Let\u2019s see if it\u2019s serious first. Any other
+      symptoms?"
+    patientReactionPositive: Na-da, none!
+    doctorResponseNegative: All your training goes to your body, none to your brain.
+    patientReactionNegative: Woah bro, you did not.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'Do push-ups cure [symptoms]? '
+    doctorResponsePositive: "Maybe not push-ups, but staying active helps. Let\u2019s
+      check everything first!"
+    patientReactionPositive: Alright, you're the boss!
+    doctorResponseNegative: "That\u2019s the dumbest thing I\u2019ve heard today"
+    patientReactionNegative: Ouch. No need to attack me.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'I passed out mid-rep then the next thing I know, they were saying
+      I got [symptoms]! What''s that supposed to mean? '
+    doctorResponsePositive: "Yeah, that\u2019s a sign to rest. Anything else did
+      they tell you?"
+    patientReactionPositive: Hmm... None that I remember.
+    doctorResponseNegative: "That\u2019s what happens when you overtrain."
+    patientReactionNegative: "Tch. Guess I\u2019ll just push through"
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "Do you think I\u2019ll break my personal record despite the [symptoms]? "
+    doctorResponsePositive: "Let\u2019s get you healthy first, then you can smash
+      that record!"
+    patientReactionPositive: The Olympics won't know what's coming!
+    doctorResponseNegative: "If you don\u2019t rest, you\u2019ll just get worse."
+    patientReactionNegative: Always rest, ugh.
+  patientSprites:
+  - {fileID: 3958489977442215409, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
+  - {fileID: 5769850889977632264, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
+  - {fileID: -8754486904402197880, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
+  - {fileID: -4256418481689165269, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
+  selectedSprite: {fileID: 3167542200250983053, guid: 3af4f567c6db17848b989b8cf6ec27f4, type: 3}
+  baseTimePenalty: 5

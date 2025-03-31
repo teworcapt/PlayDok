@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lively_close_0: -238549667071571917
+      lively_close_1: -3970565574305623527
+      lively_close_2: -2079392015937787614
+      lively_close_3: 3531258991649121334
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
