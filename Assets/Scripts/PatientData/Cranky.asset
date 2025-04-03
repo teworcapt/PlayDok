@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
+  m_Name: Cranky
+  m_EditorClassIdentifier: 
+  patientName: Wolfgang
+  personalityCategory: 2
+  personalitySubcategory: 6
+  availableNames:
+  - Seth
+  - Wolfgang
+  - Estinien
+  - Orga
+  - Ryuji
+  - Artoriel
+  - Lobo
+  - Solomon
+  dialogues:
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'What, you need me to repeat myself? I already told the nurse. '
+    doctorResponsePositive: I understand. I just want to be thorough to help you
+      properly.
+    patientReactionPositive: Fine. [symptoms]. happy?
+    doctorResponseNegative: Well, I need to hear it again, so cooperate.
+    patientReactionNegative: Ugh.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "Just get this over with. I don\u2019t have all day. "
+    doctorResponsePositive: "I\u2019ll be as efficient as possible while making sure
+      we check everything."
+    patientReactionPositive: Good. While you're at it, I noticed some [symptoms]
+      lately. Just make it stop.
+    doctorResponseNegative: "Rushing won\u2019t make things better for you."
+    patientReactionNegative: Just give me the prescription and I'll scram.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I doubt you\u2019ll actually fix anything, but whatever. "
+    doctorResponsePositive: "I\u2019ll do my best to find a solution for you."
+    patientReactionPositive: Finally, someone who's willing to do their job. Lately,
+      I noticed I've been [symptoms] too.
+    doctorResponseNegative: "Well, if you don\u2019t believe in medical help, why
+      are you here?"
+    patientReactionNegative: How do you still have your job?
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I\u2019d prefer a specialist, but I suppose you\u2019ll do "
+    doctorResponsePositive: "I\u2019ll do my best to provide you with the care you
+      need."
+    patientReactionPositive: Good. I won't pay for anything less. I have been experiencing
+      [symptoms] lately.
+    doctorResponseNegative: "Well, that\u2019s a great way to start this conversation."
+    patientReactionNegative: Are you all this immature?
+  patientSprites:
+  - {fileID: 1201853526036188305, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
+  - {fileID: -7125237182032704304, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
+  - {fileID: -100873520177948878, guid: aa8a63c34e212ad4b984347891088a3b, type: 3}
+  - {fileID: 6706037206778445497, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
+  selectedSprite: {fileID: 1201853526036188305, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
+  baseTimePenalty: 5

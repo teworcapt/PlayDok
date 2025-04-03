@@ -5,8 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class PlayerData
 {
-    private int credits;
-    public float extraTimePercentage;
+    public int credits;
     public float permanentTimeBoost;
     public List<int> purchasedItems = new List<int>();
     public int currentDay;
@@ -14,7 +13,6 @@ public class PlayerData
     public PlayerData()
     {
         credits = 0;
-        extraTimePercentage = 0f;
         permanentTimeBoost = 0f;
         currentDay = 1;
     }
@@ -77,4 +75,22 @@ public class SaveManager : MonoBehaviour
         string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
         return daysOfWeek[Mathf.Clamp(dayIndex, 0, 6)];
     }
+
+    public static int GetDayIndex()
+    {
+        return PlayerPrefs.GetInt("CurrentDay", 1);
+    }
+
+    public static int LoadDayIndex()
+    {
+        return PlayerPrefs.GetInt("DayIndex", 0);
+    }
+
+    public static void SaveDayIndex(int day)
+    {
+        PlayerPrefs.SetInt("CurrentDay", day);
+        PlayerPrefs.Save();
+    }
+
+
 }

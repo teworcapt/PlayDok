@@ -20,4 +20,4 @@ MonoBehaviour:
   itemObject: {fileID: 0}
   itemType: 2
   timeBoostPermanent: 0
-  timeBoostPercentage: 0
+  timeBoostCurrentDay: 0

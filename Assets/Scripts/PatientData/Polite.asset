@@ -12,11 +12,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Polite
   m_EditorClassIdentifier: 
-  patientName: 
+  patientName: John
   personalityCategory: 1
   personalitySubcategory: 4
-  availableNames: []
-  dialogues: []
-  patientSprites: []
-  selectedSprite: {fileID: 0}
+  availableNames:
+  - Adam
+  - John
+  - Sol
+  - Faust
+  - Aymeric
+  - Asgore
+  - Elias
+  - Sly
+  dialogues:
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "Oh, thank you for asking! I\u2019ve been feeling a little off
+      lately. "
+    doctorResponsePositive: "Of course! Let\u2019s go over your symptoms carefully."
+    patientReactionPositive: Okay, so I'm going through some [symptoms].
+    doctorResponseNegative: "Feeling \u2018off\u2019 isn\u2019t very specific. Can
+      you be clearer?"
+    patientReactionNegative: That's not very nice of you but okay, I've been feeling
+      a bit of [symptoms].
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I hope I\u2019m not taking too much of your time. "
+    doctorResponsePositive: "Not at all! I\u2019m here to help you feel better. What
+      else could be the problem?"
+    patientReactionPositive: I have also been dealing with [symptoms] the past few
+      days.
+    doctorResponseNegative: "Well, I do have other patients, so let\u2019s not waste
+      time."
+    patientReactionNegative: Alright, I've been feeing a bit of [symptoms].
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'I really appreciate you helping me with this. '
+    doctorResponsePositive: "No problem at all. Let\u2019s get you taken care of"
+    patientReactionPositive: Well, I've been feeling a bit of [symptoms].
+    doctorResponseNegative: "If you appreciate it, don\u2019t ask too many questions."
+    patientReactionNegative: Oh... Alright. I've been feeling [symptoms].
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'I just want to make sure I understand everything properly. '
+    doctorResponsePositive: "Your concerns matter. Let\u2019s go through this together"
+    patientReactionPositive: "That\u2019s very kind of you. It means a lot. I'm also
+      experiencing [symptoms]."
+    doctorResponseNegative: "I\u2019m listening, but let\u2019s get to the point."
+    patientReactionNegative: "Oh\u2026 I\u2019ll try to be quicker, then. I experience
+      [symptoms]."
+  patientSprites:
+  - {fileID: 1631533041070502505, guid: a314231d0c7456948ad21e535973d13e, type: 3}
+  - {fileID: -5275305078326548954, guid: a314231d0c7456948ad21e535973d13e, type: 3}
+  - {fileID: -2953684271705070880, guid: 412bb866a6900844ea37aed2e6a96d0d, type: 3}
+  - {fileID: -602632595624972886, guid: a314231d0c7456948ad21e535973d13e, type: 3}
+  selectedSprite: {fileID: -1480336474829520046, guid: 412bb866a6900844ea37aed2e6a96d0d, type: 3}
   baseTimePenalty: 5

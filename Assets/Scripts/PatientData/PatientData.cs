@@ -79,20 +79,50 @@ public class PatientData : ScriptableObject
     public float GetTimePenalty(bool positiveResponse)
     {
         float timeAdjustment = 0f;
+
+        float penaltyPercentage = 0f;
+        float bonusPercentage = 0f;
+
+        int dailyMistakes = PlayerStats.Instance.dailyPenalties;
+        int weeklyMistakes = PlayerStats.Instance.weeklyPenalties;
+
         switch (personalityCategory)
         {
             case PersonalityCategory.Positive:
-                if (positiveResponse) timeAdjustment = baseTimePenalty * 0.005f; 
+                if (positiveResponse)
+                {
+                    bonusPercentage = 0.05f;
+                }
                 break;
+
             case PersonalityCategory.Neutral:
-                if (positiveResponse) timeAdjustment = baseTimePenalty * 0.005f;
-                else timeAdjustment = -baseTimePenalty * 0.005f;
+                if (positiveResponse)
+                {
+                    bonusPercentage = 0.05f;
+                }
+                else
+                {
+                    penaltyPercentage = 0.05f;
+                }
                 break;
+
             case PersonalityCategory.Negative:
-                if (positiveResponse) timeAdjustment = baseTimePenalty * 0.005f;
-                else timeAdjustment = -baseTimePenalty * 0.01f;
+                if (positiveResponse)
+                {
+                    bonusPercentage = 0.08f;
+                }
+                else
+                {
+                    penaltyPercentage = 0.10f;
+                }
                 break;
         }
+
+        penaltyPercentage += dailyMistakes * 0.02f;
+        penaltyPercentage += weeklyMistakes * 0.01f;
+
+        timeAdjustment = baseTimePenalty * (penaltyPercentage - bonusPercentage);
+
         return baseTimePenalty + timeAdjustment;
     }
 }

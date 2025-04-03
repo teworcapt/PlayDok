@@ -18,6 +18,6 @@ MonoBehaviour:
   amount: 1
   itemIcon: {fileID: -741738312948282583, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
   itemObject: {fileID: 0}
-  itemType: 1
-  timeBoostPermanent: 0.005
-  timeBoostPercentage: 0
+  itemType: 0
+  timeBoostPermanent: 60
+  timeBoostCurrentDay: 0

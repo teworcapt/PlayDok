@@ -31,9 +31,9 @@ public class EndOfDayManager : MonoBehaviour
 
         totalPatientsText.text = stats.totalPatients.ToString();
         patientsCuredText.text = stats.patientsCured.ToString();
-        penaltyText.text = stats.penalties.ToString();
+        penaltyText.text = stats.dailyPenalties.ToString();
 
-        netEarnings = stats.totalEarnings - stats.penalties;
+        netEarnings = stats.totalEarnings - stats.dailyPenalties;
         totalPayText.text = netEarnings.ToString();
 
         UpdateDayText();
@@ -75,6 +75,8 @@ public class EndOfDayManager : MonoBehaviour
         }
         else
         {
+            PlayerStats.Instance.ResetWeeklyStats();
+
             Debug.Log("Game Over! Reached Sunday.");
             SceneManager.LoadScene("MainMenu");
         }

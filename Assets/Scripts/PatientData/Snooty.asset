@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
+  m_Name: Snooty
+  m_EditorClassIdentifier: 
+  patientName: Amelia
+  personalityCategory: 2
+  personalitySubcategory: 7
+  availableNames:
+  - Venus
+  - Minerva
+  - Hera
+  - Amelia
+  - Ava
+  - Olivia
+  - Charlotte
+  - Sophia
+  dialogues:
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'Ugh, finally. I had to wait forever to be seen. '
+    doctorResponsePositive: " I appreciate your patience. Let\u2019s get started
+      right away."
+    patientReactionPositive: "Good. I\u2019d rather not waste any more of my valuable
+      time. The past few weeks I've been getting [symptoms]."
+    doctorResponseNegative: "Well, you\u2019re here now. Let\u2019s not waste more
+      time."
+    patientReactionNegative: "Wow. Someone\u2019s got an attitude"
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I really hope I don\u2019t have to come back for this. "
+    doctorResponsePositive: "Let\u2019s make sure we address everything properly
+      so you won\u2019t have to."
+    patientReactionPositive: "Good. I don\u2019t like wasting my time on repeat visits.
+      I'm experiencing [symptoms]."
+    doctorResponseNegative: "Then let\u2019s get this over with."
+    patientReactionNegative: Wow. That was unnecessarily rude. Ugh.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I don\u2019t usually go to places like this, but I suppose I had
+      no choice. "
+    doctorResponsePositive: "I appreciate you being here. Let\u2019s make this visit
+      worthwhile."
+    patientReactionPositive: "I\u2019d certainly prefer a smooth visit. Anyway, I\u2019ve
+      been dealing with [symptoms]."
+    doctorResponseNegative: "Then let\u2019s not waste any more of your precious
+      time."
+    patientReactionNegative: Ugh. Just do your job and get this over with.
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'Aren''t doctors usually the professional here? Do you think I''m
+      experiencing anything else? '
+    doctorResponsePositive: I can assure you that we're professionals. We just need
+      to make sure of your symptoms.
+    patientReactionPositive: If you say so, on top of what's written there, I've
+      been experiencing [symptoms].
+    doctorResponseNegative: Oh yeah, because we're definitely mindreaders.
+    patientReactionNegative: There's something definitely wrong with you.
+  patientSprites:
+  - {fileID: -3689973287316857318, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
+  - {fileID: 5816773973387633699, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
+  - {fileID: 4099662042582206320, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
+  - {fileID: -5876538025228642490, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
+  selectedSprite: {fileID: 5816773973387633699, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
+  baseTimePenalty: 8

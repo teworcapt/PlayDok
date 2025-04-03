@@ -91,7 +91,6 @@ public class ShopManager : MonoBehaviour
             }
         }
     }
-
     public void BuyItem(ShopItem item, GameObject shopRow)
     {
         if (playerData.GetCredits() >= item.price)
@@ -118,12 +117,26 @@ public class ShopManager : MonoBehaviour
 
             switch (item.itemType)
             {
-                case ShopItemType.TimeMultiplier:
-                    TimerManager.Instance.ExtendDayTimer(item.timeBoostPermanent);
+                case ShopItemType.PermanentTimeBoost:
+                    if (item.timeBoostPermanent > 0)
+                    {
+                        TimerManager.Instance.ApplyPermanentTimeBoost(item.timeBoostPermanent);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Tried to apply a permanent time boost of {item.timeBoostPermanent}, which is 0. Skipping.");
+                    }
                     break;
 
-                case ShopItemType.PermanentTimeBoost:
-                    TimerManager.Instance.ApplyPermanentTimeBoost(item.timeBoostPermanent);
+                case ShopItemType.CurrentDayTimeBoost:
+                    if (item.timeBoostCurrentDay > 0)
+                    {
+                        TimerManager.Instance.ExtendCurrentDayTimer(item.timeBoostCurrentDay);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Tried to apply a current day time boost of {item.timeBoostCurrentDay}, which is 0. Skipping.");
+                    }
                     break;
 
                 case ShopItemType.Cosmetic:
@@ -141,4 +154,5 @@ public class ShopManager : MonoBehaviour
             Debug.Log("Not enough credits!");
         }
     }
+
 }

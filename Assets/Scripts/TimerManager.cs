@@ -20,6 +20,8 @@ public class TimerManager : MonoBehaviour
     [SerializeField] private TMP_Text dayTimerTMP;
     [SerializeField] private TMP_Text dayOfWeekTMP;
 
+    private int currentDay;
+
     /* -------------------- Initialization -------------------- */
     private void Awake()
     {
@@ -36,11 +38,13 @@ public class TimerManager : MonoBehaviour
     private void Start()
     {
         PlayerData data = SaveManager.LoadData();
+
         dayTimer = baseTime + data.permanentTimeBoost;
-        dayTimer *= (1 + data.extraTimePercentage);
+        currentDay = SaveManager.GetDayIndex();
 
         UpdateDayTimerUI();
         UpdateDayOfWeekUI();
+        CheckPenaltyResets();
     }
 
     /* -------------------- Update Loop -------------------- */
@@ -63,6 +67,7 @@ public class TimerManager : MonoBehaviour
     private void EndDay()
     {
         Debug.Log("Day has ended. Transitioning to EndOfDay scene...");
+        SaveManager.SaveDayIndex(currentDay + 1);
         SceneManager.LoadScene("EndOfDay");
     }
 
@@ -83,21 +88,40 @@ public class TimerManager : MonoBehaviour
     }
 
     /* -------------------- Day Timer Management -------------------- */
-    public void ExtendDayTimer(float extraTime)
+    public void ExtendDayTimer(float additionalTime)
     {
-        dayTimer += extraTime;
+        dayTimer += additionalTime;
+        Debug.Log($"Day timer extended by {additionalTime} seconds. New total: {dayTimer}");
         UpdateDayTimerUI();
-        Debug.Log($"Day timer extended by {extraTime} seconds. New total: {dayTimer}");
     }
 
-    public void ApplyPermanentTimeBoost(float extraSeconds)
+    public void ApplyPermanentTimeBoost(float boostAmount)
     {
-        PlayerData data = SaveManager.LoadData();
-        data.permanentTimeBoost += extraSeconds;
-        SaveManager.SaveData(data);
+        if (boostAmount > 0)
+        {
+            baseTime += boostAmount;
+            dayTimer = baseTime;
+            Debug.Log($"Applied Permanent Time Boost: {boostAmount}. New base time: {baseTime}");
+            UpdateDayTimerUI();
+        }
+        else
+        {
+            Debug.LogWarning("Invalid time boost value.");
+        }
+    }
 
-        dayTimer += extraSeconds;
-        UpdateDayTimerUI();
+    public void ExtendCurrentDayTimer(float boostAmount)
+    {
+        if (boostAmount > 0)
+        {
+            dayTimer += boostAmount;
+            Debug.Log($"Extended current day timer by {boostAmount} seconds. New total: {dayTimer}");
+            UpdateDayTimerUI();
+        }
+        else
+        {
+            Debug.LogWarning("Invalid time boost value.");
+        }
     }
 
     public void ApplyPenalty(float penaltyTime)
@@ -106,14 +130,6 @@ public class TimerManager : MonoBehaviour
         if (dayTimer < 0) dayTimer = 0;
         UpdateDayTimerUI();
         Debug.Log($"Penalty applied: -{penaltyTime} seconds. Remaining time: {dayTimer}");
-    }
-
-
-    public void ApplyExtraTimePercentage()
-    {
-        PlayerData data = SaveManager.LoadData();
-        dayTimer *= (1 + data.extraTimePercentage);
-        UpdateDayTimerUI();
     }
 
     public float GetRemainingDayTime()
@@ -149,6 +165,24 @@ public class TimerManager : MonoBehaviour
                 DiagnosticsManager.Instance.CompleteTest(activeTests[i].testName, isPositive);
                 activeTests.RemoveAt(i);
             }
+        }
+    }
+
+    /* -------------------- Penalty Reset Management -------------------- */
+    private void CheckPenaltyResets()
+    {
+        int savedDayIndex = SaveManager.LoadDayIndex();
+
+        if (savedDayIndex != currentDay)
+        {
+            PlayerStats.Instance.ResetDailyStats();
+            Debug.Log("Daily stats reset.");
+        }
+
+        if (currentDay % 7 == 0)
+        {
+            PlayerStats.Instance.ResetWeeklyStats();
+            Debug.Log("Weekly stats reset.");
         }
     }
 

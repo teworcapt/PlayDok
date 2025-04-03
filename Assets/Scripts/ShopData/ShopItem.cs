@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ShopItemType { TimeMultiplier, PermanentTimeBoost, Cosmetic }
+public enum ShopItemType { PermanentTimeBoost, CurrentDayTimeBoost, Cosmetic }
 
 [CreateAssetMenu(fileName = "NewShopItem", menuName = "Scriptable Objects/Shop Item")]
 public class ShopItem : ScriptableObject
@@ -14,5 +14,5 @@ public class ShopItem : ScriptableObject
     public ShopItemType itemType;
 
     public float timeBoostPermanent;
-    public float timeBoostPercentage;
+    public float timeBoostCurrentDay;
 }

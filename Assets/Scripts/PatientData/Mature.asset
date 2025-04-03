@@ -12,11 +12,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Mature
   m_EditorClassIdentifier: 
-  patientName: 
+  patientName: Riri
   personalityCategory: 1
   personalitySubcategory: 5
-  availableNames: []
-  dialogues: []
-  patientSprites: []
-  selectedSprite: {fileID: 0}
+  availableNames:
+  - Aileen
+  - Roxanne
+  - Rosetta
+  - Katalina
+  - Vira
+  - Yotsuyu
+  - Yshtola
+  - Jenny
+  dialogues:
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: 'I''ve been keeping track of my symptoms, and they seem to be getting
+      worse '
+    doctorResponsePositive: "That\u2019s a smart approach. Let\u2019s go over what
+      you\u2019ve noticed."
+    patientReactionPositive: Thank you. I just want to be prepared for anything.
+      I've been having [symptoms].
+    doctorResponseNegative: "Well, let\u2019s hope it\u2019s nothing too serious."
+    patientReactionNegative: "I\u2026 suppose that could be possible. I just want
+      to be cautious. I've been experiencing [symptoms]."
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I\u2019ve dealt with things like this before, but this time feels
+      different. "
+    doctorResponsePositive: "It\u2019s good to trust your instincts. Let\u2019s get
+      to the bottom of it."
+    patientReactionPositive: I appreciate you taking this seriously. I've been dealing
+      with [symptoms].
+    doctorResponseNegative: You might be overthinking it
+    patientReactionNegative: What worries me is that I've been feeling [symptoms].
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I just want to make sure I\u2019m doing the right thing for my
+      health. "
+    doctorResponsePositive: Good thinking. The more details we have, the better we
+      can diagnose this.
+    patientReactionPositive: Thank you. I just want to be prepared for anything.
+      I've been having [symptoms].
+    doctorResponseNegative: "You seem pretty worried. Are you sure it\u2019s not
+      just stress?"
+    patientReactionNegative: "Oh\u2026 maybe I am overthinking it ever since I've
+      been experiencing [symptoms]"
+  - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
+      [symptoms], correct? Are you feeling anything else?  '
+    patientReply: "I\u2019ve read up on possible causes, but I\u2019d like your professional
+      opinion. "
+    doctorResponsePositive: "I understand your concern. Let\u2019s examine this properly."
+    patientReactionPositive: Thanks doc, I've been going through [symptoms] lately.
+    doctorResponseNegative: People tend to exaggerate symptoms when they search online.
+    patientReactionNegative: I just want to be ready for whatever it is. Isn't it
+      normal to be cautious when experiencing [symptoms]?
+  patientSprites:
+  - {fileID: -1303414539725427805, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
+  - {fileID: -4484181276086191015, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
+  - {fileID: -9084318273085304574, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
+  - {fileID: -6963720511815692121, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
+  selectedSprite: {fileID: -9084318273085304574, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
   baseTimePenalty: 5

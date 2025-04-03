@@ -25,13 +25,15 @@ public class PatientManager : MonoBehaviour
 
     private PatientData currentPatient;
     private List<string> currentSymptoms;
-    private bool awaitingResponse = false;
-    private bool hasAsked = false;
 
     private string doctorDialogue;
-    private string patientDialogue;
-    private string responsePositive;
-    private string responseNegative;
+    private string patientReply;
+    private string doctorResponsePositive;
+    private string doctorResponseNegative;
+    private string patientReactionPositive;
+    private string patientReactionNegative;
+
+    private bool isWaitingForChoice = false;
 
     /* -------------------- Initialization -------------------- */
     private void Awake()
@@ -40,7 +42,7 @@ public class PatientManager : MonoBehaviour
         else Destroy(gameObject);
 
         interrogateButton.onClick.AddListener(StartInterrogation);
-        continueButton.onClick.AddListener(HandleContinue);
+        continueButton.onClick.AddListener(ContinueDialog);
         choiceOneButton.onClick.AddListener(() => SelectResponse(true));
         choiceTwoButton.onClick.AddListener(() => SelectResponse(false));
 
@@ -50,12 +52,6 @@ public class PatientManager : MonoBehaviour
     /* -------------------- Patient Setup -------------------- */
     public void UpdatePatientUI(PatientData patient, List<string> symptoms)
     {
-        if (patient == null || patient.patientSprites == null || patient.patientSprites.Count == 0)
-        {
-            Debug.LogError($"Invalid patient data for {patient?.patientName ?? "unknown"}!");
-            return;
-        }
-
         currentPatient = patient;
         currentSymptoms = new List<string>(symptoms);
 
@@ -64,110 +60,102 @@ public class PatientManager : MonoBehaviour
         dialogNameHolder.text = patient.patientName;
         symptomsText.text = string.Join(", ", currentSymptoms);
 
-        hasAsked = false;
-        awaitingResponse = false;
-        interrogateButton.interactable = true;
-        interrogateButton.GetComponentInChildren<TextMeshProUGUI>().text = "Interrogate";
+        ResetUI();
     }
 
     /* -------------------- Interrogation Flow -------------------- */
     private void StartInterrogation()
     {
-        if (hasAsked) return;
-
         if (rulebook != null) rulebook.SetActive(false);
 
         dialogBox.SetActive(true);
         interrogateButton.interactable = false;
 
+        RulebookManager.Instance.SetInterrogationState(true);
+
         PatientData.DialogueSet dialogueSet = currentPatient.dialogues[Random.Range(0, currentPatient.dialogues.Count)];
+
+        dialogNameHolder.text = "Doctor";
 
         doctorDialogue = dialogueSet.doctorQuestion.Replace("[name]", currentPatient.patientName)
                                                    .Replace("[symptoms]", string.Join(" and ", currentSymptoms));
 
         List<string> extraSymptoms = GetExtraSymptoms();
-        patientDialogue = dialogueSet.patientReply.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
+        patientReply = dialogueSet.patientReply.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
 
-        symptomsText.text = string.Join(", ", currentSymptoms) + ", " + string.Join(" and ", extraSymptoms);
+        doctorResponsePositive = dialogueSet.doctorResponsePositive;
+        doctorResponseNegative = dialogueSet.doctorResponseNegative;
 
-        choiceOneButton.GetComponentInChildren<TextMeshProUGUI>().text = dialogueSet.doctorResponsePositive;
-        choiceTwoButton.GetComponentInChildren<TextMeshProUGUI>().text = dialogueSet.doctorResponseNegative;
+        patientReactionPositive = dialogueSet.patientReactionPositive.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
+        patientReactionNegative = dialogueSet.patientReactionNegative.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
 
-        responsePositive = dialogueSet.patientReactionPositive;
-        responseNegative = dialogueSet.patientReactionNegative;
-
-        patientDialogue = dialogueSet.patientReactionPositive.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
-        patientDialogue = dialogueSet.patientReactionNegative.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
-
-        awaitingResponse = true;
         StartCoroutine(TypeText(doctorDialogue, () => continueButton.gameObject.SetActive(true)));
     }
 
-    private void HandleContinue()
+    private void ContinueDialog()
     {
-        if (awaitingResponse)
+        if (!isWaitingForChoice)
         {
-            continueButton.gameObject.SetActive(false);
-            StartCoroutine(TypeText(patientDialogue, () =>
+            dialogNameHolder.text = currentPatient.patientName;
+            StartCoroutine(TypeText(patientReply, () =>
             {
+                bool positiveOnFirstButton = Random.Range(0, 2) == 0;
+
+                if (positiveOnFirstButton)
+                {
+                    choiceOneButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponsePositive;
+                    choiceTwoButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponseNegative;
+                }
+                else
+                {
+                    choiceOneButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponseNegative;
+                    choiceTwoButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponsePositive;
+                }
+
                 choiceOneButton.gameObject.SetActive(true);
                 choiceTwoButton.gameObject.SetActive(true);
+                isWaitingForChoice = true;
             }));
-            awaitingResponse = false;
+
+            continueButton.gameObject.SetActive(false);
         }
         else
         {
             dialogBox.SetActive(false);
+
+            RulebookManager.Instance.SetInterrogationState(false);
+
+            interrogateButton.interactable = false;
         }
     }
+
 
     private void SelectResponse(bool isPositive)
     {
         choiceOneButton.gameObject.SetActive(false);
         choiceTwoButton.gameObject.SetActive(false);
 
-        string finalResponse = isPositive ? responsePositive : responseNegative;
+        string finalResponse = isPositive ? patientReactionPositive : patientReactionNegative;
+        float timeAdjustment = currentPatient.GetTimePenalty(isPositive);
+
+        if (isPositive)
+        {
+            TimerManager.Instance.ExtendDayTimer(timeAdjustment);
+        }
+        else
+        {
+            TimerManager.Instance.ApplyPenalty(timeAdjustment);
+        }
+
         StartCoroutine(TypeText(finalResponse, () =>
         {
             continueButton.gameObject.SetActive(true);
-            awaitingResponse = false;
-            hasAsked = true;
         }));
     }
-    public void ShowDialogue()
+
+    public void EnableInterrogateButton()
     {
-        Debug.Log("Showing dialogue UI...");
-        dialogBox.SetActive(true);
-    }
-
-
-    /* -------------------- No Test Reaction -------------------- */
-    public void TriggerNoTestReaction()
-    {
-        string noTestDialogue;
-
-        switch (currentPatient.personalityCategory)
-        {
-            case PatientData.PersonalityCategory.Positive:
-                noTestDialogue = "Oh! It's good to be confident doc, but… are you sure?";
-                break;
-            case PatientData.PersonalityCategory.Neutral:
-                noTestDialogue = "Um… shouldn’t you run some tests first?";
-                break;
-            case PatientData.PersonalityCategory.Negative:
-                noTestDialogue = "What? You didn’t even test anything! Are you serious?";
-                break;
-            default:
-                noTestDialogue = "Wait... you didn’t run any tests? Are you just guessing?";
-                break;
-        }
-
-        dialogBox.SetActive(true);
-        dialogueText.text = "";
-        StartCoroutine(TypeText(noTestDialogue, () =>
-        {
-            continueButton.gameObject.SetActive(true);
-        }));
+        interrogateButton.interactable = true;
     }
 
     /* -------------------- Extra Symptoms -------------------- */
@@ -201,6 +189,7 @@ public class PatientManager : MonoBehaviour
         continueButton.gameObject.SetActive(false);
         choiceOneButton.gameObject.SetActive(false);
         choiceTwoButton.gameObject.SetActive(false);
+        isWaitingForChoice = false;
     }
 
     /* -------------------- Text Typing Effect -------------------- */

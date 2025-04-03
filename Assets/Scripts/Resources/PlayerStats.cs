@@ -7,8 +7,9 @@ public class PlayerStats : MonoBehaviour
 
     public int totalPatients;
     public int patientsCured;
-    public int penalties;
     public int totalEarnings;
+    public int dailyPenalties;
+    public int weeklyPenalties;
     public float timeBoostPermanent = 0f;
 
     public List<int> itemsBought = new List<int>();
@@ -30,7 +31,8 @@ public class PlayerStats : MonoBehaviour
 
     public void AddPenalty(int amount)
     {
-        penalties += amount;
+        dailyPenalties += amount;
+        weeklyPenalties += amount;
     }
 
     public void AddCuredPatient()
@@ -47,8 +49,13 @@ public class PlayerStats : MonoBehaviour
     {
         totalPatients = 0;
         patientsCured = 0;
-        penalties = 0;
+        dailyPenalties = 0;
         totalEarnings = 0;
+    }
+
+    public void ResetWeeklyStats()
+    {
+        weeklyPenalties = 0;
     }
 
     public void BuyItem(int itemID)

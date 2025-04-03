@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemNumber: 2
   itemName: Candy
-  price: 150
-  amount: 50
+  price: 3
+  amount: 6
   itemIcon: {fileID: 300643429109067178, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
   itemObject: {fileID: 0}
-  itemType: 0
+  itemType: 1
   timeBoostPermanent: 0
-  timeBoostPercentage: 0.005
+  timeBoostCurrentDay: 10
