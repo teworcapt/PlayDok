@@ -38,10 +38,9 @@ public class TimerManager : MonoBehaviour
     private void Start()
     {
         PlayerData data = SaveManager.LoadData();
-
-        dayTimer = baseTime + data.permanentTimeBoost;
         currentDay = SaveManager.GetDayIndex();
 
+        dayTimer = baseTime + data.permanentTimeBoost;
         UpdateDayTimerUI();
         UpdateDayOfWeekUI();
         CheckPenaltyResets();
@@ -67,20 +66,18 @@ public class TimerManager : MonoBehaviour
     private void EndDay()
     {
         Debug.Log("Day has ended. Transitioning to EndOfDay scene...");
-        SaveManager.SaveDayIndex(currentDay + 1);
-        SceneManager.LoadScene("EndOfDay");
+        if (SaveManager.GetDayIndex() < 6)
+        {
+            SceneManager.LoadScene("EndOfDay");
+        }
     }
 
     /* -------------------- Patient Processing -------------------- */
-    public void StartPatientProcessing()
-    {
-        isPatientProcessing = true;
-    }
+    public void StartPatientProcessing() => isPatientProcessing = true;
 
     public void CompletePatientProcessing()
     {
         isPatientProcessing = false;
-
         if (dayTimer <= 0)
         {
             EndDay();
@@ -126,16 +123,12 @@ public class TimerManager : MonoBehaviour
 
     public void ApplyPenalty(float penaltyTime)
     {
-        dayTimer -= penaltyTime;
-        if (dayTimer < 0) dayTimer = 0;
+        dayTimer = Mathf.Max(0, dayTimer - penaltyTime);
         UpdateDayTimerUI();
         Debug.Log($"Penalty applied: -{penaltyTime} seconds. Remaining time: {dayTimer}");
     }
 
-    public float GetRemainingDayTime()
-    {
-        return dayTimer;
-    }
+    public float GetRemainingDayTime() => dayTimer;
 
     /* -------------------- Test Timer Management -------------------- */
     public void StartTestTimer(string testName)
@@ -147,7 +140,7 @@ public class TimerManager : MonoBehaviour
         }
 
         activeTests.Add(new TestTimer(testName, testDuration));
-        DiagnosticsManager.Instance.UpdateTestTimerUI(testName, Mathf.CeilToInt(testDuration));
+        DiagnosticsManager.Instance?.UpdateTestTimerUI(testName, Mathf.CeilToInt(testDuration));
 
         Debug.Log($"Test '{testName}' started. Duration: {testDuration} seconds.");
     }
@@ -157,12 +150,12 @@ public class TimerManager : MonoBehaviour
         for (int i = activeTests.Count - 1; i >= 0; i--)
         {
             activeTests[i].timer -= Time.deltaTime;
-            DiagnosticsManager.Instance.UpdateTestTimerUI(activeTests[i].testName, Mathf.CeilToInt(activeTests[i].timer));
+            DiagnosticsManager.Instance?.UpdateTestTimerUI(activeTests[i].testName, Mathf.CeilToInt(activeTests[i].timer));
 
             if (activeTests[i].timer <= 0)
             {
                 bool isPositive = DiagnosisManager.Instance?.IsTestPositive(activeTests[i].testName) ?? false;
-                DiagnosticsManager.Instance.CompleteTest(activeTests[i].testName, isPositive);
+                DiagnosticsManager.Instance?.CompleteTest(activeTests[i].testName, isPositive);
                 activeTests.RemoveAt(i);
             }
         }
@@ -171,17 +164,17 @@ public class TimerManager : MonoBehaviour
     /* -------------------- Penalty Reset Management -------------------- */
     private void CheckPenaltyResets()
     {
-        int savedDayIndex = SaveManager.LoadDayIndex();
+        int savedDayIndex = SaveManager.GetDayIndex();
 
         if (savedDayIndex != currentDay)
         {
-            PlayerStats.Instance.ResetDailyStats();
+            PlayerStats.Instance?.ResetDailyStats();
             Debug.Log("Daily stats reset.");
         }
 
         if (currentDay % 7 == 0)
         {
-            PlayerStats.Instance.ResetWeeklyStats();
+            PlayerStats.Instance?.ResetWeeklyStats();
             Debug.Log("Weekly stats reset.");
         }
     }

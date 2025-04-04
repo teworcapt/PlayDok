@@ -19,5 +19,6 @@ MonoBehaviour:
   itemIcon: {fileID: 300643429109067178, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
   itemObject: {fileID: 0}
   itemType: 1
+  itemDescription: Minty candy for a small concentration boost! (+10 secs)
   timeBoostPermanent: 0
   timeBoostCurrentDay: 10

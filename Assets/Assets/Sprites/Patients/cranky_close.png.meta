@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cranky_close_0: 5919236401822410108
+      cranky_close_1: -8269757787655091206
+      cranky_close_2: -100873520177948878
+      cranky_close_3: 6949409760657486574
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

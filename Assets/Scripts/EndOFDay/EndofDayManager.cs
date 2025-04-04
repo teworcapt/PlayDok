@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class EndOfDayManager : MonoBehaviour
 {
+    [Header("UI References")]
     [SerializeField] private TMP_Text dayText;
     [SerializeField] private TMP_Text totalPatientsText;
     [SerializeField] private TMP_Text patientsCuredText;
@@ -12,6 +13,8 @@ public class EndOfDayManager : MonoBehaviour
 
     private int netEarnings;
 
+    /* -------------------- Initialization -------------------- */
+
     private void Start()
     {
         if (PlayerStats.Instance == null)
@@ -19,16 +22,15 @@ public class EndOfDayManager : MonoBehaviour
             Debug.LogError("PlayerStats.Instance is NULL! Ensure PlayerStats exists in the first scene.");
             return;
         }
-
         DisplayStats();
         ApplyEarnings();
     }
 
+    /* -------------------- Display Methods -------------------- */
+
     private void DisplayStats()
     {
-        PlayerStats stats = PlayerStats.Instance;
-        if (stats == null) return;
-
+        var stats = PlayerStats.Instance;
         totalPatientsText.text = stats.totalPatients.ToString();
         patientsCuredText.text = stats.patientsCured.ToString();
         penaltyText.text = stats.dailyPenalties.ToString();
@@ -38,6 +40,14 @@ public class EndOfDayManager : MonoBehaviour
 
         UpdateDayText();
     }
+
+    private void UpdateDayText()
+    {
+        if (dayText != null)
+            dayText.text = $"Day {SaveManager.GetCurrentDay()}";
+    }
+
+    /* -------------------- Earnings & Save -------------------- */
 
     private void ApplyEarnings()
     {
@@ -50,35 +60,20 @@ public class EndOfDayManager : MonoBehaviour
 
         playerData.SetCredits(playerData.GetCredits() + netEarnings);
         SaveManager.SaveData(playerData);
+
+        string dayToSave = !string.IsNullOrEmpty(LoadSaveManager.CurrentLoadedDay)
+                                ? LoadSaveManager.CurrentLoadedDay
+                                : SaveManager.GetCurrentDay();
+
+        LoadSaveManager.SaveDayData(dayToSave, playerData.GetCredits(), PlayerStats.Instance.dailyPenalties, playerData.purchasedItems);
     }
 
-    private void UpdateDayText()
-    {
-        if (dayText != null)
-            dayText.text = SaveManager.GetCurrentDay();
-    }
+    /* -------------------- Scene Transition -------------------- */
 
     public void OnNextDay()
     {
-        PlayerData playerData = SaveManager.LoadData();
-        if (playerData == null)
-        {
-            Debug.LogError("Failed to load player data. Cannot proceed to the next day.");
-            return;
-        }
-
-        if (playerData.currentDay < 7)
-        {
-            SaveManager.AdvanceDay();
-            PlayerStats.Instance.ResetDailyStats();
-            SceneManager.LoadScene("Gameplay");
-        }
-        else
-        {
-            PlayerStats.Instance.ResetWeeklyStats();
-
-            Debug.Log("Game Over! Reached Sunday.");
-            SceneManager.LoadScene("MainMenu");
-        }
+        SaveManager.AdvanceDay();
+        PlayerStats.Instance.ResetDailyStats();
+        SceneManager.LoadScene("Gameplay");
     }
 }

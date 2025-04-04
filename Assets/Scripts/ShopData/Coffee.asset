@@ -19,5 +19,6 @@ MonoBehaviour:
   itemIcon: {fileID: 3372504610068751692, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
   itemObject: {fileID: 0}
   itemType: 1
+  itemDescription: Gotta stay up? Get some coffee!(+1 minute)
   timeBoostPermanent: 0
   timeBoostCurrentDay: 60

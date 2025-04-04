@@ -19,5 +19,6 @@ MonoBehaviour:
   itemIcon: {fileID: 2070998133804937503, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
   itemObject: {fileID: 0}
   itemType: 2
+  itemDescription: Just a plant, akes your room look healthy,
   timeBoostPermanent: 0
   timeBoostCurrentDay: 0

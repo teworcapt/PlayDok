@@ -25,7 +25,6 @@ public class PlayerStats : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return;
         }
     }
 
@@ -35,15 +34,8 @@ public class PlayerStats : MonoBehaviour
         weeklyPenalties += amount;
     }
 
-    public void AddCuredPatient()
-    {
-        patientsCured++;
-    }
-
-    public void AddTotalPatient()
-    {
-        totalPatients++;
-    }
+    public void AddCuredPatient() => patientsCured++;
+    public void AddTotalPatient() => totalPatients++;
 
     public void ResetDailyStats()
     {
@@ -53,21 +45,25 @@ public class PlayerStats : MonoBehaviour
         totalEarnings = 0;
     }
 
-    public void ResetWeeklyStats()
-    {
-        weeklyPenalties = 0;
-    }
+    public void ResetWeeklyStats() => weeklyPenalties = 0;
 
     public void BuyItem(int itemID)
     {
         if (!itemsBought.Contains(itemID))
-        {
             itemsBought.Add(itemID);
-        }
     }
 
-    public bool HasBoughtItem(int itemID)
+    public bool HasBoughtItem(int itemID) => itemsBought.Contains(itemID);
+
+    public void SetCredits(int credits)
     {
-        return itemsBought.Contains(itemID);
+        totalEarnings = credits;
+        Debug.Log($"Credits set to: {credits}");
+    }
+
+    public void SetPenalties(int penalties)
+    {
+        dailyPenalties = penalties;
+        Debug.Log($"Penalties set to: {penalties}");
     }
 }
