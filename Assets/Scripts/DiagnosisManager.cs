@@ -23,8 +23,6 @@ public class DiagnosisManager : MonoBehaviour
     public TMP_Dropdown diseaseChoices;
     public TMP_Dropdown treatmentChoices;
     public TextMeshProUGUI symptomsText;
-    public TextMeshProUGUI dailyPenaltyText;
-    public TextMeshProUGUI totalPenaltyText;
     public Button submitButton;
 
     private string selectedDisease;
@@ -90,31 +88,6 @@ public class DiagnosisManager : MonoBehaviour
                 patientSymptoms.Add(symptom);
         }
     }
-    public bool IsTestPositive(string testName)
-    {
-        if (diagnosticsManager == null)
-        {
-            Debug.LogError("DiagnosticsManager is not assigned!");
-            return false;
-        }
-
-        if (assignedDisease == null)
-        {
-            Debug.LogError("No disease assigned to patient!");
-            return false;
-        }
-
-        foreach (var test in diagnosticsManager.GetActiveTests())
-        {
-            if (test.testName == testName && diagnosticsManager.IsOverDropZone(test))
-            {
-                return assignedDisease.tests.Contains(testName);
-            }
-        }
-
-        return false;
-    }
-
 
     /* -------------------- UI Population -------------------- */
     private void PopulateDropdowns()
@@ -152,6 +125,12 @@ public class DiagnosisManager : MonoBehaviour
     /* -------------------- Diagnosis Verification -------------------- */
     public void CheckDiagnosis()
     {
+        if (!PatientManager.Instance.CanProceedToNextPatient())
+        {
+            Debug.LogWarning("You must complete at least one diagnostic test before submitting!");
+            return;
+        }
+
         if (currentPatient == null || assignedDisease == null)
         {
             Debug.LogError("No patient or disease data available!");
@@ -162,8 +141,10 @@ public class DiagnosisManager : MonoBehaviour
         bool correctTreatment = assignedDisease.treatments.Contains(selectedTreatment);
 
         ProcessDiagnosis(correctDisease, correctTreatment);
+        PatientManager.Instance.MarkTestPerformed();
         SpawnNextPatient();
     }
+
 
     private void ProcessDiagnosis(bool correctDiagnosis, bool correctTreatment)
     {
@@ -175,9 +156,6 @@ public class DiagnosisManager : MonoBehaviour
 
         PlayerStats.Instance.totalPatients++;
 
-        string penaltyMessage = "Daily Penalties: " + PlayerStats.Instance.dailyPenalties +
-                                " | Weekly Penalties: " + PlayerStats.Instance.weeklyPenalties;
-
         if (correctDiagnosis && correctTreatment)
         {
             PlayerStats.Instance.patientsCured++;
@@ -188,18 +166,16 @@ public class DiagnosisManager : MonoBehaviour
             if (!correctDiagnosis)
             {
                 Debug.Log("Incorrect Disease. Moving to next patient...");
+                PlayerStats.Instance.totalEarnings += (250);
                 PlayerStats.Instance.AddPenalty(50);
-                penaltyMessage = "Diagnosed wrong, penalty added. " + penaltyMessage;
             }
             if (!correctTreatment)
             {
                 Debug.Log("Incorrect Treatment. Moving to next patient...");
+                PlayerStats.Instance.totalEarnings += (250);
                 PlayerStats.Instance.AddPenalty(50);
-                penaltyMessage = "Treatment wrong, penalty added. " + penaltyMessage;
             }
         }
-
-        UpdatePenaltyUI();
 
         SpawnNextPatient();
     }
@@ -213,18 +189,4 @@ public class DiagnosisManager : MonoBehaviour
 
     /* -------------------- Data Retrieval -------------------- */
     public DiseaseData GetAssignedDisease() => assignedDisease;
-
-    /* -------------------- Update Penalty UI -------------------- */
-    private void UpdatePenaltyUI()
-    {
-        if (dailyPenaltyText != null)
-        {
-            dailyPenaltyText.text = "Daily Penalties: " + PlayerStats.Instance.dailyPenalties;
-        }
-
-        if (totalPenaltyText != null)
-        {
-            totalPenaltyText.text = "Total Penalties: " + PlayerStats.Instance.weeklyPenalties;
-        }
-    }
 }

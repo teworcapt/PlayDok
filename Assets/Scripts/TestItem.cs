@@ -1,22 +1,23 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
 public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public string testName;
     public Image testImage;
     public Sprite testedSprite;
-
+    private Sprite defaultSprite;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
     private Vector3 originalPosition;
     private Transform originalParent;
     private Canvas canvas;
     private bool isTested = false;
+    private bool isTestPositive = false;
 
     /* -------------------- Public Properties -------------------- */
     public bool IsTested => isTested;
+    public bool IsTestPositive => isTestPositive;
 
     /* -------------------- Initialization -------------------- */
     private void Awake()
@@ -26,6 +27,10 @@ public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         originalPosition = rectTransform.anchoredPosition;
         originalParent = transform.parent;
         canvas = GetComponentInParent<Canvas>();
+        if (testImage != null)
+        {
+            defaultSprite = testImage.sprite;
+        }
     }
 
     /* -------------------- Drag Handling -------------------- */
@@ -48,12 +53,10 @@ public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         transform.SetParent(originalParent);
-
         if (DiagnosticsManager.Instance.IsOverDropZone(this))
         {
             DiagnosticsManager.Instance.PerformTest(testName, this);
         }
-
         ResetPosition();
     }
 
@@ -67,15 +70,26 @@ public class TestItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
     }
 
+    public void SetTestResult(bool isPositive)
+    {
+        isTestPositive = isPositive;
+        Debug.Log($"Test {testName} result set to {(isPositive ? "Positive" : "Negative")}");
+    }
+
     /* -------------------- Reset Functions -------------------- */
     public void ResetPosition()
     {
         rectTransform.anchoredPosition = originalPosition;
     }
 
-    public void ResetTest()
+    public void ResetState()
     {
         isTested = false;
+        isTestPositive = false;
         ResetPosition();
+        if (testImage != null && defaultSprite != null)
+        {
+            testImage.sprite = defaultSprite;
+        }
     }
 }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemNumber: 4
   itemName: Dog Plush
-  price: 5000
+  price: 1500
   amount: 1
+  defaultAmount: 1
   itemIcon: {fileID: -741738312948282583, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
-  itemObject: {fileID: 0}
   itemType: 0
   itemDescription: A peranent pet companion for your everyday needs! (Permanent 1
     min per day)

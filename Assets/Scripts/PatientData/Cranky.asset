@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Cranky
   m_EditorClassIdentifier: 
-  patientName: Wolfgang
+  patientName: Orga
   personalityCategory: 2
   personalitySubcategory: 6
   availableNames:
@@ -60,10 +60,13 @@ MonoBehaviour:
       [symptoms] lately.
     doctorResponseNegative: "Well, that\u2019s a great way to start this conversation."
     patientReactionNegative: Are you all this immature?
+  noTestSubmitLines:
+  - "What about all the other tests? Don\u2019t rush me!"
+  - "Hey, are you sure about that? We haven\u2019t done enough yet."
   patientSprites:
   - {fileID: 1201853526036188305, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
   - {fileID: -7125237182032704304, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
   - {fileID: -100873520177948878, guid: aa8a63c34e212ad4b984347891088a3b, type: 3}
   - {fileID: 6706037206778445497, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
-  selectedSprite: {fileID: 1201853526036188305, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
-  baseTimePenalty: 5
+  selectedSprite: {fileID: -100873520177948878, guid: aa8a63c34e212ad4b984347891088a3b, type: 3}
+  baseTimePenalty: 8

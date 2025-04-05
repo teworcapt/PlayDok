@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Social
   m_EditorClassIdentifier: 
-  patientName: Roberu
+  patientName: Sebastian
   personalityCategory: 2
   personalitySubcategory: 8
   availableNames:
@@ -60,6 +60,11 @@ MonoBehaviour:
       feeling [symptoms] and just want it gone."
     doctorResponseNegative: "That\u2019s not my problem. I have a job to do."
     patientReactionNegative: Oh...
+  noTestSubmitLines:
+  - "Uh, I don\u2019t think we\u2019re quite done\u2026 Is it alright to check a
+    few more things?"
+  - "Well, I\u2019m not sure we\u2019ve covered everything\u2026 Can we, uh, take
+    a little longer?"
   patientSprites:
   - {fileID: -2663301758291357865, guid: 4e757544b772ed3468e8b0033659476b, type: 3}
   - {fileID: -2823430695172195963, guid: 4e757544b772ed3468e8b0033659476b, type: 3}

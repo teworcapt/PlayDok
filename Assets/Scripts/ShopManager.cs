@@ -12,12 +12,14 @@ public class ShopManager : MonoBehaviour
     public GameObject shopItemPrefab;
     public TMP_Text creditsText;
 
+    [Header("Cosmetic Items")]
+    public CanvasGroup dogCanvasGroup;
+    public CanvasGroup plantCanvasGroup;
+
     [Header("Shop Items")]
     public List<ShopItem> shopItems = new List<ShopItem>();
 
     private DailySaveData dailyData;
-
-    /* -------------------- Initialization -------------------- */
 
     private void Awake()
     {
@@ -27,13 +29,33 @@ public class ShopManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        GameObject dogObject = GameObject.Find("Dog");
+        if (dogObject != null)
+        {
+            dogCanvasGroup = dogObject.GetComponent<CanvasGroup>();
+            if (dogCanvasGroup != null)
+            {
+                SetAlpha(dogCanvasGroup, 0);
+            }
+        }
+
+        GameObject plantObject = GameObject.Find("Potted Plant");
+        if (plantObject != null)
+        {
+            plantCanvasGroup = plantObject.GetComponent<CanvasGroup>();
+            if (plantCanvasGroup != null)
+            {
+                SetAlpha(plantCanvasGroup, 0);
+            }
+        }
     }
 
     private void Start()
     {
         string currentDay = !string.IsNullOrEmpty(LoadSaveManager.CurrentLoadedDay)
-                                ? LoadSaveManager.CurrentLoadedDay
-                                : SaveManager.GetCurrentDay();
+                            ? LoadSaveManager.CurrentLoadedDay
+                            : SaveManager.GetCurrentDay();
 
         dailyData = LoadSaveManager.LoadDayData(currentDay) ?? new DailySaveData
         {
@@ -43,13 +65,52 @@ public class ShopManager : MonoBehaviour
             purchasedItems = new List<int>()
         };
 
+        int currentDayIndex = SaveManager.GetDayIndex() + 1;
+        if (dailyData.day != currentDayIndex)
+        {
+            ResetDailyItems();
+            ResetDailyShopItems();
+            dailyData.day = currentDayIndex;
+        }
+
         Debug.Log($"Loaded Daily Data - Day: {dailyData.day}, Credits: {dailyData.credits}");
         SetCredits(dailyData.credits);
         UpdateCreditsUI();
         PopulateShop();
+
+        foreach (int itemNumber in dailyData.purchasedItems)
+        {
+            ShopItem purchasedItem = shopItems.Find(x => x.itemNumber == itemNumber);
+            if (purchasedItem != null)
+            {
+                if (purchasedItem.itemName == "Dog")
+                    SetAlpha(dogCanvasGroup, 1);
+                else if (purchasedItem.itemName == "Potted Plant")
+                    SetAlpha(plantCanvasGroup, 1);
+            }
+        }
     }
 
-    /* -------------------- UI Updates -------------------- */
+    private void ResetDailyItems()
+    {
+        dailyData.purchasedItems = dailyData.purchasedItems.FindAll(itemNumber =>
+        {
+            ShopItem shopItem = shopItems.Find(x => x.itemNumber == itemNumber);
+            return shopItem != null &&
+                   (shopItem.itemType == ShopItemType.Cosmetic || shopItem.itemType == ShopItemType.PermanentTimeBoost);
+        });
+    }
+
+    private void ResetDailyShopItems()
+    {
+        foreach (ShopItem item in shopItems)
+        {
+            if (item.itemType == ShopItemType.CurrentDayTimeBoost)
+            {
+                item.amount = item.defaultAmount;
+            }
+        }
+    }
 
     public void SetCredits(int amount)
     {
@@ -64,8 +125,6 @@ public class ShopManager : MonoBehaviour
             creditsText.text = $"Credits: {dailyData.credits}";
     }
 
-    /* -------------------- Shop Population -------------------- */
-
     private void PopulateShop()
     {
         foreach (ShopItem item in shopItems)
@@ -73,12 +132,27 @@ public class ShopManager : MonoBehaviour
             if (dailyData.purchasedItems.Contains(item.itemNumber))
                 continue;
 
+            if (item.itemType == ShopItemType.CurrentDayTimeBoost && item.amount <= 0)
+                continue;
+
             GameObject shopRow = Instantiate(shopItemPrefab, shopItemList);
+
             TMP_Text itemNameText = shopRow.transform.Find("ItemName").GetComponent<TMP_Text>();
             TMP_Text itemPriceText = shopRow.transform.Find("ItemPrice").GetComponent<TMP_Text>();
             TMP_Text itemAmountText = shopRow.transform.Find("ItemAmount").GetComponent<TMP_Text>();
             TMP_Text itemDescriptionText = shopRow.transform.Find("ItemDescription")?.GetComponent<TMP_Text>();
             Image itemImage = shopRow.transform.Find("ItemIcon").GetComponent<Image>();
+
+            if (itemNameText != null)
+                itemNameText.text = item.itemName;
+            if (itemPriceText != null)
+                itemPriceText.text = item.price.ToString();
+            if (itemAmountText != null)
+                itemAmountText.text = item.amount.ToString();
+            if (itemDescriptionText != null)
+                itemDescriptionText.text = item.itemDescription;
+            if (itemImage != null && item.itemIcon != null)
+                itemImage.sprite = item.itemIcon;
 
             Button buyButton = shopRow.transform.Find("Buybtn").GetComponent<Button>();
             if (buyButton != null)
@@ -86,37 +160,42 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    /* -------------------- Purchasing System -------------------- */
-
     public void BuyItem(ShopItem item, GameObject shopRow)
     {
         if (dailyData.credits >= item.price)
         {
             dailyData.credits -= item.price;
-            item.amount--;
 
-            if (item.amount <= 0)
+            if (item.itemType == ShopItemType.CurrentDayTimeBoost)
+                item.amount--;
+
+            if (item.itemType == ShopItemType.CurrentDayTimeBoost && item.amount <= 0)
             {
                 dailyData.purchasedItems.Add(item.itemNumber);
                 Destroy(shopRow);
             }
             else
             {
-                shopRow.transform.Find("ItemAmount").GetComponent<TMP_Text>().text = item.amount.ToString();
+                TMP_Text itemAmountText = shopRow.transform.Find("ItemAmount").GetComponent<TMP_Text>();
+                if (itemAmountText != null)
+                    itemAmountText.text = item.amount.ToString();
             }
 
-            Debug.Log($"Bought {item.itemName}! Remaining: {item.amount}");
+            Debug.Log($"Bought {item.itemName}!");
 
             switch (item.itemType)
             {
                 case ShopItemType.PermanentTimeBoost:
                     TimerManager.Instance.ApplyPermanentTimeBoost(item.timeBoostPermanent);
+                    if (item.itemName == "Dog")
+                        SetAlpha(dogCanvasGroup, 1);
                     break;
                 case ShopItemType.CurrentDayTimeBoost:
                     TimerManager.Instance.ExtendCurrentDayTimer(item.timeBoostCurrentDay);
                     break;
                 case ShopItemType.Cosmetic:
-                    item.itemObject?.SetActive(true);
+                    if (item.itemName == "Potted Plant")
+                        SetAlpha(plantCanvasGroup, 1);
                     break;
             }
             UpdateCreditsUI();
@@ -126,4 +205,19 @@ public class ShopManager : MonoBehaviour
             Debug.Log("Not enough credits!");
         }
     }
+
+    public void SetAlpha(CanvasGroup canvasGroup, float alpha)
+    {
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = alpha;
+            canvasGroup.interactable = (alpha == 1);
+            canvasGroup.blocksRaycasts = (alpha == 1);
+        }
+    }
+    public List<int> GetPurchasedItemIDs()
+    {
+        return dailyData.purchasedItems;
+    }
+
 }

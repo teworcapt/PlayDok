@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Polite
   m_EditorClassIdentifier: 
-  patientName: John
+  patientName: Faust
   personalityCategory: 1
   personalitySubcategory: 4
   availableNames:
@@ -61,10 +61,13 @@ MonoBehaviour:
     doctorResponseNegative: "I\u2019m listening, but let\u2019s get to the point."
     patientReactionNegative: "Oh\u2026 I\u2019ll try to be quicker, then. I experience
       [symptoms]."
+  noTestSubmitLines:
+  - "I believe we should double-check things before finalizing, don\u2019t you think?"
+  - "Perhaps we should run a few more tests first. It\u2019s better to be thorough."
   patientSprites:
   - {fileID: 1631533041070502505, guid: a314231d0c7456948ad21e535973d13e, type: 3}
   - {fileID: -5275305078326548954, guid: a314231d0c7456948ad21e535973d13e, type: 3}
   - {fileID: -2953684271705070880, guid: 412bb866a6900844ea37aed2e6a96d0d, type: 3}
   - {fileID: -602632595624972886, guid: a314231d0c7456948ad21e535973d13e, type: 3}
-  selectedSprite: {fileID: -1480336474829520046, guid: 412bb866a6900844ea37aed2e6a96d0d, type: 3}
+  selectedSprite: {fileID: 1631533041070502505, guid: a314231d0c7456948ad21e535973d13e, type: 3}
   baseTimePenalty: 5

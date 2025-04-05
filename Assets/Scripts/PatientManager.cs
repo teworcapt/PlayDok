@@ -6,8 +6,10 @@ using System.Collections.Generic;
 
 public class PatientManager : MonoBehaviour
 {
+    /* -------------------- Singleton -------------------- */
     public static PatientManager Instance { get; private set; }
 
+    /* -------------------- UI Elements -------------------- */
     [Header("Patient UI")]
     public Image patientImage;
     public TextMeshProUGUI patientNameHolder;
@@ -23,6 +25,14 @@ public class PatientManager : MonoBehaviour
     public Button choiceTwoButton;
     public GameObject rulebook;
 
+    [Header("Sound Effects")]
+    public AudioClip dialogueLetterSFX;
+    public AudioClip responseSFX;
+    public int letterSFXPoolSize = 5;
+    private List<AudioSource> sfxAudioSources;
+    private int currentSFXIndex = 0;
+
+    /* -------------------- Patient Data -------------------- */
     private PatientData currentPatient;
     private List<string> currentSymptoms;
 
@@ -33,7 +43,10 @@ public class PatientManager : MonoBehaviour
     private string patientReactionPositive;
     private string patientReactionNegative;
 
-    private bool isWaitingForChoice = false;
+    private bool isWaitingForChoice;
+    private bool hasPerformedTest;
+    private bool isNoTestDialogActive;
+    private bool isPositiveOnFirstButton;
 
     /* -------------------- Initialization -------------------- */
     private void Awake()
@@ -41,15 +54,22 @@ public class PatientManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
+        sfxAudioSources = new List<AudioSource>(letterSFXPoolSize);
+        for (int i = 0; i < letterSFXPoolSize; i++)
+        {
+            var newSource = gameObject.AddComponent<AudioSource>();
+            sfxAudioSources.Add(newSource);
+        }
+
         interrogateButton.onClick.AddListener(StartInterrogation);
         continueButton.onClick.AddListener(ContinueDialog);
-        choiceOneButton.onClick.AddListener(() => SelectResponse(true));
-        choiceTwoButton.onClick.AddListener(() => SelectResponse(false));
+        choiceOneButton.onClick.AddListener(() => SelectResponse(isPositiveOnFirstButton));
+        choiceTwoButton.onClick.AddListener(() => SelectResponse(!isPositiveOnFirstButton));
 
         ResetUI();
     }
 
-    /* -------------------- Patient Setup -------------------- */
+    /* -------------------- UI Management -------------------- */
     public void UpdatePatientUI(PatientData patient, List<string> symptoms)
     {
         currentPatient = patient;
@@ -61,55 +81,89 @@ public class PatientManager : MonoBehaviour
         symptomsText.text = string.Join(", ", currentSymptoms);
 
         ResetUI();
+        hasPerformedTest = false;
+        interrogateButton.interactable = true;
     }
 
-    /* -------------------- Interrogation Flow -------------------- */
+    private void ResetUI()
+    {
+        dialogBox.SetActive(false);
+        continueButton.gameObject.SetActive(false);
+        choiceOneButton.gameObject.SetActive(false);
+        choiceTwoButton.gameObject.SetActive(false);
+        isWaitingForChoice = false;
+        isNoTestDialogActive = false;
+        hasPerformedTest = false;
+    }
+
+    public void EnableInterrogateButton()
+    {
+        interrogateButton.interactable = true;
+    }
+
+    /* -------------------- Interrogation Management -------------------- */
     private void StartInterrogation()
     {
-        if (rulebook != null) rulebook.SetActive(false);
+        if (dialogBox.activeSelf) return;
 
+        rulebook?.SetActive(false);
         dialogBox.SetActive(true);
+        dialogueText.text = "";
         interrogateButton.interactable = false;
+        isNoTestDialogActive = false;
 
-        RulebookManager.Instance.SetInterrogationState(true);
+        RulebookManager.Instance?.SetInterrogationState(true);
 
-        PatientData.DialogueSet dialogueSet = currentPatient.dialogues[Random.Range(0, currentPatient.dialogues.Count)];
+        var dialogueSet = currentPatient.dialogues[Random.Range(0, currentPatient.dialogues.Count)];
 
         dialogNameHolder.text = "Doctor";
 
         doctorDialogue = dialogueSet.doctorQuestion.Replace("[name]", currentPatient.patientName)
                                                    .Replace("[symptoms]", string.Join(" and ", currentSymptoms));
 
-        List<string> extraSymptoms = GetExtraSymptoms();
+        var extraSymptoms = GetExtraSymptoms();
         patientReply = dialogueSet.patientReply.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
 
         doctorResponsePositive = dialogueSet.doctorResponsePositive;
         doctorResponseNegative = dialogueSet.doctorResponseNegative;
-
         patientReactionPositive = dialogueSet.patientReactionPositive.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
         patientReactionNegative = dialogueSet.patientReactionNegative.Replace("[symptoms]", string.Join(" and ", extraSymptoms));
+
+        symptomsText.text = string.Join(", ", currentSymptoms);
 
         StartCoroutine(TypeText(doctorDialogue, () => continueButton.gameObject.SetActive(true)));
     }
 
     private void ContinueDialog()
     {
+        if (isNoTestDialogActive)
+            ContinueNoTestDialog();
+        else
+            ContinueInterrogation();
+    }
+
+    private void ContinueInterrogation()
+    {
         if (!isWaitingForChoice)
         {
             dialogNameHolder.text = currentPatient.patientName;
+
             StartCoroutine(TypeText(patientReply, () =>
             {
-                bool positiveOnFirstButton = Random.Range(0, 2) == 0;
+                isPositiveOnFirstButton = Random.Range(0, 2) == 0;
 
-                if (positiveOnFirstButton)
+                var btn1Text = choiceOneButton.GetComponentInChildren<TextMeshProUGUI>();
+                var btn2Text = choiceTwoButton.GetComponentInChildren<TextMeshProUGUI>();
+
+                if (isPositiveOnFirstButton)
                 {
-                    choiceOneButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponsePositive;
-                    choiceTwoButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponseNegative;
+                    btn1Text.text = doctorResponsePositive;
+                    btn2Text.text = doctorResponseNegative;
                 }
                 else
                 {
-                    choiceOneButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponseNegative;
-                    choiceTwoButton.GetComponentInChildren<TextMeshProUGUI>().text = doctorResponsePositive;
+                    btn1Text.text = doctorResponseNegative;
+                    btn2Text.text = doctorResponsePositive;
                 }
 
                 choiceOneButton.gameObject.SetActive(true);
@@ -122,13 +176,17 @@ public class PatientManager : MonoBehaviour
         else
         {
             dialogBox.SetActive(false);
-
-            RulebookManager.Instance.SetInterrogationState(false);
-
+            RulebookManager.Instance?.SetInterrogationState(false);
             interrogateButton.interactable = false;
         }
     }
 
+    private void ContinueNoTestDialog()
+    {
+        dialogBox.SetActive(false);
+        RulebookManager.Instance?.SetInterrogationState(false);
+        ResetUI();
+    }
 
     private void SelectResponse(bool isPositive)
     {
@@ -139,57 +197,66 @@ public class PatientManager : MonoBehaviour
         float timeAdjustment = currentPatient.GetTimePenalty(isPositive);
 
         if (isPositive)
-        {
-            TimerManager.Instance.ExtendDayTimer(timeAdjustment);
-        }
+            TimerManager.Instance?.ExtendDayTimer(timeAdjustment);
         else
-        {
-            TimerManager.Instance.ApplyPenalty(timeAdjustment);
-        }
+            TimerManager.Instance?.ApplyPenalty(timeAdjustment);
 
-        StartCoroutine(TypeText(finalResponse, () =>
-        {
-            continueButton.gameObject.SetActive(true);
-        }));
+        StartCoroutine(TypeText(finalResponse, () => continueButton.gameObject.SetActive(true)));
     }
 
-    public void EnableInterrogateButton()
+    /* -------------------- Patient Management -------------------- */
+    public void MarkTestPerformed() => hasPerformedTest = true;
+
+    public bool CanProceedToNextPatient()
     {
-        interrogateButton.interactable = true;
+        if (!hasPerformedTest)
+        {
+            StartCoroutine(ShowNoTestSubmitDialogCoroutine());
+            return false;
+        }
+        return true;
     }
 
-    /* -------------------- Extra Symptoms -------------------- */
     private List<string> GetExtraSymptoms()
     {
-        List<string> extraSymptoms = new List<string>();
+        var extraSymptoms = new List<string>();
+        var disease = DiagnosisManager.Instance?.GetAssignedDisease();
 
-        DiseaseData disease = DiagnosisManager.Instance.GetAssignedDisease();
-        if (disease != null)
+        if (disease == null) return extraSymptoms;
+
+        var allSymptoms = new List<string>(disease.symptoms);
+        allSymptoms.RemoveAll(s => currentSymptoms.Contains(s));
+
+        int patientMentionCount = Random.Range(1, Mathf.Min(3, allSymptoms.Count + 1));
+
+        while (extraSymptoms.Count < patientMentionCount && allSymptoms.Count > 0)
         {
-            List<string> allSymptoms = new List<string>(disease.symptoms);
-            allSymptoms.RemoveAll(s => currentSymptoms.Contains(s));
-
-            int patientMentionCount = Random.Range(1, Mathf.Min(3, allSymptoms.Count + 1));
-
-            while (extraSymptoms.Count < patientMentionCount && allSymptoms.Count > 0)
-            {
-                string symptom = allSymptoms[Random.Range(0, allSymptoms.Count)];
-                extraSymptoms.Add(symptom);
-                allSymptoms.Remove(symptom);
-            }
+            int index = Random.Range(0, allSymptoms.Count);
+            string symptom = allSymptoms[index];
+            extraSymptoms.Add(symptom);
+            currentSymptoms.Add(symptom);
+            allSymptoms.RemoveAt(index);
         }
 
         return extraSymptoms;
     }
 
-    /* -------------------- UI Helpers -------------------- */
-    private void ResetUI()
+    private IEnumerator ShowNoTestSubmitDialogCoroutine()
     {
-        dialogBox.SetActive(false);
-        continueButton.gameObject.SetActive(false);
-        choiceOneButton.gameObject.SetActive(false);
-        choiceTwoButton.gameObject.SetActive(false);
-        isWaitingForChoice = false;
+        isNoTestDialogActive = true;
+
+        rulebook?.SetActive(false);
+        dialogBox.SetActive(true);
+        interrogateButton.interactable = false;
+
+        RulebookManager.Instance?.SetInterrogationState(true);
+        dialogNameHolder.text = currentPatient.patientName;
+
+        string noTestDialog = currentPatient.noTestSubmitLines.Count > 0
+            ? currentPatient.noTestSubmitLines[Random.Range(0, currentPatient.noTestSubmitLines.Count)]
+            : "You haven't run any tests yet!";
+
+        yield return StartCoroutine(TypeText(noTestDialog, () => continueButton.gameObject.SetActive(true)));
     }
 
     /* -------------------- Text Typing Effect -------------------- */
@@ -199,8 +266,37 @@ public class PatientManager : MonoBehaviour
         foreach (char letter in text)
         {
             dialogueText.text += letter;
+
+            if (!char.IsWhiteSpace(letter) && dialogueLetterSFX != null)
+            {
+                var source = sfxAudioSources[currentSFXIndex];
+                source.pitch = Random.Range(0.95f, 1.05f);
+                source.PlayOneShot(dialogueLetterSFX);
+
+                currentSFXIndex = (currentSFXIndex + 1) % sfxAudioSources.Count;
+            }
+
             yield return new WaitForSeconds(0.02f);
         }
+
         callback?.Invoke();
+    }
+
+    /* -------------------- Data Retrieval -------------------- */
+    public PatientData GetCurrentPatient() => currentPatient;
+
+    public bool IsTestPositive(string testName)
+    {
+        var data = DiagnosisManager.Instance?.GetAssignedDisease();
+
+        if (data == null)
+        {
+            Debug.LogWarning("No fallback disease data available.");
+            return false;
+        }
+
+        bool result = data.tests.Contains(testName);
+        Debug.Log($"IsTestPositive for {testName}: {result} (disease: {data.diseaseName})");
+        return result;
     }
 }

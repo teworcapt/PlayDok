@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using TMPro;
+﻿    using UnityEngine;
+    using System.Collections.Generic;
+    using TMPro;
+    using System.Collections;
 
 public class DiagnosticsManager : MonoBehaviour
 {
@@ -24,7 +25,6 @@ public class DiagnosticsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         InitializeTestUI();
     }
 
@@ -35,7 +35,6 @@ public class DiagnosticsManager : MonoBehaviour
         {
             Debug.LogError("Mismatch between testNames and testUIElements. Ensure all UI elements are assigned in Inspector.");
         }
-
         foreach (TMP_Text text in testUIElements)
         {
             if (text != null)
@@ -56,7 +55,6 @@ public class DiagnosticsManager : MonoBehaviour
             Debug.LogError($"[{testName}] Test UI element not assigned.");
             return;
         }
-
         if (activeTests.Contains(testItem))
         {
             Debug.Log($"[{testName}] Test already in progress.");
@@ -65,33 +63,37 @@ public class DiagnosticsManager : MonoBehaviour
 
         activeTests.Add(testItem);
         TimerManager.Instance.StartTestTimer(testName);
+        // Update UI with timer duration text
         UpdateTestUI(testName, $"Time Left: {Mathf.CeilToInt(TimerManager.Instance.testDuration)}");
 
-        Debug.Log($"[{testName}] Test started.");
+        // Retrieve the test result from PatientManager. (Ensure this method is implemented.)
+        bool isPositive = PatientManager.Instance.IsTestPositive(testName);
+        Debug.Log($"[{testName}] Test started. Result will be: {(isPositive ? "Positive" : "Negative")}");
+
+        StartCoroutine(HandleTestCompletion(testItem, isPositive));
     }
 
-    public void CompleteTest(string testName, bool isPositive)
+    private IEnumerator HandleTestCompletion(TestItem testItem, bool isPositive)
     {
-        int index = testNames.IndexOf(testName);
-        if (index == -1 || testUIElements[index] == null)
-        {
-            Debug.LogError($"[{testName}] Test UI not assigned for '{testName}'.");
-            return;
-        }
+        yield return new WaitForSeconds(TimerManager.Instance.testDuration);
+        testItem.MarkAsTested();
+        Debug.Log($"[{testItem.testName}] Test completed. Final Result: {(isPositive ? "Positive" : "Negative")}");
+        UpdateTestUI(testItem.testName, isPositive ? "Positive" : "Negative");
+        activeTests.Remove(testItem);
 
-        testUIElements[index].text = isPositive ? "Positive" : "Negative";
-        Debug.Log($"[{testName}] Test completed. Result: {testUIElements[index].text}");
+        // Signal the patient manager that a test has been performed.
+        PatientManager.Instance.MarkTestPerformed();
+    }
 
-        TestItem testItem = activeTests.Find(t => t.testName == testName);
-        if (testItem != null)
-        {
-            testItem.MarkAsTested();
-            activeTests.Remove(testItem);
-        }
-        else
-        {
-            Debug.LogError($"[{testName}] TestItem not found in active tests.");
-        }
+    /* -------------------- Active Tests Access -------------------- */
+    public List<TestItem> GetActiveTests()
+    {
+        return activeTests;
+    }
+
+    public bool HasCompletedTests()
+    {
+        return activeTests.Count == 0;
     }
 
     /* -------------------- UI Updates -------------------- */
@@ -119,21 +121,10 @@ public class DiagnosticsManager : MonoBehaviour
         return RectTransformUtility.RectangleContainsScreenPoint(dropZone, testItem.transform.position, null);
     }
 
-    /* -------------------- Diagnostics Data Access -------------------- */
-    public List<TestItem> GetActiveTests()
-    {
-        return activeTests;
-    }
-
-    /* -------------------- Test Completion Check -------------------- */
-    public bool HasCompletedTests()
-    {
-        return activeTests.Count == 0; 
-    }
-
-    /* -------------------- Reset System -------------------- */
+    /* -------------------- Diagnostics Reset -------------------- */
     public void ResetDiagnostics()
     {
+        Debug.Log("[DiagnosticsManager] Resetting diagnostics for new patient.");
         activeTests.Clear();
 
         foreach (TMP_Text text in testUIElements)
@@ -143,5 +134,33 @@ public class DiagnosticsManager : MonoBehaviour
                 text.text = "Pending";
             }
         }
+
+        foreach (TestItem testItem in Object.FindObjectsByType<TestItem>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            testItem.ResetState();
+        }
+    }
+    public void CompleteTest(string testName, DiseaseData diseaseData)
+    {
+        int index = testNames.IndexOf(testName);
+        if (index == -1 || testUIElements[index] == null)
+        {
+            Debug.LogError($"[{testName}] Test UI not assigned for '{testName}'.");
+            return;
+        }
+
+        bool isPositive = diseaseData != null && diseaseData.tests.Contains(testName);
+        testUIElements[index].text = isPositive ? "Positive" : "Negative";
+        Debug.Log($"[{testName}] Test completed. Result: {testUIElements[index].text}");
+
+        TestItem testItem = activeTests.Find(item => item.testName == testName);
+        if (testItem != null)
+        {
+            testItem.MarkAsTested();
+            testItem.SetTestResult(isPositive);
+            activeTests.Remove(testItem);
+        }
+
+        PatientManager.Instance.MarkTestPerformed();
     }
 }

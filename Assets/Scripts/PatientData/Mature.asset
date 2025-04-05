@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Mature
   m_EditorClassIdentifier: 
-  patientName: Riri
+  patientName: Rosetta
   personalityCategory: 1
   personalitySubcategory: 5
   availableNames:
@@ -67,10 +67,15 @@ MonoBehaviour:
     doctorResponseNegative: People tend to exaggerate symptoms when they search online.
     patientReactionNegative: I just want to be ready for whatever it is. Isn't it
       normal to be cautious when experiencing [symptoms]?
+  noTestSubmitLines:
+  - "I think we should proceed with more caution. There\u2019s still some information
+    we need."
+  - "It seems we might need a bit more time. I\u2019d appreciate it if we could confirm
+    everything first."
   patientSprites:
   - {fileID: -1303414539725427805, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
   - {fileID: -4484181276086191015, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
   - {fileID: -9084318273085304574, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
   - {fileID: -6963720511815692121, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
-  selectedSprite: {fileID: -9084318273085304574, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
+  selectedSprite: {fileID: -4484181276086191015, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
   baseTimePenalty: 5

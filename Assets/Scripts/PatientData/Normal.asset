@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Normal
   m_EditorClassIdentifier: 
-  patientName: Noel
+  patientName: Clara
   personalityCategory: 1
   personalitySubcategory: 3
   availableNames:
@@ -59,6 +59,11 @@ MonoBehaviour:
     patientReactionPositive: Well, I've been feeling a bit of [symptoms].
     doctorResponseNegative: "If you appreciate it, don\u2019t ask too many questions."
     patientReactionNegative: Oh... Alright. I've been feeling [symptoms].
+  noTestSubmitLines:
+  - "Are you sure we\u2019ve covered everything? I don\u2019t think we should rush
+    just yet."
+  - "I don\u2019t think we\u2019ve finished all the checks. Can we slow down for
+    a second?"
   patientSprites:
   - {fileID: -7802584038559968081, guid: d5fbc2f639351e84abf47000978a9825, type: 3}
   - {fileID: 6291427636367483452, guid: 728bf101180aa6146af83be3848ad63e, type: 3}

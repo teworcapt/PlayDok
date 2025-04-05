@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd78d08bd844234baf255d9a76d6028, type: 3}
   m_Name: Snooty
   m_EditorClassIdentifier: 
-  patientName: Amelia
+  patientName: Sophia
   personalityCategory: 2
   personalitySubcategory: 7
   availableNames:
@@ -65,10 +65,13 @@ MonoBehaviour:
       been experiencing [symptoms].
     doctorResponseNegative: Oh yeah, because we're definitely mindreaders.
     patientReactionNegative: There's something definitely wrong with you.
+  noTestSubmitLines:
+  - Is this how you handle things? I think we need a few more tests first.
+  - "Really? You\u2019re done already? I don\u2019t think so. We need to check more."
   patientSprites:
   - {fileID: -3689973287316857318, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
   - {fileID: 5816773973387633699, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
   - {fileID: 4099662042582206320, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
   - {fileID: -5876538025228642490, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
-  selectedSprite: {fileID: 5816773973387633699, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
+  selectedSprite: {fileID: 4099662042582206320, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
   baseTimePenalty: 8

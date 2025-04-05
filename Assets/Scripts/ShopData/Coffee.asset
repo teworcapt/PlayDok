@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3175e0073456c44a065f1855071014, type: 3}
   m_Name: Coffee
   m_EditorClassIdentifier: 
-  itemNumber: 1
+  itemNumber: 2
   itemName: Coffee
-  price: 10
-  amount: 36
+  price: 100
+  amount: 5
+  defaultAmount: 5
   itemIcon: {fileID: 3372504610068751692, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
-  itemObject: {fileID: 0}
   itemType: 1
   itemDescription: Gotta stay up? Get some coffee!(+1 minute)
   timeBoostPermanent: 0

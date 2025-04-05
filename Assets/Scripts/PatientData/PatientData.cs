@@ -23,12 +23,18 @@ public class PatientData : ScriptableObject
     [Header("Dialogues")]
     public List<DialogueSet> dialogues = new List<DialogueSet>();
 
+    [Header("No Test Submit Dialogue")]
+    public List<string> noTestSubmitLines = new List<string>();
+
     [Header("Patient Appearance")]
     public List<Sprite> patientSprites = new List<Sprite>();
     public Sprite selectedSprite;
 
     [Header("Gameplay Settings")]
     public float baseTimePenalty = 5f;
+
+    [Header("Disease Info")]
+    public DiseaseData diseaseData;
 
     [System.Serializable]
     public class DialogueSet
@@ -78,13 +84,10 @@ public class PatientData : ScriptableObject
 
     public float GetTimePenalty(bool positiveResponse)
     {
-        float timeAdjustment = 0f;
-
         float penaltyPercentage = 0f;
         float bonusPercentage = 0f;
 
         int dailyMistakes = PlayerStats.Instance.dailyPenalties;
-        int weeklyMistakes = PlayerStats.Instance.weeklyPenalties;
 
         switch (personalityCategory)
         {
@@ -119,10 +122,10 @@ public class PatientData : ScriptableObject
         }
 
         penaltyPercentage += dailyMistakes * 0.02f;
-        penaltyPercentage += weeklyMistakes * 0.01f;
 
-        timeAdjustment = baseTimePenalty * (penaltyPercentage - bonusPercentage);
+        float timeAdjustment = baseTimePenalty * (penaltyPercentage - bonusPercentage);
 
         return baseTimePenalty + timeAdjustment;
     }
+
 }

@@ -9,12 +9,10 @@ public class ShopItem : ScriptableObject
     public string itemName;
     public int price;
     public int amount;
+    public int defaultAmount;
     public Sprite itemIcon;
-    public GameObject itemObject;
     public ShopItemType itemType;
-
     public string itemDescription;
-
     public float timeBoostPermanent;
     public float timeBoostCurrentDay;
 }
