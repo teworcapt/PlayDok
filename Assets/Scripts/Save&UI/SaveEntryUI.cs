@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SaveEntryUI : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class SaveEntryUI : MonoBehaviour
         if (dayText) dayText.text = dayOfWeek;
         if (creditsText) creditsText.text = $"{credits}";
         if (penaltiesText) penaltiesText.text = $"{penalties}";
-
         string dayString = GetDayOfWeekString(day);
         SetupLoadButton(dayString);
     }
@@ -31,10 +31,11 @@ public class SaveEntryUI : MonoBehaviour
         loadButton.onClick.AddListener(() =>
         {
             Debug.Log($"Button clicked for day: {dayString}");
-            LoadSaveManager.Instance?.LoadSelectedDay(dayString);
-        });
+            PlayerData data = SaveManager.LoadSelectedDay(dayString);
+            Debug.Log($"Loaded data for {dayString}: Credits = {data.credits}, Day = {data.currentDay}");
 
-        Debug.Log("Button listener added.");
+            SceneManager.LoadScene("Gameplay");
+        });
     }
 
     private string GetDayOfWeekString(int dayIndex)

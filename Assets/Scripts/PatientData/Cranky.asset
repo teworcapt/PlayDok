@@ -64,9 +64,10 @@ MonoBehaviour:
   - "What about all the other tests? Don\u2019t rush me!"
   - "Hey, are you sure about that? We haven\u2019t done enough yet."
   patientSprites:
-  - {fileID: 1201853526036188305, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
-  - {fileID: -7125237182032704304, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
-  - {fileID: -100873520177948878, guid: aa8a63c34e212ad4b984347891088a3b, type: 3}
-  - {fileID: 6706037206778445497, guid: 4aa4c257d29414c4bbf86084b832528f, type: 3}
-  selectedSprite: {fileID: -100873520177948878, guid: aa8a63c34e212ad4b984347891088a3b, type: 3}
+  - {fileID: 7491037411898651924, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  - {fileID: -9122925240593195973, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  - {fileID: -2668312253558033890, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  - {fileID: 3352077727154589263, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  selectedSprite: {fileID: 7491037411898651924, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
   baseTimePenalty: 8
+  diseaseData: {fileID: 0}

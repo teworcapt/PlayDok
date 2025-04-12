@@ -1,7 +1,7 @@
-﻿    using UnityEngine;
-    using System.Collections.Generic;
-    using TMPro;
-    using System.Collections;
+﻿using UnityEngine;
+using System.Collections.Generic;
+using TMPro;
+using System.Collections;
 
 public class DiagnosticsManager : MonoBehaviour
 {
@@ -13,38 +13,33 @@ public class DiagnosticsManager : MonoBehaviour
     [SerializeField] private List<TMP_Text> testUIElements;
 
     private List<TestItem> activeTests = new List<TestItem>();
+    private int completedTests = 0;
+    private HashSet<string> completedTestTypes = new HashSet<string>();
 
-    /* -------------------- Singleton Setup -------------------- */
+    public bool CanMoveToNextPatient => activeTests.Count == 0 && completedTestTypes.Count > 0;
+
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
+
         InitializeTestUI();
     }
 
-    /* -------------------- UI Initialization -------------------- */
     private void InitializeTestUI()
     {
         if (testUIElements.Count != testNames.Count)
-        {
             Debug.LogError("Mismatch between testNames and testUIElements. Ensure all UI elements are assigned in Inspector.");
-        }
+
         foreach (TMP_Text text in testUIElements)
         {
             if (text != null)
-            {
                 text.text = "Pending";
-            }
         }
     }
 
-    /* -------------------- Test Handling -------------------- */
     public void PerformTest(string testName, TestItem testItem)
     {
         if (testItem.IsTested) return;
@@ -63,10 +58,8 @@ public class DiagnosticsManager : MonoBehaviour
 
         activeTests.Add(testItem);
         TimerManager.Instance.StartTestTimer(testName);
-        // Update UI with timer duration text
         UpdateTestUI(testName, $"Time Left: {Mathf.CeilToInt(TimerManager.Instance.testDuration)}");
 
-        // Retrieve the test result from PatientManager. (Ensure this method is implemented.)
         bool isPositive = PatientManager.Instance.IsTestPositive(testName);
         Debug.Log($"[{testName}] Test started. Result will be: {(isPositive ? "Positive" : "Negative")}");
 
@@ -80,12 +73,16 @@ public class DiagnosticsManager : MonoBehaviour
         Debug.Log($"[{testItem.testName}] Test completed. Final Result: {(isPositive ? "Positive" : "Negative")}");
         UpdateTestUI(testItem.testName, isPositive ? "Positive" : "Negative");
         activeTests.Remove(testItem);
-
-        // Signal the patient manager that a test has been performed.
-        PatientManager.Instance.MarkTestPerformed();
+        OnTestCompleted(testItem);
     }
 
-    /* -------------------- Active Tests Access -------------------- */
+    private void OnTestCompleted(TestItem testItem)
+    {
+        completedTestTypes.Add(testItem.testName);
+        completedTests = completedTestTypes.Count;
+        Debug.Log($"Completed test: {testItem.testName}. Total unique tests: {completedTests}/{testNames.Count}");
+    }
+
     public List<TestItem> GetActiveTests()
     {
         return activeTests;
@@ -96,7 +93,6 @@ public class DiagnosticsManager : MonoBehaviour
         return activeTests.Count == 0;
     }
 
-    /* -------------------- UI Updates -------------------- */
     public void UpdateTestTimerUI(string testName, int timeLeft)
     {
         UpdateTestUI(testName, $"Time Left: {timeLeft}");
@@ -106,33 +102,27 @@ public class DiagnosticsManager : MonoBehaviour
     {
         int index = testNames.IndexOf(testName);
         if (index != -1 && testUIElements[index] != null)
-        {
             testUIElements[index].text = newText;
-        }
         else
-        {
             Debug.LogError($"UI element not found for test: {testName}");
-        }
     }
 
-    /* -------------------- Test Zone Detection -------------------- */
     public bool IsOverDropZone(TestItem testItem)
     {
         return RectTransformUtility.RectangleContainsScreenPoint(dropZone, testItem.transform.position, null);
     }
 
-    /* -------------------- Diagnostics Reset -------------------- */
     public void ResetDiagnostics()
     {
         Debug.Log("[DiagnosticsManager] Resetting diagnostics for new patient.");
         activeTests.Clear();
+        completedTests = 0;
+        completedTestTypes.Clear();
 
         foreach (TMP_Text text in testUIElements)
         {
             if (text != null)
-            {
                 text.text = "Pending";
-            }
         }
 
         foreach (TestItem testItem in Object.FindObjectsByType<TestItem>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -140,6 +130,7 @@ public class DiagnosticsManager : MonoBehaviour
             testItem.ResetState();
         }
     }
+
     public void CompleteTest(string testName, DiseaseData diseaseData)
     {
         int index = testNames.IndexOf(testName);
@@ -159,8 +150,13 @@ public class DiagnosticsManager : MonoBehaviour
             testItem.MarkAsTested();
             testItem.SetTestResult(isPositive);
             activeTests.Remove(testItem);
+            OnTestCompleted(testItem);
         }
-
-        PatientManager.Instance.MarkTestPerformed();
+        else
+        {
+            TestItem dummyItem = new TestItem();
+            dummyItem.testName = testName;
+            OnTestCompleted(dummyItem);
+        }
     }
 }

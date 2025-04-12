@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3175e0073456c44a065f1855071014, type: 3}
+  m_Name: Stars
+  m_EditorClassIdentifier: 
+  itemNumber: 4
+  itemName: Wall of Stars
+  price: 1000
+  amount: 1
+  defaultAmount: 1
+  itemIcon: {fileID: -9136572144232859775, guid: c08c22373cc57924ca05109e02719d41, type: 3}
+  itemType: 0
+  itemDescription: Shiny stars in the sky, or atleast on your walls. (Permanent 1
+    minute per day)
+  timeBoostPermanent: 60
+  timeBoostCurrentDay: 0

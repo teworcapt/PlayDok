@@ -7,19 +7,16 @@ public class DiagnosisManager : MonoBehaviour
 {
     public static DiagnosisManager Instance { get; private set; }
 
-    [Header("Managers")]
     public DiseaseManager diseaseManager;
     public PatientManager patientManager;
     public DiagnosticsManager diagnosticsManager;
 
-    [Header("Available Patients")]
     public List<PatientData> availablePersonalities;
 
     private PatientData currentPatient;
     private DiseaseData assignedDisease;
     private List<string> patientSymptoms = new List<string>();
 
-    [Header("UI Elements")]
     public TMP_Dropdown diseaseChoices;
     public TMP_Dropdown treatmentChoices;
     public TextMeshProUGUI symptomsText;
@@ -28,11 +25,21 @@ public class DiagnosisManager : MonoBehaviour
     private string selectedDisease;
     private string selectedTreatment;
 
-    /* -------------------- Initialization -------------------- */
+    private Color redColor;
+    private Color greenColor;
+
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
+        if (!ColorUtility.TryParseHtmlString("#ff3629", out redColor))
+            Debug.LogError("DiagnosisManager: Failed to parse red hex color.");
+
+        if (!ColorUtility.TryParseHtmlString("#a1cd3a", out greenColor))
+            Debug.LogError("DiagnosisManager: Failed to parse green hex color.");
     }
 
     private void Start()
@@ -40,11 +47,9 @@ public class DiagnosisManager : MonoBehaviour
         diseaseChoices.onValueChanged.AddListener(delegate { OnDropdownChanged(); });
         treatmentChoices.onValueChanged.AddListener(delegate { OnDropdownChanged(); });
         submitButton.onClick.AddListener(CheckDiagnosis);
-
         SpawnNextPatient();
     }
 
-    /* -------------------- Patient Handling -------------------- */
     public void SpawnNextPatient()
     {
         if (availablePersonalities.Count == 0)
@@ -52,7 +57,6 @@ public class DiagnosisManager : MonoBehaviour
             Debug.LogError("No patients available!");
             return;
         }
-
         DiagnosticsManager.Instance.ResetDiagnostics();
 
         currentPatient = availablePersonalities[Random.Range(0, availablePersonalities.Count)];
@@ -77,8 +81,8 @@ public class DiagnosisManager : MonoBehaviour
         }
 
         assignedDisease = diseaseManager.diseaseDataList[Random.Range(0, diseaseManager.diseaseDataList.Count)];
-
         patientSymptoms.Clear();
+
         int numSymptoms = Random.Range(1, Mathf.Min(3, assignedDisease.symptoms.Count + 1));
 
         while (patientSymptoms.Count < numSymptoms)
@@ -89,7 +93,6 @@ public class DiagnosisManager : MonoBehaviour
         }
     }
 
-    /* -------------------- UI Population -------------------- */
     private void PopulateDropdowns()
     {
         diseaseChoices.ClearOptions();
@@ -122,12 +125,11 @@ public class DiagnosisManager : MonoBehaviour
         selectedTreatment = treatmentChoices.options[0].text;
     }
 
-    /* -------------------- Diagnosis Verification -------------------- */
     public void CheckDiagnosis()
     {
-        if (!PatientManager.Instance.CanProceedToNextPatient())
+        if (!DiagnosticsManager.Instance.CanMoveToNextPatient)
         {
-            Debug.LogWarning("You must complete at least one diagnostic test before submitting!");
+            StartCoroutine(patientManager.ShowNoTestSubmitDialogCoroutine());
             return;
         }
 
@@ -141,10 +143,7 @@ public class DiagnosisManager : MonoBehaviour
         bool correctTreatment = assignedDisease.treatments.Contains(selectedTreatment);
 
         ProcessDiagnosis(correctDisease, correctTreatment);
-        PatientManager.Instance.MarkTestPerformed();
-        SpawnNextPatient();
     }
-
 
     private void ProcessDiagnosis(bool correctDiagnosis, bool correctTreatment)
     {
@@ -160,33 +159,41 @@ public class DiagnosisManager : MonoBehaviour
         {
             PlayerStats.Instance.patientsCured++;
             PlayerStats.Instance.totalEarnings += 500;
+            NotificationManager.Instance?.ShowNotification("Correct Diagnosis!", greenColor, NotificationType.CorrectDiagnosis);
         }
         else
         {
             if (!correctDiagnosis)
             {
-                Debug.Log("Incorrect Disease. Moving to next patient...");
-                PlayerStats.Instance.totalEarnings += (250);
+                PlayerStats.Instance.totalEarnings += 250;
                 PlayerStats.Instance.AddPenalty(50);
+
             }
             if (!correctTreatment)
             {
-                Debug.Log("Incorrect Treatment. Moving to next patient...");
-                PlayerStats.Instance.totalEarnings += (250);
+                PlayerStats.Instance.totalEarnings += 250;
                 PlayerStats.Instance.AddPenalty(50);
             }
+
+            NotificationManager.Instance?.ShowNotification("Incorrect Diagnosis or Treatment!", redColor, NotificationType.IncorrectDiagnosis);
         }
 
-        SpawnNextPatient();
+        if (TimerManager.Instance.GetRemainingDayTime() <= 0)
+        {
+            TimerManager.Instance.FinalDiagnosisComplete();
+        }
+        else
+        {
+            SpawnNextPatient();
+            ProgressManager.Instance.PatientCured(correctDiagnosis, correctTreatment);
+        }
     }
 
-    /* -------------------- UI Event Handlers -------------------- */
     private void OnDropdownChanged()
     {
         selectedDisease = diseaseChoices.options[diseaseChoices.value].text;
         selectedTreatment = treatmentChoices.options[treatmentChoices.value].text;
     }
 
-    /* -------------------- Data Retrieval -------------------- */
     public DiseaseData GetAssignedDisease() => assignedDisease;
 }

@@ -3,25 +3,37 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
-    {
-        SceneManager.LoadScene("Gameplay");
-    }
+	private void Start()
+	{
+		if (AudioManager.Instance != null)
+		{
+			AudioManager.Instance.PlayMainMenuMusic();
+		}
+	}
 
-    public void LoadGame()
-    {
-        SceneManager.LoadScene("LoadSave");
+	public void PlayGame()
+	{
+		if (AudioManager.Instance != null)
+		{
+			AudioManager.Instance.PlayGameplayMusic();
+		}
 
-    }
+		SceneManager.LoadScene("Gameplay");
+	}
 
-    public void OpenSettings()
-    {
-        SceneManager.LoadScene("Settings");
-    }
+	public void LoadGame()
+	{
+		SceneManager.LoadScene("LoadSave");
+	}
 
-    public void QuitGame()
-    {
-        Debug.Log("Quit Game");
-        Application.Quit();
-    }
+	public void OpenSettings()
+	{
+		SceneManager.LoadScene("Settings");
+	}
+
+	public void QuitGame()
+	{
+		Debug.Log("Quit Game");
+		Application.Quit();
+	}
 }

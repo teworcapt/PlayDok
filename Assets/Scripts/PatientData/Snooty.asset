@@ -69,9 +69,10 @@ MonoBehaviour:
   - Is this how you handle things? I think we need a few more tests first.
   - "Really? You\u2019re done already? I don\u2019t think so. We need to check more."
   patientSprites:
-  - {fileID: -3689973287316857318, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
-  - {fileID: 5816773973387633699, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
-  - {fileID: 4099662042582206320, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
-  - {fileID: -5876538025228642490, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
-  selectedSprite: {fileID: 4099662042582206320, guid: 8e8e3d3b404dcc745966c128257e8c13, type: 3}
+  - {fileID: 5680099991636869073, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  - {fileID: -571374315596314316, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  - {fileID: -3278675457945223137, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  - {fileID: 2106169383698390092, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  selectedSprite: {fileID: 5680099991636869073, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
   baseTimePenalty: 8
+  diseaseData: {fileID: 0}

@@ -17,11 +17,6 @@ public class EndOfDayManager : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerStats.Instance == null)
-        {
-            Debug.LogError("PlayerStats.Instance is NULL! Ensure PlayerStats exists in the first scene.");
-            return;
-        }
         DisplayStats();
         ApplyEarnings();
     }
@@ -74,7 +69,6 @@ public class EndOfDayManager : MonoBehaviour
     {
         if (SaveManager.GetCurrentDay() == "Sunday")
         {
-            EndingManager.Instance.penaltyCount = PlayerStats.Instance.dailyPenalties;
             SceneManager.LoadScene("EndingScene");
         }
         else

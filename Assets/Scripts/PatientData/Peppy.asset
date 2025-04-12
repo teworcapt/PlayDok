@@ -62,9 +62,10 @@ MonoBehaviour:
     figure out!"
   - "Hold on! I think you missed something! We can\u2019t rush this, right?"
   patientSprites:
-  - {fileID: -8072703566471679563, guid: f4db5f8924580694cb8517e154136d47, type: 3}
-  - {fileID: -494072177720125437, guid: f4db5f8924580694cb8517e154136d47, type: 3}
-  - {fileID: -7914451116294243450, guid: f4db5f8924580694cb8517e154136d47, type: 3}
-  - {fileID: -1067656626174574146, guid: f4db5f8924580694cb8517e154136d47, type: 3}
-  selectedSprite: {fileID: -7914451116294243450, guid: f4db5f8924580694cb8517e154136d47, type: 3}
+  - {fileID: 8958759001706764646, guid: 1d47dcb047520734790cdb6fa115687a, type: 3}
+  - {fileID: 2801136105054449116, guid: 1d47dcb047520734790cdb6fa115687a, type: 3}
+  - {fileID: 3536038904500609914, guid: 1d47dcb047520734790cdb6fa115687a, type: 3}
+  - {fileID: -8731665885415054166, guid: 1d47dcb047520734790cdb6fa115687a, type: 3}
+  selectedSprite: {fileID: 8958759001706764646, guid: 1d47dcb047520734790cdb6fa115687a, type: 3}
   baseTimePenalty: 2
+  diseaseData: {fileID: 0}

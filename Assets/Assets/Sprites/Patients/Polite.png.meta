@@ -1,0 +1,466 @@
+fileFormatVersion: 2
+guid: bb98f06495a156b48a99513056d46e48
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8159846406788561020
+    second: Polite_0
+  - first:
+      213: 4023945948450971280
+    second: Polite_1
+  - first:
+      213: 5862318662626315351
+    second: Polite_2
+  - first:
+      213: 3529392946574889995
+    second: Polite_3
+  - first:
+      213: -4803311278989229327
+    second: Polite_4
+  - first:
+      213: -6245188164549100253
+    second: Polite_5
+  - first:
+      213: -5151588701418701612
+    second: Polite_6
+  - first:
+      213: -1068392133782741581
+    second: Polite_7
+  - first:
+      213: 5857837542433842681
+    second: Polite_8
+  - first:
+      213: -5099484315892514516
+    second: Polite_9
+  - first:
+      213: -6886242816792217776
+    second: Polite_10
+  - first:
+      213: 4851536734314183256
+    second: Polite_11
+  - first:
+      213: -2286929722416571245
+    second: Polite_12
+  - first:
+      213: -8836005966370156319
+    second: Polite_13
+  - first:
+      213: 6157724609541064690
+    second: Polite_14
+  - first:
+      213: 7261565651010919081
+    second: Polite_15
+  - first:
+      213: -1114422799599549746
+    second: Polite_16
+  - first:
+      213: -2508809375930790577
+    second: Polite_17
+  - first:
+      213: 4998542598068522008
+    second: Polite_18
+  - first:
+      213: -5115213021538763461
+    second: Polite_19
+  - first:
+      213: 7282516672368015463
+    second: Polite_20
+  - first:
+      213: 8138080916954580075
+    second: Polite_21
+  - first:
+      213: 4740121033049498165
+    second: Polite_22
+  - first:
+      213: -3090523988225813317
+    second: Polite_23
+  - first:
+      213: -5378491138298204367
+    second: Polite_24
+  - first:
+      213: 8362143173761730388
+    second: Polite_25
+  - first:
+      213: 1255786498730136233
+    second: Polite_26
+  - first:
+      213: 7710267035328077787
+    second: Polite_27
+  - first:
+      213: -1570857171216662673
+    second: Polite_28
+  - first:
+      213: 1100925937180305310
+    second: Polite_29
+  - first:
+      213: -5557590803662214464
+    second: Polite_30
+  - first:
+      213: 7303124083718925631
+    second: Polite_31
+  - first:
+      213: 8833140886367965384
+    second: Polite_32
+  - first:
+      213: 7565367536268675760
+    second: Polite_33
+  - first:
+      213: -1518402303209349484
+    second: Polite_34
+  - first:
+      213: -8847390445531813192
+    second: Polite_35
+  - first:
+      213: 1908789856633685568
+    second: Polite_36
+  - first:
+      213: -8689918056054160462
+    second: Polite_37
+  - first:
+      213: -8285829043736120265
+    second: Polite_38
+  - first:
+      213: -5584780406857515094
+    second: Polite_39
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Polite_0
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 1779
+        width: 899
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c78316203199d3170800000000000000
+      internalID: 8159846406788561020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Polite_3
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 1779
+        width: 900
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b049d557f2ceaf030800000000000000
+      internalID: 3529392946574889995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Polite_6
+      rect:
+        serializedVersion: 2
+        x: 2384
+        y: 1779
+        width: 899
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dcb50fce51e188b0800000000000000
+      internalID: -5151588701418701612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Polite_9
+      rect:
+        serializedVersion: 2
+        x: 3337
+        y: 1779
+        width: 900
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c210d8d680efa39b0800000000000000
+      internalID: -5099484315892514516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Polite_20
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 24
+        width: 899
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 768fa5f3452b01560800000000000000
+      internalID: 7282516672368015463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Polite_23
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 24
+        width: 900
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb41af79ec04c15d0800000000000000
+      internalID: -3090523988225813317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Polite_26
+      rect:
+        serializedVersion: 2
+        x: 2489
+        y: 24
+        width: 899
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a29a8aca237d6110800000000000000
+      internalID: 1255786498730136233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Polite_29
+      rect:
+        serializedVersion: 2
+        x: 3442
+        y: 24
+        width: 900
+        height: 1719
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9765a19e46474f00800000000000000
+      internalID: 1100925937180305310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 780052a913c4fdf42ae2c375ec739538
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Polite_0: 8159846406788561020
+      Polite_1: 4023945948450971280
+      Polite_10: -6886242816792217776
+      Polite_11: 4851536734314183256
+      Polite_12: -2286929722416571245
+      Polite_13: -8836005966370156319
+      Polite_14: 6157724609541064690
+      Polite_15: 7261565651010919081
+      Polite_16: -1114422799599549746
+      Polite_17: -2508809375930790577
+      Polite_18: 4998542598068522008
+      Polite_19: -5115213021538763461
+      Polite_2: 5862318662626315351
+      Polite_20: 7282516672368015463
+      Polite_21: 8138080916954580075
+      Polite_22: 4740121033049498165
+      Polite_23: -3090523988225813317
+      Polite_24: -5378491138298204367
+      Polite_25: 8362143173761730388
+      Polite_26: 1255786498730136233
+      Polite_27: 7710267035328077787
+      Polite_28: -1570857171216662673
+      Polite_29: 1100925937180305310
+      Polite_3: 3529392946574889995
+      Polite_30: -5557590803662214464
+      Polite_31: 7303124083718925631
+      Polite_32: 8833140886367965384
+      Polite_33: 7565367536268675760
+      Polite_34: -1518402303209349484
+      Polite_35: -8847390445531813192
+      Polite_36: 1908789856633685568
+      Polite_37: -8689918056054160462
+      Polite_38: -8285829043736120265
+      Polite_39: -5584780406857515094
+      Polite_4: -4803311278989229327
+      Polite_5: -6245188164549100253
+      Polite_6: -5151588701418701612
+      Polite_7: -1068392133782741581
+      Polite_8: 5857837542433842681
+      Polite_9: -5099484315892514516
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

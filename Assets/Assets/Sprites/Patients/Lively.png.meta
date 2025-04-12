@@ -1,0 +1,402 @@
+fileFormatVersion: 2
+guid: 3a814f8c5f76b2e4ab2d550b3f30db5d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3171845004599819200
+    second: Lively_0
+  - first:
+      213: -8118977593202323097
+    second: Lively_1
+  - first:
+      213: 9007883596111992074
+    second: Lively_2
+  - first:
+      213: -5688443956106691786
+    second: Lively_3
+  - first:
+      213: -6809068751508415513
+    second: Lively_4
+  - first:
+      213: -4161154197396360186
+    second: Lively_5
+  - first:
+      213: -6429128187383081026
+    second: Lively_6
+  - first:
+      213: -412922676647334099
+    second: Lively_7
+  - first:
+      213: 5165908043969363157
+    second: Lively_8
+  - first:
+      213: 5552969979102343780
+    second: Lively_9
+  - first:
+      213: -7592851504091950310
+    second: Lively_10
+  - first:
+      213: 4541175143603274998
+    second: Lively_11
+  - first:
+      213: 9218633960128570310
+    second: Lively_12
+  - first:
+      213: 9189227912910921487
+    second: Lively_13
+  - first:
+      213: -8944427712772308921
+    second: Lively_14
+  - first:
+      213: -440008386389179428
+    second: Lively_15
+  - first:
+      213: 9040266931852635391
+    second: Lively_16
+  - first:
+      213: -6298020404117605249
+    second: Lively_17
+  - first:
+      213: 6729338587126156743
+    second: Lively_18
+  - first:
+      213: 3591896165965187997
+    second: Lively_19
+  - first:
+      213: -8501939814649021048
+    second: Lively_20
+  - first:
+      213: -2145975326169691118
+    second: Lively_21
+  - first:
+      213: 1261495506616453130
+    second: Lively_22
+  - first:
+      213: -4605524835483834221
+    second: Lively_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lively_0
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 1809
+        width: 1000
+        height: 1699
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0440b3206c75bf3d0800000000000000
+      internalID: -3171845004599819200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lively_2
+      rect:
+        serializedVersion: 2
+        x: 1136
+        y: 1769
+        width: 1001
+        height: 1711
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a05d254a76e620d70800000000000000
+      internalID: 9007883596111992074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lively_3
+      rect:
+        serializedVersion: 2
+        x: 2472
+        y: 1784
+        width: 1001
+        height: 1709
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63bfa8f4c569e01b0800000000000000
+      internalID: -5688443956106691786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lively_5
+      rect:
+        serializedVersion: 2
+        x: 3531
+        y: 1743
+        width: 1001
+        height: 1710
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6047090ed4c9046c0800000000000000
+      internalID: -4161154197396360186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lively_11
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 56
+        width: 1000
+        height: 1711
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f48e41abbe750f30800000000000000
+      internalID: 4541175143603274998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lively_13
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 17
+        width: 1001
+        height: 1710
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0fd825a912b68f70800000000000000
+      internalID: 9189227912910921487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lively_14
+      rect:
+        serializedVersion: 2
+        x: 2507
+        y: 45
+        width: 1000
+        height: 1711
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7400c0582620fd380800000000000000
+      internalID: -8944427712772308921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lively_17
+      rect:
+        serializedVersion: 2
+        x: 3565
+        y: 6
+        width: 1001
+        height: 1710
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7478609fcfe898a0800000000000000
+      internalID: -6298020404117605249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 15a0dcc049b463f40be248c0dab8bdf4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lively_0: -3171845004599819200
+      Lively_1: -8118977593202323097
+      Lively_10: -7592851504091950310
+      Lively_11: 4541175143603274998
+      Lively_12: 9218633960128570310
+      Lively_13: 9189227912910921487
+      Lively_14: -8944427712772308921
+      Lively_15: -440008386389179428
+      Lively_16: 9040266931852635391
+      Lively_17: -6298020404117605249
+      Lively_18: 6729338587126156743
+      Lively_19: 3591896165965187997
+      Lively_2: 9007883596111992074
+      Lively_20: -8501939814649021048
+      Lively_21: -2145975326169691118
+      Lively_22: 1261495506616453130
+      Lively_23: -4605524835483834221
+      Lively_3: -5688443956106691786
+      Lively_4: -6809068751508415513
+      Lively_5: -4161154197396360186
+      Lively_6: -6429128187383081026
+      Lively_7: -412922676647334099
+      Lively_8: 5165908043969363157
+      Lively_9: 5552969979102343780
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

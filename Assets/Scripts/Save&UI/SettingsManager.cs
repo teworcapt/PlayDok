@@ -7,72 +7,142 @@ using System.IO;
 public class SettingsManager : MonoBehaviour
 {
     [Header("UI Components")]
-    public Slider volumeSlider;
-    public Button muteButton;
+    public Slider musicVolumeSlider;
+    public Button musicMuteButton;
+    public TextMeshProUGUI musicMuteText;
+
+    public Slider sfxVolumeSlider;
+    public Button sfxMuteButton;
+    public TextMeshProUGUI sfxMuteText;
+
     public TMP_Dropdown resolutionDropdown;
     public Button backButton;
 
-    [Header("Audio Settings")]
-    private float previousVolume;
-    private bool isMuted = false;
-
     [Header("Resolutions (16:9)")]
     private Resolution[] resolutions = {
-            new Resolution { width = 1280, height = 720 },
-            new Resolution { width = 1366, height = 768 },
-            new Resolution { width = 1600, height = 900 },
-            new Resolution { width = 1920, height = 1080 }
-        };
-
-    private string previousScene;
-
+        new Resolution { width = 1280, height = 720 },
+        new Resolution { width = 1366, height = 768 },
+        new Resolution { width = 1600, height = 900 },
+        new Resolution { width = 1920, height = 1080 }
+    };
 
     private void Start()
     {
-        SettingsData settings = LoadSettings();
-        volumeSlider.value = settings.volume;
-        isMuted = settings.isMuted;
-        previousVolume = volumeSlider.value;
+        InitializeUI();
+    }
 
-        if (MusicManager.Instance != null)
+    private void InitializeUI()
+    {
+        SettingsData settings = LoadSettings();
+
+        if (musicVolumeSlider != null)
         {
-            MusicManager.Instance.SetVolume(isMuted ? 0 : volumeSlider.value);
-            MusicManager.Instance.ToggleMute(isMuted);
+            musicVolumeSlider.value = settings.musicVolume;
+            musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+        }
+
+        if (musicMuteButton != null)
+        {
+            musicMuteButton.onClick.AddListener(ToggleMusicMute);
+            UpdateMusicMuteButtonText(settings.isMusicMuted);
+        }
+
+        if (sfxVolumeSlider != null)
+        {
+            sfxVolumeSlider.value = settings.sfxVolume;
+            sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        }
+
+        if (sfxMuteButton != null)
+        {
+            sfxMuteButton.onClick.AddListener(ToggleSFXMute);
+            UpdateSFXMuteButtonText(settings.isSfxMuted);
+        }
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMusicVolume(settings.musicVolume);
+            AudioManager.Instance.ToggleMusicMute(settings.isMusicMuted);
+            AudioManager.Instance.SetSFXVolume(settings.sfxVolume);
+            AudioManager.Instance.ToggleSFXMute(settings.isSfxMuted);
         }
         else
         {
-            Debug.LogError("MusicManager instance is not set.");
+            Debug.LogError("AudioManager instance is not set.");
         }
 
-        volumeSlider.onValueChanged.AddListener(SetVolume);
-        muteButton.onClick.AddListener(ToggleMute);
-
-        resolutionDropdown.ClearOptions();
-        foreach (var res in resolutions)
+        if (resolutionDropdown != null)
         {
-            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData($"{res.width} x {res.height}"));
+            resolutionDropdown.ClearOptions();
+            foreach (var res in resolutions)
+            {
+                resolutionDropdown.options.Add(new TMP_Dropdown.OptionData($"{res.width} x {res.height}"));
+            }
+            resolutionDropdown.value = settings.resolutionIndex;
+            resolutionDropdown.onValueChanged.AddListener(SetResolution);
+            SetResolution(settings.resolutionIndex);
         }
 
-        resolutionDropdown.value = settings.resolutionIndex;
-        resolutionDropdown.onValueChanged.AddListener(SetResolution);
-        SetResolution(settings.resolutionIndex);
+        if (backButton != null)
+        {
+            backButton.onClick.AddListener(GoBack);
+        }
     }
 
-    public void SetVolume(float volume)
+    private void UpdateMusicMuteButtonText(bool isMuted)
     {
-        if (!isMuted)
+        if (musicMuteText != null)
         {
-            MusicManager.Instance.SetVolume(volume);
-            previousVolume = volume;
+            musicMuteText.text = isMuted ? "Unmute" : "Mute";
+        }
+    }
+
+    private void UpdateSFXMuteButtonText(bool isMuted)
+    {
+        if (sfxMuteText != null)
+        {
+            sfxMuteText.text = isMuted ? "Unmute" : "Mute";
+        }
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetMusicVolume(volume);
             SaveSettings();
         }
     }
 
-    public void ToggleMute()
+    public void ToggleMusicMute()
     {
-        isMuted = !isMuted;
-        MusicManager.Instance.ToggleMute(isMuted);
-        SaveSettings();
+        if (AudioManager.Instance != null)
+        {
+            bool newMuteState = !AudioManager.Instance.IsMusicMuted();
+            AudioManager.Instance.ToggleMusicMute(newMuteState);
+            UpdateMusicMuteButtonText(newMuteState);
+            SaveSettings();
+        }
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetSFXVolume(volume);
+            SaveSettings();
+        }
+    }
+
+    public void ToggleSFXMute()
+    {
+        if (AudioManager.Instance != null)
+        {
+            bool newMuteState = !AudioManager.Instance.IsSFXMuted();
+            AudioManager.Instance.ToggleSFXMute(newMuteState);
+            UpdateSFXMuteButtonText(newMuteState);
+            SaveSettings();
+        }
     }
 
     public void SetResolution(int index)
@@ -89,12 +159,25 @@ public class SettingsManager : MonoBehaviour
 
     private void SaveSettings()
     {
-        SettingsData settings = new SettingsData
+        SettingsData settings = new SettingsData();
+
+        if (AudioManager.Instance != null)
         {
-            volume = volumeSlider.value,
-            isMuted = isMuted,
-            resolutionIndex = resolutionDropdown.value
-        };
+            settings.musicVolume = AudioManager.Instance.GetMusicVolume();
+            settings.isMusicMuted = AudioManager.Instance.IsMusicMuted();
+            settings.sfxVolume = AudioManager.Instance.GetSFXVolume();
+            settings.isSfxMuted = AudioManager.Instance.IsSFXMuted();
+        }
+        else
+        {
+            settings.musicVolume = musicVolumeSlider?.value ?? 1f;
+            settings.isMusicMuted = false;
+            settings.sfxVolume = sfxVolumeSlider?.value ?? 1f;
+            settings.isSfxMuted = false;
+        }
+
+        settings.resolutionIndex = resolutionDropdown?.value ?? 3;
+
         SaveManager.SaveData(settings);
     }
 
@@ -105,16 +188,23 @@ public class SettingsManager : MonoBehaviour
         {
             return JsonUtility.FromJson<SettingsData>(File.ReadAllText(path));
         }
-        return new SettingsData { volume = 1f, isMuted = false, resolutionIndex = 3 };
+        return new SettingsData
+        {
+            musicVolume = 1f,
+            isMusicMuted = false,
+            sfxVolume = 1f,
+            isSfxMuted = false,
+            resolutionIndex = 3
+        };
     }
 }
-
-
 
 [System.Serializable]
 public class SettingsData
 {
-    public float volume;
-    public bool isMuted;
-    public int resolutionIndex;
+    public float musicVolume = 0.5f;
+    public bool isMusicMuted = false;
+    public float sfxVolume = 0.8f;
+    public bool isSfxMuted = false;
+    public int resolutionIndex = 3;
 }

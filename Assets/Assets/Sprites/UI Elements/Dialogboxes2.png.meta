@@ -1,0 +1,267 @@
+fileFormatVersion: 2
+guid: 0b3cd20deccee904b80088d81a9395f0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9200590274238549434
+    second: Dialogboxes2_0
+  - first:
+      213: -2256426145715949362
+    second: Dialogboxes2_1
+  - first:
+      213: -7900262761992818535
+    second: Dialogboxes2_2
+  - first:
+      213: -3545079049256399028
+    second: Dialogboxes2_3
+  - first:
+      213: 4895034955157824975
+    second: Dialogboxes2_4
+  - first:
+      213: 7830167993297146202
+    second: Dialogboxes2_5
+  - first:
+      213: -3748131623249297137
+    second: Dialogboxes2_6
+  - first:
+      213: -6229328024395825045
+    second: Dialogboxes2_7
+  - first:
+      213: 5880144720520658523
+    second: Dialogboxes2_8
+  - first:
+      213: 6158196088459784060
+    second: Dialogboxes2_9
+  - first:
+      213: -8529248932711412662
+    second: Dialogboxes2_10
+  - first:
+      213: -1293484160960046796
+    second: Dialogboxes2_11
+  - first:
+      213: 1210356367534304411
+    second: Dialogboxes2_12
+  - first:
+      213: -7745480671305101958
+    second: Dialogboxes2_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Dialogboxes2_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 1913
+        width: 2692
+        height: 1563
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abd07eb8b101faf70800000000000000
+      internalID: 9200590274238549434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes2_1
+      rect:
+        serializedVersion: 2
+        x: 2769
+        y: 1926
+        width: 2692
+        height: 1562
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec072b220609fa0e0800000000000000
+      internalID: -2256426145715949362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes2_8
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 313
+        width: 2688
+        height: 1560
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5eb58e08787a9150800000000000000
+      internalID: 5880144720520658523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes2_9
+      rect:
+        serializedVersion: 2
+        x: 2767
+        y: 324
+        width: 2692
+        height: 1565
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7f68d507be467550800000000000000
+      internalID: 6158196088459784060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 6631df038274ca84cbffbc8efef3ce10
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Dialogboxes2_0: 9200590274238549434
+      Dialogboxes2_1: -2256426145715949362
+      Dialogboxes2_13: -7745480671305101958
+      Dialogboxes2_2: -431698587
+      Dialogboxes2_7: -6229328024395825045
+      Dialogboxes2_8: 5880144720520658523
+      Dialogboxes2_9: 6158196088459784060
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

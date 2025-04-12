@@ -17,8 +17,7 @@ MonoBehaviour:
   price: 800
   amount: 1
   defaultAmount: 1
-  itemIcon: {fileID: 2070998133804937503, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
-  itemObject: {fileID: 0}
+  itemIcon: {fileID: 8033092973025764044, guid: 136a237c0c6a0224d99749af07c3d9ba, type: 3}
   itemType: 2
   itemDescription: Just a plant, makes your room look healthy,
   timeBoostPermanent: 0

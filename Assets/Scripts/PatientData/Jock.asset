@@ -64,9 +64,10 @@ MonoBehaviour:
   - "Come on, doc! We haven\u2019t finished yet! We need to get this right before
     calling it!"
   patientSprites:
-  - {fileID: 3958489977442215409, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
-  - {fileID: 5769850889977632264, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
-  - {fileID: -8754486904402197880, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
-  - {fileID: -4256418481689165269, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
-  selectedSprite: {fileID: -8754486904402197880, guid: 9ab56adaf5a19164f964e0a2e44e6bde, type: 3}
+  - {fileID: -1433442905568266284, guid: 51f140bd008e4d444bbd8840c3f58ed3, type: 3}
+  - {fileID: 5023041116746759258, guid: 51f140bd008e4d444bbd8840c3f58ed3, type: 3}
+  - {fileID: -7519235703388959916, guid: 51f140bd008e4d444bbd8840c3f58ed3, type: 3}
+  - {fileID: 5444534275612441249, guid: 51f140bd008e4d444bbd8840c3f58ed3, type: 3}
+  selectedSprite: {fileID: -1433442905568266284, guid: 51f140bd008e4d444bbd8840c3f58ed3, type: 3}
   baseTimePenalty: 2
+  diseaseData: {fileID: 0}

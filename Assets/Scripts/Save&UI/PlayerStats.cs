@@ -8,13 +8,14 @@ public class PlayerStats : MonoBehaviour
 
     public int totalPatients;
     public int patientsCured;
+    public int totalCuredPatients;
     public int totalEarnings;
     public int dailyPenalties;
     public float timeBoostPermanent = 0f;
 
     public List<int> itemsBought = new List<int>();
 
-    public float Volume { get; set; } = 1f;
+    public float Volume { get; set; } = 0.5f;
     public bool IsMuted { get; set; } = false;
     public int ResolutionIndex { get; set; } = 3;
 
@@ -37,7 +38,12 @@ public class PlayerStats : MonoBehaviour
         dailyPenalties += amount;
     }
 
-    public void AddCuredPatient() => patientsCured++;
+    public void AddCuredPatient()
+    {
+        patientsCured++;
+        totalCuredPatients++;
+    }
+
     public void AddTotalPatient() => totalPatients++;
 
     public void ResetDailyStats()

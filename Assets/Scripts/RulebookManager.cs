@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class RulebookManager : MonoBehaviour
@@ -15,20 +16,23 @@ public class RulebookManager : MonoBehaviour
     [Header("Disease Data")]
     public List<DiseaseData> diseases;
 
-    [Header("Audio Settings")]
-    public Slider volumeSlider;
-    public Button muteButton;
-    private float previousVolume;
-    private bool isMuted = false;
+    [Header("Audio Settings UI")]
+    public Slider musicVolumeSlider;
+    public Button musicMuteButton;
+    public TextMeshProUGUI musicMuteText;
+
+    public Slider sfxVolumeSlider;
+    public Button sfxMuteButton;
+    public TextMeshProUGUI sfxMuteText;
 
     [Header("Resolution Settings")]
     public TMP_Dropdown resolutionDropdown;
     private Resolution[] resolutions = {
-            new Resolution { width = 1280, height = 720 },
-            new Resolution { width = 1366, height = 768 },
-            new Resolution { width = 1600, height = 900 },
-            new Resolution { width = 1920, height = 1080 }
-        };
+        new Resolution { width = 1280, height = 720 },
+        new Resolution { width = 1366, height = 768 },
+        new Resolution { width = 1600, height = 900 },
+        new Resolution { width = 1920, height = 1080 }
+    };
 
     [Header("Current Status UI")]
     public TextMeshProUGUI penaltiesText;
@@ -56,41 +60,59 @@ public class RulebookManager : MonoBehaviour
         PopulateDiseases();
 
         SettingsData settings = SettingsManager.LoadSettings();
-        volumeSlider.value = settings.volume;
-        isMuted = settings.isMuted;
-        previousVolume = volumeSlider.value;
 
-        if (MusicManager.Instance != null)
+        if (AudioManager.Instance != null)
         {
-            MusicManager.Instance.SetVolume(isMuted ? 0 : volumeSlider.value);
-            MusicManager.Instance.ToggleMute(isMuted);
+            if (musicVolumeSlider != null)
+            {
+                musicVolumeSlider.value = AudioManager.Instance.GetMusicVolume();
+                musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+            }
+            if (musicMuteButton != null)
+            {
+                musicMuteButton.onClick.AddListener(ToggleMusicMute);
+                UpdateMusicMuteButtonText(AudioManager.Instance.IsMusicMuted());
+            }
+
+            if (sfxVolumeSlider != null)
+            {
+                sfxVolumeSlider.value = AudioManager.Instance.GetSFXVolume();
+                sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+            }
+            if (sfxMuteButton != null)
+            {
+                sfxMuteButton.onClick.AddListener(ToggleSFXMute);
+                UpdateSFXMuteButtonText(AudioManager.Instance.IsSFXMuted());
+            }
         }
         else
         {
-            Debug.LogError("MusicManager instance is not set.");
+            Debug.LogError("AudioManager instance is not set.");
         }
 
-        volumeSlider.onValueChanged.AddListener(SetVolume);
-        muteButton.onClick.AddListener(ToggleMute);
-
-        resolutionDropdown.ClearOptions();
-        foreach (var res in resolutions)
+        if (resolutionDropdown != null)
         {
-            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData($"{res.width} x {res.height}"));
-        }
+            resolutionDropdown.ClearOptions();
+            List<TMP_Dropdown.OptionData> options = new List<TMP_Dropdown.OptionData>();
+            foreach (var res in resolutions)
+            {
+                options.Add(new TMP_Dropdown.OptionData($"{res.width} x {res.height}"));
+            }
+            resolutionDropdown.AddOptions(options);
 
-        resolutionDropdown.value = settings.resolutionIndex;
-        resolutionDropdown.onValueChanged.AddListener(SetResolution);
-        SetResolution(settings.resolutionIndex);
+            int savedResIndex = PlayerPrefs.HasKey("ResolutionIndex") ? PlayerPrefs.GetInt("ResolutionIndex") : settings.resolutionIndex;
+            resolutionDropdown.value = savedResIndex;
+            resolutionDropdown.onValueChanged.AddListener(SetResolution);
+            SetResolution(savedResIndex);
+        }
 
         UpdateCurrentStatusUI();
     }
 
-
-
     private void Update()
     {
-        if (isInterrogating || Time.timeScale == 0) return;
+        if (isInterrogating || Time.timeScale == 0)
+            return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -105,7 +127,6 @@ public class RulebookManager : MonoBehaviour
             }
         }
 
-        // Update current status UI in real-time
         UpdateCurrentStatusUI();
     }
 
@@ -127,11 +148,13 @@ public class RulebookManager : MonoBehaviour
     /* -------------------- Disease List Population -------------------- */
     private void PopulateDiseases()
     {
-        if (diseaseList == null || diseasePrefab == null) return;
+        if (diseaseList == null || diseasePrefab == null)
+            return;
 
         foreach (DiseaseData disease in diseases)
         {
-            if (disease == null) continue;
+            if (disease == null)
+                continue;
 
             GameObject diseaseRow = Instantiate(diseasePrefab, diseaseList);
             TextMeshProUGUI[] textElements = diseaseRow.GetComponentsInChildren<TextMeshProUGUI>();
@@ -155,51 +178,107 @@ public class RulebookManager : MonoBehaviour
     public void SetInterrogationState(bool isInterrogating)
     {
         this.isInterrogating = isInterrogating;
-        monitorButton.interactable = !isInterrogating;
+        if (monitorButton != null)
+            monitorButton.interactable = !isInterrogating;
     }
 
-    /* -------------------- Volume Settings -------------------- */
-    public void SetVolume(float volume)
+    /* -------------------- Audio UI Methods -------------------- */
+    public void SetMusicVolume(float volume)
     {
-        if (!isMuted)
+        if (AudioManager.Instance != null)
         {
-            MusicManager.Instance.SetVolume(volume);
-            previousVolume = volume;
+            AudioManager.Instance.SetMusicVolume(volume);
             SaveSettings();
         }
     }
 
-    public void ToggleMute()
+    public void ToggleMusicMute()
     {
-        isMuted = !isMuted;
-        MusicManager.Instance.ToggleMute(isMuted);
-        SaveSettings();
+        if (AudioManager.Instance != null)
+        {
+            bool newMuteState = !AudioManager.Instance.IsMusicMuted();
+            AudioManager.Instance.ToggleMusicMute(newMuteState);
+            UpdateMusicMuteButtonText(newMuteState);
+            SaveSettings();
+        }
     }
 
-    /* -------------------- Resolution Settings -------------------- */
+    private void UpdateMusicMuteButtonText(bool isMuted)
+    {
+        if (musicMuteText != null)
+            musicMuteText.text = isMuted ? "Unmute" : "Mute";
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetSFXVolume(volume);
+            SaveSettings();
+        }
+    }
+
+    public void ToggleSFXMute()
+    {
+        if (AudioManager.Instance != null)
+        {
+            bool newMuteState = !AudioManager.Instance.IsSFXMuted();
+            AudioManager.Instance.ToggleSFXMute(newMuteState);
+            UpdateSFXMuteButtonText(newMuteState);
+            SaveSettings();
+        }
+    }
+
+    private void UpdateSFXMuteButtonText(bool isMuted)
+    {
+        if (sfxMuteText != null)
+            sfxMuteText.text = isMuted ? "Unmute" : "Mute";
+    }
+
+    /* -------------------- Resolution Methods -------------------- */
     public void SetResolution(int index)
     {
         Resolution res = resolutions[index];
         Screen.SetResolution(res.width, res.height, Screen.fullScreen);
+        PlayerPrefs.SetInt("ResolutionIndex", index);
+        PlayerPrefs.Save();
         SaveSettings();
-    }
-
-    private void SaveSettings()
-    {
-        SettingsData settings = new SettingsData
-        {
-            volume = volumeSlider.value,
-            isMuted = isMuted,
-            resolutionIndex = resolutionDropdown.value
-        };
-        SaveManager.SaveData(settings);
     }
 
     /* -------------------- Current Status UI -------------------- */
     private void UpdateCurrentStatusUI()
     {
-        penaltiesText.text = "Current Penalties: " + PlayerStats.Instance.dailyPenalties;
-        patientsText.text = "Current Patients: " + PlayerStats.Instance.totalPatients;
-        creditsText.text = "Current Credits: " + PlayerStats.Instance.totalEarnings;
+        if (penaltiesText != null)
+            penaltiesText.text = "Current Penalties: " + PlayerStats.Instance.dailyPenalties;
+        if (patientsText != null)
+            patientsText.text = "Current Patients: " + PlayerStats.Instance.totalPatients;
+        if (creditsText != null)
+            creditsText.text = "Current Credits: " + PlayerStats.Instance.totalEarnings;
+    }
+
+    /* -------------------- Save Settings -------------------- */
+
+    private void SaveSettings()
+    {
+        SettingsData settings = new SettingsData();
+
+        if (AudioManager.Instance != null)
+        {
+            settings.musicVolume = AudioManager.Instance.GetMusicVolume();
+            settings.isMusicMuted = AudioManager.Instance.IsMusicMuted();
+            settings.sfxVolume = AudioManager.Instance.GetSFXVolume();
+            settings.isSfxMuted = AudioManager.Instance.IsSFXMuted();
+        }
+        else
+        {
+            settings.musicVolume = musicVolumeSlider?.value ?? 1f;
+            settings.isMusicMuted = false;
+            settings.sfxVolume = sfxVolumeSlider?.value ?? 1f;
+            settings.isSfxMuted = false;
+        }
+
+        settings.resolutionIndex = resolutionDropdown?.value ?? 3;
+
+        SaveManager.SaveData(settings);
     }
 }

@@ -30,7 +30,7 @@ MonoBehaviour:
     patientReply: 'Is this like that show Home, M.D.? So I''m patient good-looking
       and I''m experiencing [symptoms]! '
     doctorResponsePositive: Seems criticial, good-looking!
-    patientReactionPositive: Only you, Doc Home can save me!
+    patientReactionPositive: Only you can make go back home, Doctor!
     doctorResponseNegative: I don't think this is the time for doing this.
     patientReactionNegative: Way to ruin the show.
   - doctorQuestion: 'Hello [name], so I take it that you''re currently experiencing
@@ -64,9 +64,10 @@ MonoBehaviour:
   - "Hey, doc, don\u2019t be too hasty! Let\u2019s check everything before moving
     forward!"
   patientSprites:
-  - {fileID: 7993881208929740780, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
-  - {fileID: -514264493562561041, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
-  - {fileID: 4842448427272548680, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
-  - {fileID: 4842448427272548680, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
-  selectedSprite: {fileID: 7993881208929740780, guid: 059ef2cb536dd964e98f209715c172b4, type: 3}
+  - {fileID: -3171845004599819200, guid: 3a814f8c5f76b2e4ab2d550b3f30db5d, type: 3}
+  - {fileID: -5688443956106691786, guid: 3a814f8c5f76b2e4ab2d550b3f30db5d, type: 3}
+  - {fileID: 4541175143603274998, guid: 3a814f8c5f76b2e4ab2d550b3f30db5d, type: 3}
+  - {fileID: -8944427712772308921, guid: 3a814f8c5f76b2e4ab2d550b3f30db5d, type: 3}
+  selectedSprite: {fileID: -3171845004599819200, guid: 3a814f8c5f76b2e4ab2d550b3f30db5d, type: 3}
   baseTimePenalty: 2
+  diseaseData: {fileID: 0}

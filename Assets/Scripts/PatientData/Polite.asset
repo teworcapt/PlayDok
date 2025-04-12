@@ -65,9 +65,10 @@ MonoBehaviour:
   - "I believe we should double-check things before finalizing, don\u2019t you think?"
   - "Perhaps we should run a few more tests first. It\u2019s better to be thorough."
   patientSprites:
-  - {fileID: 1631533041070502505, guid: a314231d0c7456948ad21e535973d13e, type: 3}
-  - {fileID: -5275305078326548954, guid: a314231d0c7456948ad21e535973d13e, type: 3}
-  - {fileID: -2953684271705070880, guid: 412bb866a6900844ea37aed2e6a96d0d, type: 3}
-  - {fileID: -602632595624972886, guid: a314231d0c7456948ad21e535973d13e, type: 3}
-  selectedSprite: {fileID: 1631533041070502505, guid: a314231d0c7456948ad21e535973d13e, type: 3}
+  - {fileID: 8159846406788561020, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  - {fileID: -5151588701418701612, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  - {fileID: 7282516672368015463, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  - {fileID: 1255786498730136233, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  selectedSprite: {fileID: 8159846406788561020, guid: bb98f06495a156b48a99513056d46e48, type: 3}
   baseTimePenalty: 5
+  diseaseData: {fileID: 0}

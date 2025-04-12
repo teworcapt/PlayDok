@@ -15,11 +15,16 @@ public class ShopManager : MonoBehaviour
     [Header("Cosmetic Items")]
     public CanvasGroup dogCanvasGroup;
     public CanvasGroup plantCanvasGroup;
+    public CanvasGroup starsCanvasGroup;
 
     [Header("Shop Items")]
     public List<ShopItem> shopItems = new List<ShopItem>();
 
     private DailySaveData dailyData;
+
+    private const int ITEM_DOG = 5;
+    private const int ITEM_POTTED_PLANT = 3;
+    private const int ITEM_WALL_OF_STARS = 4;
 
     private void Awake()
     {
@@ -30,25 +35,7 @@ public class ShopManager : MonoBehaviour
         }
         Instance = this;
 
-        GameObject dogObject = GameObject.Find("Dog");
-        if (dogObject != null)
-        {
-            dogCanvasGroup = dogObject.GetComponent<CanvasGroup>();
-            if (dogCanvasGroup != null)
-            {
-                SetAlpha(dogCanvasGroup, 0);
-            }
-        }
-
-        GameObject plantObject = GameObject.Find("Potted Plant");
-        if (plantObject != null)
-        {
-            plantCanvasGroup = plantObject.GetComponent<CanvasGroup>();
-            if (plantCanvasGroup != null)
-            {
-                SetAlpha(plantCanvasGroup, 0);
-            }
-        }
+        InitializeCanvasGroups();
     }
 
     private void Start()
@@ -83,10 +70,40 @@ public class ShopManager : MonoBehaviour
             ShopItem purchasedItem = shopItems.Find(x => x.itemNumber == itemNumber);
             if (purchasedItem != null)
             {
-                if (purchasedItem.itemName == "Dog")
-                    SetAlpha(dogCanvasGroup, 1);
-                else if (purchasedItem.itemName == "Potted Plant")
-                    SetAlpha(plantCanvasGroup, 1);
+                ApplyCosmeticVisual(purchasedItem.itemNumber);
+            }
+        }
+    }
+
+    private void InitializeCanvasGroups()
+    {
+        GameObject dogObject = GameObject.Find("Dog");
+        if (dogObject != null)
+        {
+            dogCanvasGroup = dogObject.GetComponent<CanvasGroup>();
+            if (dogCanvasGroup != null)
+            {
+                SetAlpha(dogCanvasGroup, 0);
+            }
+        }
+
+        GameObject plantObject = GameObject.Find("Potted Plant");
+        if (plantObject != null)
+        {
+            plantCanvasGroup = plantObject.GetComponent<CanvasGroup>();
+            if (plantCanvasGroup != null)
+            {
+                SetAlpha(plantCanvasGroup, 0);
+            }
+        }
+
+        GameObject starsObject = GameObject.Find("Stars");
+        if (starsObject != null)
+        {
+            starsCanvasGroup = starsObject.GetComponent<CanvasGroup>();
+            if (starsCanvasGroup != null)
+            {
+                SetAlpha(starsCanvasGroup, 0);
             }
         }
     }
@@ -187,22 +204,41 @@ public class ShopManager : MonoBehaviour
             {
                 case ShopItemType.PermanentTimeBoost:
                     TimerManager.Instance.ApplyPermanentTimeBoost(item.timeBoostPermanent);
-                    if (item.itemName == "Dog")
-                        SetAlpha(dogCanvasGroup, 1);
+                    ApplyCosmeticVisual(item.itemNumber);
                     break;
                 case ShopItemType.CurrentDayTimeBoost:
                     TimerManager.Instance.ExtendCurrentDayTimer(item.timeBoostCurrentDay);
                     break;
                 case ShopItemType.Cosmetic:
-                    if (item.itemName == "Potted Plant")
-                        SetAlpha(plantCanvasGroup, 1);
+                    ApplyCosmeticVisual(item.itemNumber);
                     break;
             }
             UpdateCreditsUI();
         }
         else
         {
-            Debug.Log("Not enough credits!");
+            NotificationManager.Instance.ShowNotification(
+                "Not enough credits!",
+                Color.red,
+                NotificationType.Default
+            );
+        }
+    }
+
+
+    private void ApplyCosmeticVisual(int itemNumber)
+    {
+        switch (itemNumber)
+        {
+            case ITEM_DOG:
+                SetAlpha(dogCanvasGroup, 1);
+                break;
+            case ITEM_POTTED_PLANT:
+                SetAlpha(plantCanvasGroup, 1);
+                break;
+            case ITEM_WALL_OF_STARS:
+                SetAlpha(starsCanvasGroup, 1);
+                break;
         }
     }
 
@@ -215,9 +251,9 @@ public class ShopManager : MonoBehaviour
             canvasGroup.blocksRaycasts = (alpha == 1);
         }
     }
+
     public List<int> GetPurchasedItemIDs()
     {
         return dailyData.purchasedItems;
     }
-
 }

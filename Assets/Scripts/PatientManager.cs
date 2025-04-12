@@ -25,12 +25,13 @@ public class PatientManager : MonoBehaviour
     public Button choiceTwoButton;
     public GameObject rulebook;
 
-    [Header("Sound Effects")]
-    public AudioClip dialogueLetterSFX;
-    public AudioClip responseSFX;
-    public int letterSFXPoolSize = 5;
-    private List<AudioSource> sfxAudioSources;
-    private int currentSFXIndex = 0;
+    [Header("Audio Settings")]
+    [Range(0.1f, 1.0f)]
+    public float dialogLetterVolume = 0.5f;
+    [Range(0.01f, 0.1f)]
+    public float typeEffectSpeed = 0.02f;
+    [Tooltip("Random pitch variation for dialog sounds")]
+    public bool randomizeDialogPitch = true;
 
     /* -------------------- Patient Data -------------------- */
     private PatientData currentPatient;
@@ -54,19 +55,47 @@ public class PatientManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        sfxAudioSources = new List<AudioSource>(letterSFXPoolSize);
-        for (int i = 0; i < letterSFXPoolSize; i++)
+        ResetUI();
+        SetupButtonListeners();
+    }
+
+    private void SetupButtonListeners()
+    {
+        if (interrogateButton != null)
         {
-            var newSource = gameObject.AddComponent<AudioSource>();
-            sfxAudioSources.Add(newSource);
+            Button btn = interrogateButton.GetComponent<Button>();
+            btn.onClick.AddListener(() => {
+                AudioManager.Instance.PlayButtonClickSound();
+                StartInterrogation();
+            });
         }
 
-        interrogateButton.onClick.AddListener(StartInterrogation);
-        continueButton.onClick.AddListener(ContinueDialog);
-        choiceOneButton.onClick.AddListener(() => SelectResponse(isPositiveOnFirstButton));
-        choiceTwoButton.onClick.AddListener(() => SelectResponse(!isPositiveOnFirstButton));
+        if (continueButton != null)
+        {
+            Button btn = continueButton.GetComponent<Button>();
+            btn.onClick.AddListener(() => {
+                AudioManager.Instance.PlayButtonClickSound();
+                ContinueDialog();
+            });
+        }
 
-        ResetUI();
+        if (choiceOneButton != null)
+        {
+            Button btn = choiceOneButton.GetComponent<Button>();
+            btn.onClick.AddListener(() => {
+                AudioManager.Instance.PlayButtonClickSound();
+                SelectResponse(isPositiveOnFirstButton);
+            });
+        }
+
+        if (choiceTwoButton != null)
+        {
+            Button btn = choiceTwoButton.GetComponent<Button>();
+            btn.onClick.AddListener(() => {
+                AudioManager.Instance.PlayButtonClickSound();
+                SelectResponse(!isPositiveOnFirstButton);
+            });
+        }
     }
 
     /* -------------------- UI Management -------------------- */
@@ -205,7 +234,12 @@ public class PatientManager : MonoBehaviour
     }
 
     /* -------------------- Patient Management -------------------- */
-    public void MarkTestPerformed() => hasPerformedTest = true;
+    public void MarkTestPerformed()
+    {
+        hasPerformedTest = true;
+
+        AudioManager.Instance.PlayPopSound();
+    }
 
     public bool CanProceedToNextPatient()
     {
@@ -241,13 +275,12 @@ public class PatientManager : MonoBehaviour
         return extraSymptoms;
     }
 
-    private IEnumerator ShowNoTestSubmitDialogCoroutine()
+    public IEnumerator ShowNoTestSubmitDialogCoroutine()
     {
         isNoTestDialogActive = true;
 
         rulebook?.SetActive(false);
         dialogBox.SetActive(true);
-        interrogateButton.interactable = false;
 
         RulebookManager.Instance?.SetInterrogationState(true);
         dialogNameHolder.text = currentPatient.patientName;
@@ -267,16 +300,12 @@ public class PatientManager : MonoBehaviour
         {
             dialogueText.text += letter;
 
-            if (!char.IsWhiteSpace(letter) && dialogueLetterSFX != null)
+            if (!char.IsWhiteSpace(letter))
             {
-                var source = sfxAudioSources[currentSFXIndex];
-                source.pitch = Random.Range(0.95f, 1.05f);
-                source.PlayOneShot(dialogueLetterSFX);
-
-                currentSFXIndex = (currentSFXIndex + 1) % sfxAudioSources.Count;
+                AudioManager.Instance.PlayDialogLetterSound(dialogLetterVolume);
             }
 
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(typeEffectSpeed);
         }
 
         callback?.Invoke();

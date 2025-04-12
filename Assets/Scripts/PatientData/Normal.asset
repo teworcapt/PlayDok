@@ -65,9 +65,10 @@ MonoBehaviour:
   - "I don\u2019t think we\u2019ve finished all the checks. Can we slow down for
     a second?"
   patientSprites:
-  - {fileID: -7802584038559968081, guid: d5fbc2f639351e84abf47000978a9825, type: 3}
-  - {fileID: 6291427636367483452, guid: 728bf101180aa6146af83be3848ad63e, type: 3}
-  - {fileID: 6246038869708964778, guid: 728bf101180aa6146af83be3848ad63e, type: 3}
-  - {fileID: -1870089881, guid: d5fbc2f639351e84abf47000978a9825, type: 3}
-  selectedSprite: {fileID: 6291427636367483452, guid: 728bf101180aa6146af83be3848ad63e, type: 3}
+  - {fileID: 9095853184155359625, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  - {fileID: 6287086024573644442, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  - {fileID: -4502197726752649699, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  - {fileID: 7749082920841128584, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  selectedSprite: {fileID: 9095853184155359625, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
   baseTimePenalty: 5
+  diseaseData: {fileID: 0}

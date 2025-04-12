@@ -73,9 +73,10 @@ MonoBehaviour:
   - "It seems we might need a bit more time. I\u2019d appreciate it if we could confirm
     everything first."
   patientSprites:
-  - {fileID: -1303414539725427805, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
-  - {fileID: -4484181276086191015, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
-  - {fileID: -9084318273085304574, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
-  - {fileID: -6963720511815692121, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
-  selectedSprite: {fileID: -4484181276086191015, guid: d51addbe8399b534b889189b8b73dedf, type: 3}
+  - {fileID: -3939211394846071111, guid: c1eba9547a311a743804052324d73416, type: 3}
+  - {fileID: 6030015693739912689, guid: c1eba9547a311a743804052324d73416, type: 3}
+  - {fileID: 7985094037387388750, guid: c1eba9547a311a743804052324d73416, type: 3}
+  - {fileID: -6539016902038490245, guid: c1eba9547a311a743804052324d73416, type: 3}
+  selectedSprite: {fileID: -3939211394846071111, guid: c1eba9547a311a743804052324d73416, type: 3}
   baseTimePenalty: 5
+  diseaseData: {fileID: 0}

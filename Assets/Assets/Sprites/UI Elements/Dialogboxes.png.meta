@@ -1,0 +1,333 @@
+fileFormatVersion: 2
+guid: 8c1acf7afd2faf94f8e876100880d29a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4164973204178300451
+    second: Dialogboxes_0
+  - first:
+      213: -4518202732857384306
+    second: Dialogboxes_1
+  - first:
+      213: -5691342295379478452
+    second: Dialogboxes_2
+  - first:
+      213: 1172525332906967852
+    second: Dialogboxes_3
+  - first:
+      213: 4867228409880174813
+    second: Dialogboxes_4
+  - first:
+      213: 4300147172169123743
+    second: Dialogboxes_5
+  - first:
+      213: 3056702813003693610
+    second: Dialogboxes_6
+  - first:
+      213: -1893866938798699652
+    second: Dialogboxes_7
+  - first:
+      213: 5417920887895046895
+    second: Dialogboxes_8
+  - first:
+      213: -2521786234435589467
+    second: Dialogboxes_9
+  - first:
+      213: 6985128244773286894
+    second: Dialogboxes_10
+  - first:
+      213: -4931346341783735271
+    second: Dialogboxes_11
+  - first:
+      213: 3598815604994044376
+    second: Dialogboxes_12
+  - first:
+      213: -1496924867436350607
+    second: Dialogboxes_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Dialogboxes_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1913
+        width: 2681
+        height: 1564
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32e611eef05fcc930800000000000000
+      internalID: 4164973204178300451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes_1
+      rect:
+        serializedVersion: 2
+        x: 2773
+        y: 1926
+        width: 2688
+        height: 1563
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8226dc8d8e1c41c0800000000000000
+      internalID: -4518202732857384306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes_3
+      rect:
+        serializedVersion: 2
+        x: 5529
+        y: 2610
+        width: 882
+        height: 859
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 198, y: 198, z: 198, w: 198}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c230116f395a54010800000000000000
+      internalID: 1172525332906967852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes_6
+      rect:
+        serializedVersion: 2
+        x: 5532
+        y: 1711
+        width: 884
+        height: 856
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 198, y: 198, z: 198, w: 198}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2eb50963079b6a20800000000000000
+      internalID: 3056702813003693610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes_8
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 315
+        width: 2692
+        height: 1560
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fea37289752503b40800000000000000
+      internalID: 5417920887895046895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes_9
+      rect:
+        serializedVersion: 2
+        x: 2767
+        y: 323
+        width: 2692
+        height: 1561
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 171, y: 171, z: 171, w: 171}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5aa2ff0e7c0d00dd0800000000000000
+      internalID: -2521786234435589467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dialogboxes_11
+      rect:
+        serializedVersion: 2
+        x: 5538
+        y: 814
+        width: 888
+        height: 860
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 198, y: 198, z: 198, w: 198}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 914fe8921a6509bb0800000000000000
+      internalID: -4931346341783735271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4a521fd9df7a3944fa366e204e294129
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Dialogboxes_0: 4164973204178300451
+      Dialogboxes_1: -4518202732857384306
+      Dialogboxes_11: -4931346341783735271
+      Dialogboxes_3: 1172525332906967852
+      Dialogboxes_6: 3056702813003693610
+      Dialogboxes_8: 5417920887895046895
+      Dialogboxes_9: -2521786234435589467
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

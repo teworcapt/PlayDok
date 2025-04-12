@@ -17,7 +17,7 @@ MonoBehaviour:
   price: 100
   amount: 20
   defaultAmount: 20
-  itemIcon: {fileID: 300643429109067178, guid: 26935e2f8cea32543849f970fd8373aa, type: 3}
+  itemIcon: {fileID: 1013099012324604318, guid: 136a237c0c6a0224d99749af07c3d9ba, type: 3}
   itemType: 1
   itemDescription: Minty candy for a small concentration boost! (+10 secs)
   timeBoostPermanent: 0
