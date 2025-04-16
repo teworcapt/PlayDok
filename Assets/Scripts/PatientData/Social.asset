@@ -63,11 +63,17 @@ MonoBehaviour:
     few more things?"
   - "Well, I\u2019m not sure we\u2019ve covered everything\u2026 Can we, uh, take
     a little longer?"
-  patientSprites:
-  - {fileID: -3841009952916271997, guid: d28945313c788f64ba9700b368783d61, type: 3}
-  - {fileID: 4800171446197768655, guid: d28945313c788f64ba9700b368783d61, type: 3}
-  - {fileID: -3760091699085491116, guid: d28945313c788f64ba9700b368783d61, type: 3}
-  - {fileID: 9041264293484458459, guid: d28945313c788f64ba9700b368783d61, type: 3}
-  selectedSprite: {fileID: 9041264293484458459, guid: d28945313c788f64ba9700b368783d61, type: 3}
+  patientSpriteSets:
+  - normalSprite: {fileID: -3841009952916271997, guid: d28945313c788f64ba9700b368783d61, type: 3}
+    blinkSprite: {fileID: 3954947898962350542, guid: d28945313c788f64ba9700b368783d61, type: 3}
+  - normalSprite: {fileID: 4800171446197768655, guid: d28945313c788f64ba9700b368783d61, type: 3}
+    blinkSprite: {fileID: -7029092390018085132, guid: d28945313c788f64ba9700b368783d61, type: 3}
+  - normalSprite: {fileID: -3760091699085491116, guid: d28945313c788f64ba9700b368783d61, type: 3}
+    blinkSprite: {fileID: -1799605338959801460, guid: d28945313c788f64ba9700b368783d61, type: 3}
+  - normalSprite: {fileID: 9041264293484458459, guid: d28945313c788f64ba9700b368783d61, type: 3}
+    blinkSprite: {fileID: 3303216651117796541, guid: d28945313c788f64ba9700b368783d61, type: 3}
+  selectedSpriteSet:
+    normalSprite: {fileID: 9041264293484458459, guid: d28945313c788f64ba9700b368783d61, type: 3}
+    blinkSprite: {fileID: 3303216651117796541, guid: d28945313c788f64ba9700b368783d61, type: 3}
   baseTimePenalty: 8
   diseaseData: {fileID: 0}

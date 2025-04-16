@@ -63,11 +63,17 @@ MonoBehaviour:
   noTestSubmitLines:
   - "What about all the other tests? Don\u2019t rush me!"
   - "Hey, are you sure about that? We haven\u2019t done enough yet."
-  patientSprites:
-  - {fileID: 7491037411898651924, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
-  - {fileID: -9122925240593195973, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
-  - {fileID: -2668312253558033890, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
-  - {fileID: 3352077727154589263, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
-  selectedSprite: {fileID: 7491037411898651924, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  patientSpriteSets:
+  - normalSprite: {fileID: 7491037411898651924, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+    blinkSprite: {fileID: 1644372242710748620, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  - normalSprite: {fileID: -9122925240593195973, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+    blinkSprite: {fileID: 5224770718775687714, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  - normalSprite: {fileID: -2668312253558033890, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+    blinkSprite: {fileID: 177207478633089239, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  - normalSprite: {fileID: 3352077727154589263, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+    blinkSprite: {fileID: 3179281398359834161, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+  selectedSpriteSet:
+    normalSprite: {fileID: 7491037411898651924, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
+    blinkSprite: {fileID: 1644372242710748620, guid: 1beb564dd5e34584d80d1ea8f5b397e0, type: 3}
   baseTimePenalty: 8
   diseaseData: {fileID: 0}

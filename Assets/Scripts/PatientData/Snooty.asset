@@ -68,11 +68,17 @@ MonoBehaviour:
   noTestSubmitLines:
   - Is this how you handle things? I think we need a few more tests first.
   - "Really? You\u2019re done already? I don\u2019t think so. We need to check more."
-  patientSprites:
-  - {fileID: 5680099991636869073, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
-  - {fileID: -571374315596314316, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
-  - {fileID: -3278675457945223137, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
-  - {fileID: 2106169383698390092, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
-  selectedSprite: {fileID: 5680099991636869073, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  patientSpriteSets:
+  - normalSprite: {fileID: 5680099991636869073, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+    blinkSprite: {fileID: -3077279030339400457, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  - normalSprite: {fileID: -571374315596314316, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+    blinkSprite: {fileID: 5758695590340118740, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  - normalSprite: {fileID: -3278675457945223137, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+    blinkSprite: {fileID: 2278771201648890418, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  - normalSprite: {fileID: 2106169383698390092, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+    blinkSprite: {fileID: -6900112779966426449, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+  selectedSpriteSet:
+    normalSprite: {fileID: 5680099991636869073, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
+    blinkSprite: {fileID: -3077279030339400457, guid: d47cc85035eee2c45a2827fcf1c02985, type: 3}
   baseTimePenalty: 8
   diseaseData: {fileID: 0}

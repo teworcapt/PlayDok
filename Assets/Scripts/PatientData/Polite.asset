@@ -64,11 +64,17 @@ MonoBehaviour:
   noTestSubmitLines:
   - "I believe we should double-check things before finalizing, don\u2019t you think?"
   - "Perhaps we should run a few more tests first. It\u2019s better to be thorough."
-  patientSprites:
-  - {fileID: 8159846406788561020, guid: bb98f06495a156b48a99513056d46e48, type: 3}
-  - {fileID: -5151588701418701612, guid: bb98f06495a156b48a99513056d46e48, type: 3}
-  - {fileID: 7282516672368015463, guid: bb98f06495a156b48a99513056d46e48, type: 3}
-  - {fileID: 1255786498730136233, guid: bb98f06495a156b48a99513056d46e48, type: 3}
-  selectedSprite: {fileID: 8159846406788561020, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  patientSpriteSets:
+  - normalSprite: {fileID: 8159846406788561020, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+    blinkSprite: {fileID: 3529392946574889995, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  - normalSprite: {fileID: -5151588701418701612, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+    blinkSprite: {fileID: -5099484315892514516, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  - normalSprite: {fileID: 7282516672368015463, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+    blinkSprite: {fileID: -3090523988225813317, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  - normalSprite: {fileID: 1255786498730136233, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+    blinkSprite: {fileID: 1100925937180305310, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+  selectedSpriteSet:
+    normalSprite: {fileID: 1255786498730136233, guid: bb98f06495a156b48a99513056d46e48, type: 3}
+    blinkSprite: {fileID: 1100925937180305310, guid: bb98f06495a156b48a99513056d46e48, type: 3}
   baseTimePenalty: 5
   diseaseData: {fileID: 0}

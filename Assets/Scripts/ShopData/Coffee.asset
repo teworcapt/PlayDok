@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemNumber: 2
   itemName: Coffee
-  price: 100
-  amount: 5
+  price: 300
+  amount: 0
   defaultAmount: 5
   itemIcon: {fileID: 2049916588613589399, guid: 136a237c0c6a0224d99749af07c3d9ba, type: 3}
   itemType: 1

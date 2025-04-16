@@ -6,22 +6,14 @@ using System.Collections.Generic;
 public class TimerManager : MonoBehaviour
 {
     public static TimerManager Instance { get; private set; }
-
-    [Header("Day Timer")]
-    [SerializeField] private float baseTime = 660f;
+    [SerializeField] private float baseTime = 60f; // 1 minute
     [SerializeField] private float dayTimer;
     private bool isPatientProcessing;
-    // Add a new field to track if final diagnosis is pending
     private bool finalDiagnosisPending = false;
-
-    [Header("Test Timers")]
     public float testDuration = 5f;
     private readonly List<TestTimer> activeTests = new List<TestTimer>();
-
-    [Header("UI Elements")]
     [SerializeField] private TMP_Text dayTimerTMP;
     [SerializeField] private TMP_Text dayOfWeekTMP;
-
     private int currentDay;
     private Color redColor;
     private Color greenColor;
@@ -32,16 +24,35 @@ public class TimerManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-
         ColorUtility.TryParseHtmlString("#ff3629", out redColor);
         ColorUtility.TryParseHtmlString("#a1cd3a", out greenColor);
     }
 
+    private void Reset()
+    {
+        // This is called in the Unity editor when the component is first added or reset
+        baseTime = 60f; // Ensure it's reset to 1 minute
+    }
+
     private void Start()
     {
-        PlayerData data = SaveManager.LoadData();
-        currentDay = SaveManager.GetDayIndex();
-        dayTimer = baseTime + data.permanentTimeBoost;
+        // Force reset base time to 1 minute to prevent inspector overrides
+        baseTime = 60f;
+
+        int currentDayIndex = SaveManager.GetCurrentDayIndex();
+        GameSaveData data = SaveManager.LoadGame(currentDayIndex);
+        PlayerPersistentData persistentData = PersistentDataManager.LoadData();
+        currentDay = currentDayIndex;
+
+        // Make sure we're using the correct permanent time boost from PlayerStats
+        float permanentBoost = PlayerStats.Instance.timeBoostPermanent;
+
+        // Reset dayTimer to exactly 1 minute plus the permanent boost
+        dayTimer = baseTime + permanentBoost;
+
+        // Debug the time values
+        Debug.Log($"TimerManager: Setting day timer to {baseTime}s (base) + {permanentBoost}s (boost) = {dayTimer}s total");
+
         UpdateDayTimerUI();
         UpdateDayOfWeekUI();
         CheckPenaltyResets();
@@ -56,25 +67,18 @@ public class TimerManager : MonoBehaviour
         }
         else if (!finalDiagnosisPending && !isPatientProcessing && !AreTestsStillRunning())
         {
-            // Mark that we're waiting for final diagnosis instead of ending day immediately
             finalDiagnosisPending = true;
-
-            // Notify the player that time is up but they need to diagnose current patient
             NotificationManager.Instance?.ShowNotification("Time's up! Please diagnose current patient", redColor, NotificationType.IncorrectDiagnosis);
         }
-
         UpdateTestTimers();
     }
 
     private void EndDay()
     {
-        if (SaveManager.GetDayIndex() < 6)
-        {
+        if (SaveManager.GetCurrentDayIndex() < 6)
             SceneManager.LoadScene("EndOfDay");
-        }
     }
 
-    // Add a method to call when diagnosis is complete
     public void FinalDiagnosisComplete()
     {
         if (finalDiagnosisPending)
@@ -85,11 +89,11 @@ public class TimerManager : MonoBehaviour
     }
 
     public void StartPatientProcessing() => isPatientProcessing = true;
-
     public void CompletePatientProcessing()
     {
         isPatientProcessing = false;
-        if (dayTimer <= 0 && !AreTestsStillRunning() && !IsPatientStillActive()) EndDay();
+        if (dayTimer <= 0 && !AreTestsStillRunning() && !IsPatientStillActive())
+            EndDay();
     }
 
     public void ExtendDayTimer(float additionalTime)
@@ -104,6 +108,7 @@ public class TimerManager : MonoBehaviour
         if (boostAmount > 0)
         {
             dayTimer += boostAmount;
+            Debug.Log($"Extended day timer by {boostAmount}s, new total: {dayTimer}s");
             UpdateDayTimerUI();
         }
     }
@@ -112,8 +117,15 @@ public class TimerManager : MonoBehaviour
     {
         if (boostAmount > 0)
         {
-            baseTime += boostAmount;
-            dayTimer = baseTime;
+            dayTimer += boostAmount;
+
+            PlayerStats.Instance.AddPermanentBoost(boostAmount);
+
+            PlayerPersistentData data = PersistentDataManager.LoadData();
+            data.permanentTimeBoost += boostAmount;
+            PersistentDataManager.SaveData(data);
+
+            Debug.Log($"Applied permanent time boost of {boostAmount}s, new total: {dayTimer}s");
             UpdateDayTimerUI();
         }
     }
@@ -129,8 +141,8 @@ public class TimerManager : MonoBehaviour
 
     public void StartTestTimer(string testName)
     {
-        if (activeTests.Exists(t => t.testName == testName)) return;
-
+        if (activeTests.Exists(t => t.testName == testName))
+            return;
         DiseaseData diseaseData = PatientManager.Instance.GetCurrentPatient()?.diseaseData;
         activeTests.Add(new TestTimer(testName, testDuration, diseaseData));
         DiagnosticsManager.Instance?.UpdateTestTimerUI(testName, Mathf.CeilToInt(testDuration));
@@ -143,13 +155,18 @@ public class TimerManager : MonoBehaviour
             TestTimer test = activeTests[i];
             test.timer -= Time.deltaTime;
             DiagnosticsManager.Instance?.UpdateTestTimerUI(test.testName, Mathf.CeilToInt(test.timer));
-
             if (test.timer <= 0)
             {
                 DiagnosticsManager.Instance?.CompleteTest(test.testName, test.diseaseData);
                 activeTests.RemoveAt(i);
             }
         }
+    }
+
+    public void ResetPermanentTimeBoosts()
+    {
+        PlayerStats.Instance?.ResetPermanentTimeBoosts();
+        UpdateDayTimerUI();
     }
 
     public bool AreTestsStillRunning() => activeTests.Count > 0;
@@ -161,29 +178,24 @@ public class TimerManager : MonoBehaviour
 
     private void CheckPenaltyResets()
     {
-        if (SaveManager.GetDayIndex() != currentDay)
-        {
+        if (SaveManager.GetCurrentDayIndex() != currentDay)
             PlayerStats.Instance?.ResetDailyStats();
-        }
     }
 
     private void UpdateDayTimerUI()
     {
-        if (dayTimerTMP == null) return;
-
-        dayTimerTMP.text = dayTimer <= 0
-            ? "Time Out"
-            : $"{Mathf.FloorToInt(dayTimer / 60):00}:{Mathf.FloorToInt(dayTimer % 60):00}";
+        if (dayTimerTMP == null)
+            return;
+        dayTimerTMP.text = dayTimer <= 0 ? "Time Out" : $"{Mathf.FloorToInt(dayTimer / 60):00}:{Mathf.FloorToInt(dayTimer % 60):00}";
     }
 
     private void UpdateDayOfWeekUI()
     {
-        if (dayOfWeekTMP == null) return;
-
-        string currentDayName = !string.IsNullOrEmpty(LoadSaveManager.CurrentLoadedDay)
-            ? LoadSaveManager.CurrentLoadedDay
-            : SaveManager.GetCurrentDay();
-
+        if (dayOfWeekTMP == null)
+            return;
+        string currentDayName = LoadSaveManager.CurrentLoadedDay;
+        if (string.IsNullOrEmpty(currentDayName))
+            currentDayName = SaveManager.GetCurrentDay();
         dayOfWeekTMP.text = currentDayName;
     }
 }
@@ -193,7 +205,6 @@ public class TestTimer
     public string testName;
     public float timer;
     public DiseaseData diseaseData;
-
     public TestTimer(string name, float duration, DiseaseData disease)
     {
         testName = name;

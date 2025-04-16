@@ -235,7 +235,7 @@ TextureImporter:
         serializedVersion: 2
         x: 96
         y: 1779
-        width: 899
+        width: 900
         height: 1719
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -279,7 +279,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2384
         y: 1779
-        width: 899
+        width: 900
         height: 1719
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -323,7 +323,7 @@ TextureImporter:
         serializedVersion: 2
         x: 199
         y: 24
-        width: 899
+        width: 900
         height: 1719
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -367,7 +367,7 @@ TextureImporter:
         serializedVersion: 2
         x: 2489
         y: 24
-        width: 899
+        width: 900
         height: 1719
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

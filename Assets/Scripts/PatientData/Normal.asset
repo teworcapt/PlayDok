@@ -64,11 +64,17 @@ MonoBehaviour:
     just yet."
   - "I don\u2019t think we\u2019ve finished all the checks. Can we slow down for
     a second?"
-  patientSprites:
-  - {fileID: 9095853184155359625, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
-  - {fileID: 6287086024573644442, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
-  - {fileID: -4502197726752649699, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
-  - {fileID: 7749082920841128584, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
-  selectedSprite: {fileID: 9095853184155359625, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  patientSpriteSets:
+  - normalSprite: {fileID: 9095853184155359625, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+    blinkSprite: {fileID: 7838193831867587326, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  - normalSprite: {fileID: 6287086024573644442, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+    blinkSprite: {fileID: 7576719375127677534, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  - normalSprite: {fileID: -4502197726752649699, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+    blinkSprite: {fileID: 1078186255967429086, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  - normalSprite: {fileID: 7749082920841128584, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+    blinkSprite: {fileID: -6894927172187706328, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+  selectedSpriteSet:
+    normalSprite: {fileID: 9095853184155359625, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
+    blinkSprite: {fileID: 7838193831867587326, guid: bea782ba688b9554fa1d538a7147b93f, type: 3}
   baseTimePenalty: 5
   diseaseData: {fileID: 0}

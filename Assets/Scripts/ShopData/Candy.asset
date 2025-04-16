@@ -15,7 +15,7 @@ MonoBehaviour:
   itemNumber: 1
   itemName: Candy
   price: 100
-  amount: 20
+  amount: 18
   defaultAmount: 20
   itemIcon: {fileID: 1013099012324604318, guid: 136a237c0c6a0224d99749af07c3d9ba, type: 3}
   itemType: 1

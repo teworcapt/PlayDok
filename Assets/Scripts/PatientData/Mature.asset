@@ -72,11 +72,17 @@ MonoBehaviour:
     we need."
   - "It seems we might need a bit more time. I\u2019d appreciate it if we could confirm
     everything first."
-  patientSprites:
-  - {fileID: -3939211394846071111, guid: c1eba9547a311a743804052324d73416, type: 3}
-  - {fileID: 6030015693739912689, guid: c1eba9547a311a743804052324d73416, type: 3}
-  - {fileID: 7985094037387388750, guid: c1eba9547a311a743804052324d73416, type: 3}
-  - {fileID: -6539016902038490245, guid: c1eba9547a311a743804052324d73416, type: 3}
-  selectedSprite: {fileID: -3939211394846071111, guid: c1eba9547a311a743804052324d73416, type: 3}
+  patientSpriteSets:
+  - normalSprite: {fileID: -3939211394846071111, guid: c1eba9547a311a743804052324d73416, type: 3}
+    blinkSprite: {fileID: 6460265574748295795, guid: c1eba9547a311a743804052324d73416, type: 3}
+  - normalSprite: {fileID: 6030015693739912689, guid: c1eba9547a311a743804052324d73416, type: 3}
+    blinkSprite: {fileID: -2260935875761703084, guid: c1eba9547a311a743804052324d73416, type: 3}
+  - normalSprite: {fileID: 7985094037387388750, guid: c1eba9547a311a743804052324d73416, type: 3}
+    blinkSprite: {fileID: 6039761250347606963, guid: c1eba9547a311a743804052324d73416, type: 3}
+  - normalSprite: {fileID: -6539016902038490245, guid: c1eba9547a311a743804052324d73416, type: 3}
+    blinkSprite: {fileID: 4201798496830413751, guid: c1eba9547a311a743804052324d73416, type: 3}
+  selectedSpriteSet:
+    normalSprite: {fileID: -6539016902038490245, guid: c1eba9547a311a743804052324d73416, type: 3}
+    blinkSprite: {fileID: 4201798496830413751, guid: c1eba9547a311a743804052324d73416, type: 3}
   baseTimePenalty: 5
   diseaseData: {fileID: 0}

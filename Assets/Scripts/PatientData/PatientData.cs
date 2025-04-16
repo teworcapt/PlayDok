@@ -27,8 +27,8 @@ public class PatientData : ScriptableObject
     public List<string> noTestSubmitLines = new List<string>();
 
     [Header("Patient Appearance")]
-    public List<Sprite> patientSprites = new List<Sprite>();
-    public Sprite selectedSprite;
+    public List<PatientSpriteSet> patientSpriteSets = new List<PatientSpriteSet>();
+    public PatientSpriteSet selectedSpriteSet;
 
     [Header("Gameplay Settings")]
     public float baseTimePenalty = 5f;
@@ -47,23 +47,61 @@ public class PatientData : ScriptableObject
         public string patientReactionNegative;
     }
 
+    [System.Serializable]
+    public class PatientSpriteSet
+    {
+        public Sprite normalSprite;
+        public Sprite blinkSprite;
+    }
+
+    private List<int> availableDialogueIndices = new List<int>();
+
     public void Initialize()
     {
+        // Set patient name from available names.
         if (availableNames.Count > 0)
         {
             patientName = availableNames[Random.Range(0, availableNames.Count)];
         }
 
-        if (patientSprites.Count > 0)
+        // Randomly select a sprite set.
+        if (patientSpriteSets.Count > 0)
         {
-            selectedSprite = patientSprites[Random.Range(0, patientSprites.Count)];
+            selectedSpriteSet = patientSpriteSets[Random.Range(0, patientSpriteSets.Count)];
         }
         else
         {
-            Debug.LogWarning($"Patient '{patientName}' has no sprites assigned.");
+            Debug.LogWarning($"Patient '{patientName}' has no sprite sets assigned.");
         }
 
+        ResetDialoguePool();
+
         AssignBaseTimePenalty();
+    }
+
+    private void ResetDialoguePool()
+    {
+        availableDialogueIndices.Clear();
+        for (int i = 0; i < dialogues.Count; i++)
+        {
+            availableDialogueIndices.Add(i);
+        }
+    }
+
+    public DialogueSet GetNextDialogueSet()
+    {
+        if (dialogues.Count == 0) return null;
+
+        // Refill the pool if all dialogues have been used.
+        if (availableDialogueIndices.Count == 0)
+        {
+            ResetDialoguePool();
+        }
+
+        int randomIndex = Random.Range(0, availableDialogueIndices.Count);
+        int dialogueIndex = availableDialogueIndices[randomIndex];
+        availableDialogueIndices.RemoveAt(randomIndex);
+        return dialogues[dialogueIndex];
     }
 
     private void AssignBaseTimePenalty()
@@ -86,7 +124,6 @@ public class PatientData : ScriptableObject
     {
         float penaltyPercentage = 0f;
         float bonusPercentage = 0f;
-
         int dailyMistakes = PlayerStats.Instance.dailyPenalties;
 
         switch (personalityCategory)
@@ -97,7 +134,6 @@ public class PatientData : ScriptableObject
                     bonusPercentage = 0.05f;
                 }
                 break;
-
             case PersonalityCategory.Neutral:
                 if (positiveResponse)
                 {
@@ -108,7 +144,6 @@ public class PatientData : ScriptableObject
                     penaltyPercentage = 0.05f;
                 }
                 break;
-
             case PersonalityCategory.Negative:
                 if (positiveResponse)
                 {
@@ -122,10 +157,7 @@ public class PatientData : ScriptableObject
         }
 
         penaltyPercentage += dailyMistakes * 0.02f;
-
         float timeAdjustment = baseTimePenalty * (penaltyPercentage - bonusPercentage);
-
         return baseTimePenalty + timeAdjustment;
     }
-
 }

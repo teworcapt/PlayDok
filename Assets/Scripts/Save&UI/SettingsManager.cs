@@ -17,6 +17,7 @@ public class SettingsManager : MonoBehaviour
 
     public TMP_Dropdown resolutionDropdown;
     public Button backButton;
+    public Toggle fullscreenToggle;
 
     [Header("Resolutions (16:9)")]
     private Resolution[] resolutions = {
@@ -69,6 +70,13 @@ public class SettingsManager : MonoBehaviour
         else
         {
             Debug.LogError("AudioManager instance is not set.");
+        }
+
+        if (fullscreenToggle != null)
+        {
+            fullscreenToggle.isOn = settings.isFullscreen;
+            fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
+            Screen.fullScreen = settings.isFullscreen;
         }
 
         if (resolutionDropdown != null)
@@ -145,6 +153,12 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+        SaveSettings();
+    }
+
     public void SetResolution(int index)
     {
         Resolution res = resolutions[index];
@@ -177,6 +191,7 @@ public class SettingsManager : MonoBehaviour
         }
 
         settings.resolutionIndex = resolutionDropdown?.value ?? 3;
+        settings.isFullscreen = Screen.fullScreen;
 
         SaveManager.SaveData(settings);
     }
@@ -194,7 +209,8 @@ public class SettingsManager : MonoBehaviour
             isMusicMuted = false,
             sfxVolume = 1f,
             isSfxMuted = false,
-            resolutionIndex = 3
+            resolutionIndex = 3,
+            isFullscreen = true
         };
     }
 }
@@ -207,4 +223,5 @@ public class SettingsData
     public float sfxVolume = 0.8f;
     public bool isSfxMuted = false;
     public int resolutionIndex = 3;
+    public bool isFullscreen = true;
 }

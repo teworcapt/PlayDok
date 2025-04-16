@@ -1,30 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-
-[System.Serializable]
-public class DailySaveData
-{
-    public int day;
-    public int credits;
-    public int dailyPenalties;
-    public List<int> purchasedItems = new List<int>();
-}
-
+using System.Collections.Generic;
+using System.IO;
 public class LoadSaveManager : MonoBehaviour
 {
     public static LoadSaveManager Instance { get; private set; }
     public static string CurrentLoadedDay { get; private set; }
-
-    [Header("UI References")]
     public Transform saveListContainer;
     public GameObject saveEntryPrefab;
     public Button mainMenuButton;
-
-    private static string SaveFolder => Application.persistentDataPath + "/Saves/";
-
+    public Button deleteAllSavesButton;
+    private static readonly string[] DaysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -34,114 +21,88 @@ public class LoadSaveManager : MonoBehaviour
         }
         Instance = this;
     }
-
     private void Start()
     {
-        EnsureSaveFolderExists();
+        if (PlayerStats.Instance == null)
+        {
+            Debug.LogError("PlayerStats instance is not set! Creating one in Start().");
+            GameObject go = new GameObject("PlayerStats");
+            go.AddComponent<PlayerStats>();
+        }
         LoadSaveList();
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+        deleteAllSavesButton.onClick.AddListener(DeleteAllSaves);
     }
-
-    /* -------------------- Save Handling -------------------- */
-
-    private static void EnsureSaveFolderExists()
-    {
-        if (!Directory.Exists(SaveFolder))
-        {
-            Directory.CreateDirectory(SaveFolder);
-        }
-    }
-
-    private static string GetSavePath(string day) => Path.Combine(SaveFolder, $"day{day}.json");
-
-    public static void SaveDayData(string day, int credits, int penalties, List<int> purchasedItems)
-    {
-        EnsureSaveFolderExists(); // Ensure the save folder exists before saving
-        string path = GetSavePath(day);
-        DailySaveData data = new DailySaveData
-        {
-            day = SaveManager.GetDayIndex() + 1,
-            credits = credits,
-            dailyPenalties = penalties,
-            purchasedItems = purchasedItems
-        };
-        File.WriteAllText(path, JsonUtility.ToJson(data, true));
-    }
-
-    public static DailySaveData LoadDayData(string day)
-    {
-        string path = GetSavePath(day);
-        if (File.Exists(path))
-        {
-            return JsonUtility.FromJson<DailySaveData>(File.ReadAllText(path));
-        }
-        return null;
-    }
-
-    /* -------------------- UI Handling -------------------- */
-
     public void LoadSaveList()
     {
         foreach (Transform child in saveListContainer)
             Destroy(child.gameObject);
-
-        EnsureSaveFolderExists();
-        string[] files = Directory.GetFiles(SaveFolder, "*.json");
-        string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-
-        foreach (string file in files)
+        for (int i = 0; i < DaysOfWeek.Length; i++)
         {
-            DailySaveData data = JsonUtility.FromJson<DailySaveData>(File.ReadAllText(file));
-            if (data == null || data.day < 1 || data.day > 7) continue;
-
-            string dayOfWeek = daysOfWeek[data.day - 1];
+            string dayName = DaysOfWeek[i];
+            string savePath = SaveManager.GetSaveFilePath(dayName);
+            bool saveExists = File.Exists(savePath);
+            GameSaveData data = SaveManager.LoadGame(i);
             GameObject saveEntry = Instantiate(saveEntryPrefab, saveListContainer);
-            saveEntry.GetComponent<SaveEntryUI>().SetData(dayOfWeek, data.credits, data.dailyPenalties, data.day);
+            SaveEntryUI entryUI = saveEntry.GetComponent<SaveEntryUI>();
+            entryUI.SetData(dayName, data.credits, data.dailyPenalties, i + 1);
+            entryUI.SetLoadButtonInteractable(saveExists);
         }
     }
-
-    /* -------------------- Save Loading -------------------- */
-
     public void LoadSelectedDay(string day)
     {
-        DailySaveData saveData = LoadDayData(day);
-        if (saveData == null) return;
-
-        CurrentLoadedDay = day;
+        int dayIndex = System.Array.IndexOf(DaysOfWeek, day);
+        if (dayIndex == -1)
+        {
+            Debug.LogError("Invalid day selected: " + day);
+            return;
+        }
+        GameSaveData saveData = SaveManager.LoadGame(dayIndex);
+        if (saveData == null)
+        {
+            Debug.LogError("No save data found for " + day);
+            return;
+        }
         PlayerStats.Instance.SetCredits(saveData.credits);
         PlayerStats.Instance.SetPenalties(saveData.dailyPenalties);
-
-        List<int> validItems = new List<int>();
-        foreach (int itemID in saveData.purchasedItems)
+        PlayerStats.Instance.itemsBought = new List<int>(saveData.purchasedItems);
+        CurrentLoadedDay = saveData.CurrentDay;
+        if (ShopManager.Instance != null)
         {
-            ShopItem item = ShopManager.Instance.shopItems.Find(i => i.itemNumber == itemID);
-            if (item == null) continue;
-
-            if (item.itemType == ShopItemType.PermanentTimeBoost)
-            {
-                TimerManager.Instance.ApplyPermanentTimeBoost(item.timeBoostPermanent);
-            }
-            else if (item.itemType == ShopItemType.Cosmetic)
-            {
-                if (item.itemName == "Dog")
-                {
-                    ShopManager.Instance.SetAlpha(ShopManager.Instance.dogCanvasGroup, 1);
-                }
-                else if (item.itemName == "Potted Plant")
-                {
-                    ShopManager.Instance.SetAlpha(ShopManager.Instance.plantCanvasGroup, 1);
-                }
-            }
-
-            validItems.Add(itemID);
+            ShopManager.Instance.ResetDailyItems();
         }
 
-        PlayerStats.Instance.itemsBought = validItems;
         SceneManager.LoadScene("Gameplay");
+
     }
+    public void DeleteAllSaves()
+    {
+        // Delete all save files
+        string saveFolder = Application.persistentDataPath + "/Saves/";
+        if (Directory.Exists(saveFolder))
+        {
+            Directory.Delete(saveFolder, true);
+            Directory.CreateDirectory(saveFolder);
+            Debug.Log("All save files deleted.");
+        }
 
-    /* -------------------- Scene Management -------------------- */
+        // Reset permanent time boosts in PlayerStats
+        if (PlayerStats.Instance != null)
+        {
+            PlayerStats.Instance.ResetPermanentTimeBoosts();
+            PlayerStats.Instance.itemsBought.Clear();
+            Debug.Log("Permanent time boosts and purchased items reset.");
+        }
 
+        // Reset timer if it exists in the scene
+        if (TimerManager.Instance != null)
+        {
+            TimerManager.Instance.ResetPermanentTimeBoosts();
+            Debug.Log("Timer manager permanent boosts reset.");
+        }
+
+        LoadSaveList();
+    }
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1;

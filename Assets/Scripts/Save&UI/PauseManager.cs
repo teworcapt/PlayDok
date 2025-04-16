@@ -24,15 +24,19 @@ public class PauseManager : MonoBehaviour
         viewTutorialButton.onClick.AddListener(ShowTutorial);
         pauseMenu.SetActive(false);
 
-        PlayerData data = SaveManager.LoadData();
+        // Use unified save system instead of PlayerData.
+        GameSaveData data = SaveManager.LoadGame(SaveManager.GetCurrentDayIndex());
 
-        // Check if it's Monday AND the player hasn't seen the tutorial
+        // Check if it's Monday AND the player hasn't seen the tutorial.
         string currentDay = SaveManager.GetCurrentDay();
         bool isMonday = currentDay == "Monday";
 
         if (isMonday && !data.hasSeenTutorial)
         {
             ShowTutorial();
+            // Optionally update the flag so this tutorial doesn't reappear.
+            data.hasSeenTutorial = true;
+            SaveManager.SaveGame(data);
         }
     }
 
@@ -68,6 +72,7 @@ public class PauseManager : MonoBehaviour
     {
         tutorialBox.SetActive(false);
         Time.timeScale = 1;
+        // Use PlayerPrefs as before if you still wish to record tutorial viewed status for other purposes.
         if (!PlayerPrefs.HasKey("HasSeenTutorial"))
         {
             PlayerPrefs.SetInt("HasSeenTutorial", 1);

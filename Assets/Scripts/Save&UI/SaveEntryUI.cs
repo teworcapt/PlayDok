@@ -5,42 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class SaveEntryUI : MonoBehaviour
 {
-    /* -------------------- UI References -------------------- */
-    [Header("UI References")]
     [SerializeField] private TMP_Text dayText;
     [SerializeField] private TMP_Text creditsText;
-    [SerializeField] private TMP_Text penaltiesText;
-    [SerializeField] private Button loadButton;
+    [SerializeField] public Button loadButton;
 
-    /* -------------------- Public Methods -------------------- */
     public void SetData(string dayOfWeek, int credits, int penalties, int day)
     {
         if (dayText) dayText.text = dayOfWeek;
-        if (creditsText) creditsText.text = $"{credits}";
-        if (penaltiesText) penaltiesText.text = $"{penalties}";
-        string dayString = GetDayOfWeekString(day);
-        SetupLoadButton(dayString);
+        if (creditsText) creditsText.text = credits.ToString();
+        SetupLoadButton(dayOfWeek);
     }
 
-    /* -------------------- Private Methods -------------------- */
     private void SetupLoadButton(string dayString)
     {
-        if (loadButton == null) return;
-
+        if (loadButton == null)
+            return;
+        string savePath = SaveManager.GetSaveFilePath(dayString);
+        bool saveExists = System.IO.File.Exists(savePath);
+        loadButton.interactable = saveExists;
         loadButton.onClick.RemoveAllListeners();
+        if (!saveExists)
+            return;
         loadButton.onClick.AddListener(() =>
         {
             Debug.Log($"Button clicked for day: {dayString}");
-            PlayerData data = SaveManager.LoadSelectedDay(dayString);
-            Debug.Log($"Loaded data for {dayString}: Credits = {data.credits}, Day = {data.currentDay}");
-
-            SceneManager.LoadScene("Gameplay");
+            LoadSaveManager.Instance.LoadSelectedDay(dayString);
         });
     }
 
-    private string GetDayOfWeekString(int dayIndex)
+    public void SetLoadButtonInteractable(bool isInteractable)
     {
-        string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-        return (dayIndex >= 1 && dayIndex <= 7) ? daysOfWeek[dayIndex - 1] : "Invalid Day";
+        if (loadButton != null)
+            loadButton.interactable = isInteractable;
     }
 }

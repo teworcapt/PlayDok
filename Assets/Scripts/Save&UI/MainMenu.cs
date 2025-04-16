@@ -17,18 +17,23 @@ public class MainMenu : MonoBehaviour
 		{
 			AudioManager.Instance.PlayGameplayMusic();
 		}
+		AudioManager.Instance.PlayButtonClickSound();
 
-		SceneManager.LoadScene("Gameplay");
+        SceneManager.LoadScene("Gameplay");
 	}
 
 	public void LoadGame()
 	{
-		SceneManager.LoadScene("LoadSave");
+		AudioManager.Instance.PlayButtonClickSound();
+
+        SceneManager.LoadScene("LoadSave");
 	}
 
 	public void OpenSettings()
 	{
-		SceneManager.LoadScene("Settings");
+		AudioManager.Instance.PlayButtonClickSound();
+
+        SceneManager.LoadScene("Settings");
 	}
 
 	public void QuitGame()

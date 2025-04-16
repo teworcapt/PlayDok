@@ -13,15 +13,11 @@ public class EndOfDayManager : MonoBehaviour
 
     private int netEarnings;
 
-    /* -------------------- Initialization -------------------- */
-
     private void Start()
     {
         DisplayStats();
         ApplyEarnings();
     }
-
-    /* -------------------- Display Methods -------------------- */
 
     private void DisplayStats()
     {
@@ -39,40 +35,45 @@ public class EndOfDayManager : MonoBehaviour
     private void UpdateDayText()
     {
         if (dayText != null)
+        {
             dayText.text = $"Day {SaveManager.GetCurrentDay()}";
+        }
     }
-
-    /* -------------------- Earnings & Save -------------------- */
 
     private void ApplyEarnings()
     {
-        PlayerData playerData = SaveManager.LoadData();
-        if (playerData == null)
+        int currentDayIndex = SaveManager.GetCurrentDayIndex();
+        GameSaveData gameData = SaveManager.LoadGame(currentDayIndex);
+        if (gameData == null)
         {
-            Debug.LogError("Failed to load player data. Cannot apply earnings.");
+            Debug.LogError("Failed to load game data. Cannot apply earnings.");
             return;
         }
 
-        playerData.SetCredits(playerData.GetCredits() + netEarnings);
-        SaveManager.SaveData(playerData);
+        // Update credits with net earnings.
+        gameData.credits += netEarnings;
 
-        string dayToSave = !string.IsNullOrEmpty(LoadSaveManager.CurrentLoadedDay)
-                                ? LoadSaveManager.CurrentLoadedDay
-                                : SaveManager.GetCurrentDay();
+        // Persist changes using the unified save manager.
+        SaveManager.SaveGame(gameData);
 
-        LoadSaveManager.SaveDayData(dayToSave, playerData.GetCredits(), PlayerStats.Instance.dailyPenalties, playerData.purchasedItems);
+        // Update PlayerStats with the new credit value.
+        PlayerStats.Instance.SetCredits(gameData.credits);
     }
-
-    /* -------------------- Scene Transition -------------------- */
 
     public void OnNextDay()
     {
+        if (ShopManager.Instance != null)
+        {
+            ShopManager.Instance.ResetDailyItems();
+        }
+
         if (SaveManager.GetCurrentDay() == "Sunday")
         {
             SceneManager.LoadScene("EndingScene");
         }
         else
         {
+            // Advance to the next day in the unified save data.
             SaveManager.AdvanceDay();
             PlayerStats.Instance.ResetDailyStats();
             SceneManager.LoadScene("Gameplay");

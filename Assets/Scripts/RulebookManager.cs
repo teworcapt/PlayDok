@@ -34,6 +34,9 @@ public class RulebookManager : MonoBehaviour
         new Resolution { width = 1920, height = 1080 }
     };
 
+    [Header("Fullscreen Settings")]
+    public Toggle fullscreenToggle;
+
     [Header("Current Status UI")]
     public TextMeshProUGUI penaltiesText;
     public TextMeshProUGUI patientsText;
@@ -59,8 +62,10 @@ public class RulebookManager : MonoBehaviour
         rulebookUI.SetActive(false);
         PopulateDiseases();
 
+        // Load settings using SettingsManager.
         SettingsData settings = SettingsManager.LoadSettings();
 
+        // Audio Settings Initialization
         if (AudioManager.Instance != null)
         {
             if (musicVolumeSlider != null)
@@ -90,6 +95,7 @@ public class RulebookManager : MonoBehaviour
             Debug.LogError("AudioManager instance is not set.");
         }
 
+        // Resolution Settings Initialization
         if (resolutionDropdown != null)
         {
             resolutionDropdown.ClearOptions();
@@ -104,6 +110,13 @@ public class RulebookManager : MonoBehaviour
             resolutionDropdown.value = savedResIndex;
             resolutionDropdown.onValueChanged.AddListener(SetResolution);
             SetResolution(savedResIndex);
+        }
+
+        if (fullscreenToggle != null)
+        {
+            fullscreenToggle.isOn = settings.isFullscreen;
+            fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
+            Screen.fullScreen = settings.isFullscreen;
         }
 
         UpdateCurrentStatusUI();
@@ -245,6 +258,13 @@ public class RulebookManager : MonoBehaviour
         SaveSettings();
     }
 
+    /* -------------------- Fullscreen Method -------------------- */
+    public void SetFullscreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+        SaveSettings();
+    }
+
     /* -------------------- Current Status UI -------------------- */
     private void UpdateCurrentStatusUI()
     {
@@ -257,7 +277,6 @@ public class RulebookManager : MonoBehaviour
     }
 
     /* -------------------- Save Settings -------------------- */
-
     private void SaveSettings()
     {
         SettingsData settings = new SettingsData();
@@ -278,6 +297,7 @@ public class RulebookManager : MonoBehaviour
         }
 
         settings.resolutionIndex = resolutionDropdown?.value ?? 3;
+        settings.isFullscreen = Screen.fullScreen;
 
         SaveManager.SaveData(settings);
     }

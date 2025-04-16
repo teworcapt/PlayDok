@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e2470e4d02fefe249b08afa2f89e9bd6
+guid: 13b98b320e5d9f64f9e50ad04ad146e3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4320295261928297051
-    second: logo_0
+      213: -1956985229091305733
+    second: wordlogo1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: logo_0
+      name: wordlogo1_0
       rect:
         serializedVersion: 2
-        x: 699
-        y: 44
-        width: 3579
-        height: 3392
+        x: 136
+        y: 321
+        width: 1686
+        height: 382
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ade5f3695a3b04c0800000000000000
-      internalID: -4320295261928297051
+      spriteID: bf6835d7d4467d4e0800000000000000
+      internalID: -1956985229091305733
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      logo_0: -4320295261928297051
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
