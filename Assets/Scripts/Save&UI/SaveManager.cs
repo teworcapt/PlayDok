@@ -1,6 +1,7 @@
-using System.Collections.Generic;
-using System.IO;
+// SaveManager.cs
 using UnityEngine;
+using System.IO;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class GameSaveData
@@ -13,31 +14,46 @@ public class GameSaveData
     public int dayIndex;
     public int dailyPenalties;
 
+    public int totalPatients;
+    public int patientsCured;
+    public int totalCuredPatients;
+
     public string CurrentDay
     {
         get
         {
-            string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+            string[] daysOfWeek = {
+                "Monday", "Tuesday", "Wednesday", "Thursday",
+                "Friday", "Saturday", "Sunday"
+            };
             if (dayIndex < 0 || dayIndex >= daysOfWeek.Length)
                 return "Monday";
             return daysOfWeek[dayIndex];
         }
         set
         {
-            string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-            int index = System.Array.IndexOf(daysOfWeek, value);
-            dayIndex = index >= 0 ? index : 0;
+            string[] daysOfWeek = {
+                "Monday", "Tuesday", "Wednesday", "Thursday",
+                "Friday", "Saturday", "Sunday"
+            };
+            int idx = System.Array.IndexOf(daysOfWeek, value);
+            dayIndex = idx >= 0 ? idx : 0;
         }
     }
 }
 
 public class SaveManager : MonoBehaviour
 {
-    private static readonly string[] DaysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+    private static readonly string[] DaysOfWeek = {
+        "Monday", "Tuesday", "Wednesday", "Thursday",
+        "Friday", "Saturday", "Sunday"
+    };
+
     private static string SaveFolder => Application.persistentDataPath + "/Saves/";
-    private static string GetSavePath(string fileName) => Path.Combine(SaveFolder, fileName + ".json");
+    private static string GetSavePath(string fileName) =>
+        Path.Combine(SaveFolder, fileName + ".json");
+
     private const string ProgressFileName = "playerProgress";
-    // A property for the progress file path:
     private static string ProgressPath => GetSavePath(ProgressFileName);
 
     private void Awake()
@@ -51,28 +67,73 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(ProgressPath))
         {
             string content = File.ReadAllText(ProgressPath);
-            if (int.TryParse(content, out int dayIndex))
-                return dayIndex;
+            if (int.TryParse(content, out int dayIdx))
+                return dayIdx;
         }
-        return 0; // Default to Monday (index 0)
+        return 0;
     }
 
     public static string GetCurrentDay()
     {
-        int dayIndex = GetCurrentDayIndex();
-        if (dayIndex >= 0 && dayIndex < DaysOfWeek.Length)
-            return DaysOfWeek[dayIndex];
-        return "Monday";
+        int idx = GetCurrentDayIndex();
+        return (idx >= 0 && idx < DaysOfWeek.Length)
+            ? DaysOfWeek[idx]
+            : "Monday";
+    }
+
+    private static void SaveProgress(int dayIdx)
+    {
+        try
+        {
+            File.WriteAllText(ProgressPath, dayIdx.ToString());
+        }
+        catch (IOException e)
+        {
+            Debug.LogError($"Error saving progress: {e.Message}");
+        }
+    }
+
+    public static string GetSaveFilePath(string day)
+    {
+        return GetSavePath("playerSave_" + day);
+    }
+
+    private static int RequiredPatientsForDay(string day)
+    {
+        switch (day)
+        {
+            case "Monday": return 2;
+            case "Tuesday": return 3;
+            case "Wednesday": return 5;
+            case "Thursday": return 6;
+            case "Friday": return 7;
+            case "Saturday": return 6;
+            case "Sunday": return 6;
+            default:
+                Debug.LogWarning($"Unknown day: {day}, defaulting to 7 patients");
+                return 7;
+        }
     }
 
     public static void SaveGame(GameSaveData data)
     {
         if (data == null) return;
-        string saveFileName = "playerSave_" + data.CurrentDay;
-        string savePath = GetSavePath(saveFileName);
+
+        var stats = PlayerStats.Instance;
+        data.totalPatients = stats.totalPatients;
+        data.patientsCured = stats.patientsCured;
+        data.totalCuredPatients = stats.totalCuredPatients;
+        data.dailyPenalties = stats.dailyPenalties;
+        data.credits = stats.totalEarnings;
+        data.permanentTimeBoost = stats.timeBoostPermanent;
+        data.purchasedItems = new List<int>(stats.itemsBought);
+
+        string fileName = "playerSave_" + data.CurrentDay;
+        string path = GetSavePath(fileName);
+
         try
         {
-            File.WriteAllText(savePath, JsonUtility.ToJson(data, true));
+            File.WriteAllText(path, JsonUtility.ToJson(data, true));
             SaveProgress(data.dayIndex);
         }
         catch (IOException e)
@@ -84,54 +145,57 @@ public class SaveManager : MonoBehaviour
     public static GameSaveData LoadGame(int dayIndex)
     {
         string dayName = DaysOfWeek[dayIndex];
-        string saveFileName = "playerSave_" + dayName;
-        string savePath = GetSavePath(saveFileName);
-        if (!File.Exists(savePath))
-            return new GameSaveData { dayIndex = dayIndex };
+        string fileName = "playerSave_" + dayName;
+        string path = GetSavePath(fileName);
 
-        try
+        GameSaveData data;
+        if (!File.Exists(path))
         {
-            string json = File.ReadAllText(savePath);
-            GameSaveData data = JsonUtility.FromJson<GameSaveData>(json);
-            // Ensure the current day string and index match:
-            data.CurrentDay = dayName;
-            return data ?? new GameSaveData { dayIndex = dayIndex };
+            data = new GameSaveData { dayIndex = dayIndex };
         }
-        catch (System.Exception e)
+        else
         {
-            Debug.LogError($"Error loading game for {dayName}: {e.Message}");
-            return new GameSaveData { dayIndex = dayIndex };
+            try
+            {
+                data = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(path))
+                       ?? new GameSaveData { dayIndex = dayIndex };
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Error loading game for {dayName}: {e.Message}");
+                data = new GameSaveData { dayIndex = dayIndex };
+            }
         }
-    }
-    public static string GetSaveFilePath(string day)
-    {
-        return GetSavePath("playerSave_" + day);
-    }
 
-    private static void SaveProgress(int dayIndex)
-    {
-        try
-        {
-            File.WriteAllText(ProgressPath, dayIndex.ToString());
-        }
-        catch (IOException e)
-        {
-            Debug.LogError($"Error saving progress: {e.Message}");
-        }
+        var stats = PlayerStats.Instance;
+        stats.totalPatients = data.totalPatients;
+        stats.patientsCured = data.patientsCured;
+        stats.totalCuredPatients = data.totalCuredPatients;
+        stats.dailyPenalties = data.dailyPenalties;
+        stats.totalEarnings = data.credits;
+        stats.timeBoostPermanent = data.permanentTimeBoost;
+        stats.itemsBought = new List<int>(data.purchasedItems);
+
+        int required = RequiredPatientsForDay(dayName);
+        stats.totalPatients = required;
+        data.totalPatients = required;
+
+        SaveProgress(dayIndex);
+        return data;
     }
 
     public static void AdvanceDay()
     {
-        int currentIndex = GetCurrentDayIndex();
-        if (currentIndex < DaysOfWeek.Length - 1)
+        int idx = GetCurrentDayIndex();
+        if (idx < DaysOfWeek.Length - 1)
         {
-            GameSaveData data = LoadGame(currentIndex);
-            data.dayIndex = currentIndex + 1;
+            var data = LoadGame(idx);
+            data.dayIndex = idx + 1;
             SaveGame(data);
         }
         else
         {
-            Debug.Log("Game has reached the last day (Sunday). Save file is complete.");
+            Debug.Log("Reached last day (Sunday).");
         }
     }
 
@@ -148,14 +212,13 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-
     public static void SetDay(string day)
     {
-        int index = System.Array.IndexOf(DaysOfWeek, day);
-        if (index >= 0)
+        int idx = System.Array.IndexOf(DaysOfWeek, day);
+        if (idx >= 0)
         {
-            GameSaveData data = LoadGame(index);
-            data.dayIndex = index;
+            var data = LoadGame(idx);
+            data.dayIndex = idx;
             SaveGame(data);
         }
         else
@@ -173,7 +236,9 @@ public class PlayerPersistentData
 
 public static class PersistentDataManager
 {
-    private static string dataPath = Application.persistentDataPath + "/playerData.json";
+    private static string dataPath =
+        Application.persistentDataPath + "/playerData.json";
+
     public static PlayerPersistentData LoadData()
     {
         if (!File.Exists(dataPath))
@@ -181,10 +246,10 @@ public static class PersistentDataManager
         string json = File.ReadAllText(dataPath);
         return JsonUtility.FromJson<PlayerPersistentData>(json);
     }
+
     public static void SaveData(PlayerPersistentData data)
     {
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(dataPath, json);
     }
 }
-

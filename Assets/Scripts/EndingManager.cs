@@ -51,6 +51,7 @@ public class EndingManager : MonoBehaviour
 
     void Start()
     {
+        SaveManager.LoadGame(SaveManager.GetCurrentDayIndex());
         continueButton.gameObject.SetActive(false);
         endingText.gameObject.SetActive(false);
         curedPatientsText.gameObject.SetActive(false);
@@ -66,12 +67,12 @@ public class EndingManager : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
-            if (cured >= 100)
+            if (cured >= 35)
             {
                 AudioManager.Instance.PlayMusic(secretEndingMusic, -1f, 1f);
                 StartCoroutine(PlayDialogue(secretDialogue, "Secret Ending"));
             }
-            else if (cured >= 60)
+            else if (cured >= 27)
             {
                 AudioManager.Instance.PlayMusic(goodEndingMusic, -1f, 1f);
                 StartCoroutine(PlayDialogue(goodDialogue, "Good Ending"));

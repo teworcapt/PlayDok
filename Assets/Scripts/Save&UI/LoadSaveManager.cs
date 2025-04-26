@@ -86,15 +86,17 @@ public class LoadSaveManager : MonoBehaviour
             Debug.Log("All save files deleted.");
         }
 
-        // Reset permanent time boosts in PlayerStats
+        // Reset PlayerStats
         if (PlayerStats.Instance != null)
         {
             PlayerStats.Instance.ResetPermanentTimeBoosts();
             PlayerStats.Instance.itemsBought.Clear();
-            Debug.Log("Permanent time boosts and purchased items reset.");
+            PlayerStats.Instance.ResetDailyStats();
+            PlayerStats.Instance.SetCredits(0);
+            Debug.Log("Player stats fully reset.");
         }
 
-        // Reset timer if it exists in the scene
+        // Reset timer if it exists
         if (TimerManager.Instance != null)
         {
             TimerManager.Instance.ResetPermanentTimeBoosts();
@@ -103,6 +105,7 @@ public class LoadSaveManager : MonoBehaviour
 
         LoadSaveList();
     }
+
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1;

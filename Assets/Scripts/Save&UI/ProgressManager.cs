@@ -1,14 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class ProgressManager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private Slider progressBar;
     [SerializeField] private TextMeshProUGUI progressLabel;
+
     private int totalPatients;
     private int patientsCured;
+
     public static ProgressManager Instance { get; private set; }
+
     private void Awake()
     {
         if (Instance == null)
@@ -16,48 +20,49 @@ public class ProgressManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+
     private void Start()
     {
-        // Initialize patients cured from PlayerStats or set to 0 if not already set
+        var data = SaveManager.LoadGame(SaveManager.GetCurrentDayIndex());
+
+        int todayIdx = SaveManager.GetCurrentDayIndex();
+        if (data.dayIndex != todayIdx)
+        {
+            PlayerStats.Instance.ResetDailyStats();
+            string today = SaveManager.GetCurrentDay();
+            PlayerStats.Instance.totalPatients = GetRequiredPatientsForDay(today);
+
+            data.dayIndex = todayIdx;
+            data.totalPatients = PlayerStats.Instance.totalPatients;
+            data.patientsCured = 0;
+            SaveManager.SaveGame(data);
+        }
+
+        // 3) Pull for UI
+        totalPatients = PlayerStats.Instance.totalPatients;
         patientsCured = PlayerStats.Instance.patientsCured;
-
-        // Get the current day from LoadSaveManager if available, otherwise fallback to SaveManager
-        string currentDay = LoadSaveManager.CurrentLoadedDay;
-        if (string.IsNullOrEmpty(currentDay))
-        {
-            currentDay = SaveManager.GetCurrentDay();
-            Debug.Log($"Using day from SaveManager: {currentDay}");
-        }
-        else
-        {
-            Debug.Log($"Using day from LoadSaveManager: {currentDay}");
-        }
-
-        totalPatients = GetRequiredPatientsForDay(currentDay);
         UpdateUI();
     }
 
     public void PatientCured(bool correctDiagnosis, bool correctTreatment)
     {
-        if (correctDiagnosis && correctTreatment)
-        {
-            patientsCured++;
-            PlayerStats.Instance.patientsCured = patientsCured;
-            UpdateUI();
+        if (!correctDiagnosis || !correctTreatment) return;
 
-            // Check if day is completed
-            if (patientsCured >= totalPatients)
-            {
-                Debug.Log("Day completed! All required patients cured.");
-                // You could trigger day completion events here
-            }
-        }
+        PlayerStats.Instance.AddCuredPatient();
+
+        var data = SaveManager.LoadGame(SaveManager.GetCurrentDayIndex());
+        SaveManager.SaveGame(data);
+
+        patientsCured = PlayerStats.Instance.patientsCured;
+        UpdateUI();
+
+        if (patientsCured >= totalPatients)
+            Debug.Log("Day completed! All required patients cured.");
     }
 
     public void PatientCured()
     {
-        // This is kept for backward compatibility but won't increment progress
-        Debug.Log("PatientCured called without diagnosis information. Progress not incremented.");
+        Debug.Log("PatientCured called without diagnosis info. No progress change.");
     }
 
     private void UpdateUI()
@@ -65,9 +70,7 @@ public class ProgressManager : MonoBehaviour
         progressBar.maxValue = totalPatients;
         progressBar.value = patientsCured;
         if (progressLabel != null)
-        {
             progressLabel.text = $"{patientsCured} / {totalPatients}";
-        }
     }
 
     private int GetRequiredPatientsForDay(string day)
@@ -87,22 +90,42 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
-    // Public method to reset progress when needed
     public void ResetProgress(string day)
     {
-        patientsCured = 0;
-        PlayerStats.Instance.patientsCured = 0;
+        PlayerStats.Instance.ResetDailyStats();
         totalPatients = GetRequiredPatientsForDay(day);
+        PlayerStats.Instance.totalPatients = totalPatients;
+
+        var data = SaveManager.LoadGame(SaveManager.GetCurrentDayIndex());
+        data.totalPatients = totalPatients;
+        data.patientsCured = 0;
+        SaveManager.SaveGame(data);
+
         UpdateUI();
     }
 
-    // Public method to manually set the current day and update requirements
     public void SetCurrentDay(string day)
     {
-        if (!string.IsNullOrEmpty(day))
-        {
-            totalPatients = GetRequiredPatientsForDay(day);
-            UpdateUI();
-        }
+        if (string.IsNullOrEmpty(day)) return;
+        int req = GetRequiredPatientsForDay(day);
+        PlayerStats.Instance.ResetDailyStats();
+        PlayerStats.Instance.totalPatients = req;
+
+        var data = SaveManager.LoadGame(
+            System.Array.IndexOf(
+                new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" },
+                day
+            )
+        );
+        data.totalPatients = req;
+        data.dayIndex = System.Array.IndexOf(
+            new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" },
+            day
+        );
+        SaveManager.SaveGame(data);
+
+        totalPatients = req;
+        patientsCured = 0;
+        UpdateUI();
     }
 }

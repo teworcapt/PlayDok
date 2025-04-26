@@ -5,16 +5,17 @@ using System;
 public class PlayerStats : MonoBehaviour
 {
     public static PlayerStats Instance;
-    public int totalPatients;
-    public int patientsCured;
+    public int totalPatients = 0;
+    public int patientsCured = 0;
     public int totalCuredPatients;
-    public int dailyPenalties;
-    public int totalEarnings;
+    public int dailyPenalties = 0;
+    public int totalEarnings = 0;
     public float timeBoostPermanent = 0f;
     public List<int> itemsBought = new List<int>();
     public float Volume { get; set; } = 0.5f;
     public bool IsMuted { get; set; } = false;
     public int ResolutionIndex { get; set; } = 3;
+
 
     private void Awake()
     {

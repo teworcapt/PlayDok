@@ -138,6 +138,12 @@ public class SettingsManager : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.SetSFXVolume(volume);
+
+            if (!AudioManager.Instance.IsSFXMuted())
+            {
+                AudioManager.Instance.PlayButtonClickSound();
+            }
+
             SaveSettings();
         }
     }
@@ -201,27 +207,30 @@ public class SettingsManager : MonoBehaviour
         string path = Application.persistentDataPath + "/settings.json";
         if (File.Exists(path))
         {
-            return JsonUtility.FromJson<SettingsData>(File.ReadAllText(path));
+            string json = File.ReadAllText(path);
+            return JsonUtility.FromJson<SettingsData>(json);
         }
         return new SettingsData
         {
-            musicVolume = 1f,
+            musicVolume = 0.5f,
             isMusicMuted = false,
-            sfxVolume = 1f,
+            sfxVolume = 0.8f,
             isSfxMuted = false,
             resolutionIndex = 3,
             isFullscreen = true
         };
+
     }
 }
 
 [System.Serializable]
 public class SettingsData
 {
-    public float musicVolume = 0.5f;
-    public bool isMusicMuted = false;
-    public float sfxVolume = 0.8f;
-    public bool isSfxMuted = false;
-    public int resolutionIndex = 3;
-    public bool isFullscreen = true;
+    public float musicVolume;
+    public bool isMusicMuted;
+    public float sfxVolume;
+    public bool isSfxMuted;
+    public int resolutionIndex;
+    public bool isFullscreen;
 }
+

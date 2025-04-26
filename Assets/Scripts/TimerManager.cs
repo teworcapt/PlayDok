@@ -30,13 +30,11 @@ public class TimerManager : MonoBehaviour
 
     private void Reset()
     {
-        // This is called in the Unity editor when the component is first added or reset
         baseTime = 60f; // Ensure it's reset to 1 minute
     }
 
     private void Start()
     {
-        // Force reset base time to 1 minute to prevent inspector overrides
         baseTime = 60f;
 
         int currentDayIndex = SaveManager.GetCurrentDayIndex();
@@ -44,13 +42,10 @@ public class TimerManager : MonoBehaviour
         PlayerPersistentData persistentData = PersistentDataManager.LoadData();
         currentDay = currentDayIndex;
 
-        // Make sure we're using the correct permanent time boost from PlayerStats
         float permanentBoost = PlayerStats.Instance.timeBoostPermanent;
 
-        // Reset dayTimer to exactly 1 minute plus the permanent boost
         dayTimer = baseTime + permanentBoost;
 
-        // Debug the time values
         Debug.Log($"TimerManager: Setting day timer to {baseTime}s (base) + {permanentBoost}s (boost) = {dayTimer}s total");
 
         UpdateDayTimerUI();
@@ -75,7 +70,6 @@ public class TimerManager : MonoBehaviour
 
     private void EndDay()
     {
-        if (SaveManager.GetCurrentDayIndex() < 6)
             SceneManager.LoadScene("EndOfDay");
     }
 

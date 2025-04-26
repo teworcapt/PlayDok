@@ -149,6 +149,9 @@ public class RulebookManager : MonoBehaviour
         isMonitorOpen = !isMonitorOpen;
         monitorPanel.SetActive(isMonitorOpen);
         rulebookUI.SetActive(isMonitorOpen);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayButtonClickSound();
     }
 
     public void ToggleMonitor(bool state)
@@ -156,6 +159,9 @@ public class RulebookManager : MonoBehaviour
         isMonitorOpen = state;
         monitorPanel.SetActive(state);
         rulebookUI.SetActive(state);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayButtonClickSound();
     }
 
     /* -------------------- Disease List Population -------------------- */
@@ -213,6 +219,8 @@ public class RulebookManager : MonoBehaviour
             AudioManager.Instance.ToggleMusicMute(newMuteState);
             UpdateMusicMuteButtonText(newMuteState);
             SaveSettings();
+
+            AudioManager.Instance.PlayButtonClickSound();
         }
     }
 
@@ -239,6 +247,8 @@ public class RulebookManager : MonoBehaviour
             AudioManager.Instance.ToggleSFXMute(newMuteState);
             UpdateSFXMuteButtonText(newMuteState);
             SaveSettings();
+
+            AudioManager.Instance.PlayButtonClickSound();
         }
     }
 
@@ -256,6 +266,9 @@ public class RulebookManager : MonoBehaviour
         PlayerPrefs.SetInt("ResolutionIndex", index);
         PlayerPrefs.Save();
         SaveSettings();
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayButtonClickSound();
     }
 
     /* -------------------- Fullscreen Method -------------------- */
@@ -263,6 +276,9 @@ public class RulebookManager : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
         SaveSettings();
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayButtonClickSound();
     }
 
     /* -------------------- Current Status UI -------------------- */
